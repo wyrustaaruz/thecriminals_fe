@@ -12,8 +12,8 @@ import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import TabOneScreen from "../screens/TabOneScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
+import Robbery from "../screens/Robbery";
+import Club from "../screens/Club";
 import { RootStackParamList, RootTabParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 
@@ -61,7 +61,7 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Rub"
+      initialRouteName="Robbery"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
         tabBarIconStyle: { display: "none" },
@@ -69,8 +69,8 @@ function BottomTabNavigator() {
       }}
     >
       <BottomTab.Screen
-        name="Rub"
-        component={TabOneScreen}
+        name="Robbery"
+        component={Robbery}
         options={{
           title: "Soygun",
           headerShown: false,
@@ -81,7 +81,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Club"
-        component={TabTwoScreen}
+        component={Club}
         options={{
           title: "Kulüp",
           tabBarActiveBackgroundColor: Colors.custom.background,
@@ -91,7 +91,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Enjoy"
-        component={TabTwoScreen}
+        component={Club}
         options={{
           title: "Eğlence",
           tabBarActiveBackgroundColor: Colors.custom.background,
@@ -101,7 +101,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Hospital"
-        component={TabTwoScreen}
+        component={Club}
         options={{
           title: "Hastahane",
           tabBarActiveBackgroundColor: Colors.custom.background,
@@ -111,7 +111,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Bank"
-        component={TabTwoScreen}
+        component={Club}
         options={{
           title: "Banka",
           tabBarActiveBackgroundColor: Colors.custom.background,
@@ -121,7 +121,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="GunStore"
-        component={TabTwoScreen}
+        component={Club}
         options={{
           title: "Silahçı",
           tabBarActiveBackgroundColor: Colors.custom.background,
