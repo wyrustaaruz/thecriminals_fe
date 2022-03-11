@@ -3,7 +3,7 @@ import { StyleSheet, SafeAreaView, Image } from "react-native";
 
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
-import { HeaderPropsType } from "./types/RubTypes";
+import { HeaderPropsType } from "./types/RobTypes";
 
 export default function TabOneScreen() {
   const [characterInfo, setCharacterInfo] = useState<HeaderPropsType>({
