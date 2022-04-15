@@ -1,9 +1,17 @@
+import { useEffect } from "react";
 import { StyleSheet, Image } from "react-native";
 import { Text, View } from "./PureComponents";
-import { HeaderPropsType } from "./types/RobTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { getHeaderRequest } from "../store/homepage/action";
 
-export const Header = (characterInfo: HeaderPropsType) => {
+export const Header = () => {
+  const dispatch = useDispatch();
+  const characterInfo = useSelector((state: any) => state.drinks) || {};
+  console.log("characterInfo", characterInfo);
   const { logo, name, hp, stamina, int, str, char, tol } = characterInfo || {};
+  useEffect(() => {
+    dispatch(getHeaderRequest());
+  }, []);
   return (
     <View style={styles.headerContainer}>
       <View>
