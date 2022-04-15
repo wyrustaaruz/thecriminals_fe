@@ -8,3 +8,8 @@ export type HeaderPropsType = {
   char: string;
   tol: string;
 };
+
+export type SubHeaderPropsType = {
+  money: string;
+  credit: string;
+};

@@ -1,9 +1,9 @@
 import { StyleSheet, Image } from "react-native";
 import { Text, View } from "./PureComponents";
-import { HeaderPropsType } from "./types/RobTypes";
+import { SubHeaderPropsType } from "./types/RobTypes";
 
-export const SubHeader = (characterInfo: HeaderPropsType) => {
-  const { logo, name, hp, stamina, int, str, char, tol } = characterInfo || {};
+export const SubHeader = (subHeaderInfo: SubHeaderPropsType) => {
+  const { money, credit } = subHeaderInfo || {};
   return (
     <View style={styles.headerContainer}>
       <View style={[styles.flexDirectionRow]}>
@@ -21,10 +21,10 @@ export const SubHeader = (characterInfo: HeaderPropsType) => {
         />
       </View>
       <View style={styles.alignSelfCenter}>
-        <Text>5000$</Text>
+        <Text>{money ? money : "5000$"}</Text>
       </View>
       <View style={[styles.flexDirectionRow, styles.alignSelfCenter]}>
-        <Text>5000</Text>
+        <Text>{credit ? credit : "5000"}</Text>
         <Image
           style={styles.coinImage}
           source={require("../assets/images/credits.png")}
