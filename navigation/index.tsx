@@ -58,14 +58,15 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-
   return (
     <BottomTab.Navigator
+      sceneContainerStyle={{ backgroundColor: "464646" }}
       initialRouteName="Robbery"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
         tabBarIconStyle: { display: "none" },
-        tabBarLabelStyle: {},
+        tabBarItemStyle: { justifyContent: "center" },
+        tabBarLabelStyle: { fontSize: 12 },
       }}
     >
       <BottomTab.Screen
@@ -74,6 +75,7 @@ function BottomTabNavigator() {
         options={{
           title: "Soygun",
           headerShown: false,
+          tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
           tabBarActiveTintColor: Colors.custom.tint,
@@ -84,6 +86,7 @@ function BottomTabNavigator() {
         component={Club}
         options={{
           title: "Kulüp",
+          tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
           tabBarActiveTintColor: Colors.custom.tint,
@@ -94,6 +97,7 @@ function BottomTabNavigator() {
         component={Club}
         options={{
           title: "Eğlence",
+          tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
           tabBarActiveTintColor: Colors.custom.tint,
@@ -104,6 +108,7 @@ function BottomTabNavigator() {
         component={Club}
         options={{
           title: "Hastahane",
+          tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
           tabBarActiveTintColor: Colors.custom.tint,
@@ -114,6 +119,7 @@ function BottomTabNavigator() {
         component={Club}
         options={{
           title: "Banka",
+          tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
           tabBarActiveTintColor: Colors.custom.tint,
@@ -124,6 +130,7 @@ function BottomTabNavigator() {
         component={Club}
         options={{
           title: "Silahçı",
+          tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
           tabBarActiveTintColor: Colors.custom.tint,
