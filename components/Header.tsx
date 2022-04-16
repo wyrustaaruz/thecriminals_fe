@@ -1,17 +1,22 @@
-import { useEffect } from "react";
-import { StyleSheet, Image } from "react-native";
+import { useEffect, useContext } from "react";
+import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, View } from "./PureComponents";
 import { useDispatch, useSelector } from "react-redux";
 import { getHeaderRequest } from "../store/homepage/action";
+import { AuthContext } from "../navigation";
 
 export const Header = () => {
   const dispatch = useDispatch();
+  const { signOut } = useContext(AuthContext);
   const characterInfo = useSelector((state: any) => state.drinks) || {};
   console.log("characterInfo", characterInfo);
   const { logo, name, hp, stamina, int, str, char, tol } = characterInfo || {};
   useEffect(() => {
     dispatch(getHeaderRequest());
   }, []);
+  const handleLogOut = () => {
+    signOut();
+  };
   return (
     <View style={styles.headerContainer}>
       <View>
@@ -49,10 +54,16 @@ export const Header = () => {
         <Text style={styles.centeredText}>{tol ? tol : 0}</Text>
       </View>
       <View style={styles.centeredView}>
-        <Image
-          style={styles.menuLogo}
-          source={require("../assets/images/32px-Hamburger_icon.png")}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            handleLogOut();
+          }}
+        >
+          <Image
+            style={styles.menuLogo}
+            source={require("../assets/images/32px-Hamburger_icon.png")}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );
