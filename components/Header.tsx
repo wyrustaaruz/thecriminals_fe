@@ -1,21 +1,12 @@
-import { useEffect, useContext } from "react";
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, View } from "./PureComponents";
-import { useDispatch, useSelector } from "react-redux";
-import { getHeaderRequest } from "../store/homepage/action";
-import { AuthContext } from "../navigation";
+import { useSelector } from "react-redux";
 
 export const Header = () => {
-  const dispatch = useDispatch();
-  const { signOut } = useContext(AuthContext);
   const characterInfo = useSelector((state: any) => state.drinks) || {};
-  console.log("characterInfo", characterInfo);
   const { logo, name, hp, stamina, int, str, char, tol } = characterInfo || {};
-  useEffect(() => {
-    dispatch(getHeaderRequest());
-  }, []);
   const handleLogOut = () => {
-    signOut();
+    console.log("çıkış");
   };
   return (
     <View style={styles.headerContainer}>

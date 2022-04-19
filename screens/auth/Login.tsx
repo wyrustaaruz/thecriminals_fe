@@ -1,17 +1,14 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 import { TouchableOpacity, TextInput } from "react-native";
 import { View, Text } from "../../components/PureComponents";
 import { RootStackScreenProps } from "../../types";
-import { AuthContext } from "../../navigation";
 
 export default function Login({ navigation }: RootStackScreenProps<"Login">) {
-  const { signIn } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = () => {
-    console.log("email", email, "password", password);
-    signIn(email, password);
+    console.log(email, password);
   };
 
   return (

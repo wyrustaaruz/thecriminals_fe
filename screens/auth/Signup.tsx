@@ -1,16 +1,13 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 import { TouchableOpacity, TextInput } from "react-native";
 import { View, Text } from "../../components/PureComponents";
-import { AuthContext } from "../../navigation";
 
 export default function Signup() {
-  const { signUp } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleLSignup = () => {
     console.log("email", email, "password", password);
-    signUp(email, password);
   };
   return (
     <SafeAreaView style={styles.container}>

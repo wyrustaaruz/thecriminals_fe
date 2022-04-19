@@ -1,17 +1,11 @@
-import { useEffect } from "react";
 import { StyleSheet, Image } from "react-native";
 import { Text, View } from "./PureComponents";
-import { useDispatch, useSelector } from "react-redux";
-import { getSubHeaderRequest } from "../store/homepage/action";
+import { useSelector } from "react-redux";
 
 export const SubHeader = () => {
-  const dispatch = useDispatch();
   const subHeaderInfo = useSelector((state: any) => state.drinks) || {};
-  console.log("subHeaderInfo", subHeaderInfo);
   const { money, credit } = subHeaderInfo || {};
-  useEffect(() => {
-    dispatch(getSubHeaderRequest());
-  }, []);
+
   return (
     <View style={styles.headerContainer}>
       <View style={[styles.flexDirectionRow]}>
