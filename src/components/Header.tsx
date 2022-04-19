@@ -1,12 +1,19 @@
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, View } from "./PureComponents";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import * as SecureStore from "expo-secure-store";
+import { Logout } from "../redux/actions";
 
 export const Header = () => {
+  const dispatch = useDispatch();
   const characterInfo = useSelector((state: any) => state.drinks) || {};
   const { logo, name, hp, stamina, int, str, char, tol } = characterInfo || {};
-  const handleLogOut = () => {
-    console.log("çıkış");
+  const handleLogOut = async () => {
+    try {
+      dispatch(Logout());
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <View style={styles.headerContainer}>

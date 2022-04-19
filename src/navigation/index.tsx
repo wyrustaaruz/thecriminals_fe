@@ -17,94 +17,10 @@ import Club from "../screens/home/Club";
 import Login from "../screens/auth/Login";
 import Signup from "../screens/auth/Signup";
 import ForgetPassword from "../screens/auth/ForgetPassword";
+import { useDispatch, useSelector } from "react-redux";
 import { RootStackParamList, RootTabParamList } from "../../types";
+import { Init } from "../redux/actions";
 import LinkingConfiguration from "./LinkingConfiguration";
-
-export default function Navigation({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName;
-}) {
-  return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
-      <RootNavigator />
-    </NavigationContainer>
-  );
-}
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
-
-function RootNavigator() {
-  return (
-    <Stack.Navigator>
-      {false ? (
-        // We haven't finished checking for the token yet
-        <Stack.Screen
-          name="Splash"
-          component={Splash}
-          options={{
-            headerShown: false,
-          }}
-        />
-      ) : true ? (
-        // No token found, user isn't signed in
-        <>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              title: "Giriş Yap",
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Signup"
-            component={Signup}
-            options={{
-              title: "Kayıt Ol",
-              headerBackTitleVisible: false,
-              headerStyle: {
-                backgroundColor: "#C0B184",
-              },
-              headerTintColor: "#fff",
-            }}
-          />
-          <Stack.Screen
-            name="ForgetPassword"
-            component={ForgetPassword}
-            options={{
-              title: "Şifre Unuttum",
-              headerBackTitleVisible: false,
-              headerStyle: {
-                backgroundColor: "#C0B184",
-              },
-              headerTintColor: "#fff",
-            }}
-          />
-        </>
-      ) : (
-        // User is signed in
-        <Stack.Screen
-          name="Root"
-          component={BottomTabNavigator}
-          options={{ headerShown: false }}
-        />
-      )}
-
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: "Oops!" }}
-      />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
-    </Stack.Navigator>
-  );
-}
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -189,5 +105,114 @@ function BottomTabNavigator() {
         }}
       />
     </BottomTab.Navigator>
+  );
+}
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+function RootNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Root"
+        component={BottomTabNavigator}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="NotFound"
+        component={NotFoundScreen}
+        options={{ title: "Oops!" }}
+      />
+      <Stack.Screen
+        name="Splash"
+        component={Splash}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Group screenOptions={{ presentation: "modal" }}>
+        <Stack.Screen name="Modal" component={ModalScreen} />
+      </Stack.Group>
+    </Stack.Navigator>
+  );
+}
+
+const AuthStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          title: "Giriş Yap",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Signup"
+        component={Signup}
+        options={{
+          title: "Kayıt Ol",
+          headerBackTitleVisible: false,
+          headerStyle: {
+            backgroundColor: "#C0B184",
+          },
+          headerTintColor: "#fff",
+        }}
+      />
+      <Stack.Screen
+        name="ForgetPassword"
+        component={ForgetPassword}
+        options={{
+          title: "Şifre Unuttum",
+          headerBackTitleVisible: false,
+          headerStyle: {
+            backgroundColor: "#C0B184",
+          },
+          headerTintColor: "#fff",
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+export default function Navigation({
+  colorScheme,
+}: {
+  colorScheme: ColorSchemeName;
+}) {
+  const token = useSelector((state: any) => state.Reducers.authToken);
+  console.log(token);
+  const [loading, setLoading] = React.useState(true);
+
+  const dispatch = useDispatch();
+  const init = async () => {
+    await dispatch(Init());
+    setLoading(false);
+  };
+
+  React.useEffect(() => {
+    init();
+  }, []);
+
+  if (loading) {
+    return (
+      <Stack.Screen
+        name="Splash"
+        component={Splash}
+        options={{
+          headerShown: false,
+        }}
+      />
+    );
+  }
+
+  return (
+    <NavigationContainer
+      linking={LinkingConfiguration}
+      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+    >
+      {token === null ? <AuthStack /> : <RootNavigator />}
+    </NavigationContainer>
   );
 }

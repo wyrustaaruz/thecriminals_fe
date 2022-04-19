@@ -1,14 +1,23 @@
-import { useState } from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { useEffect, useState } from "react";
+import { Alert, StyleSheet, SafeAreaView } from "react-native";
 import { TouchableOpacity, TextInput } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { View, Text } from "../../components/PureComponents";
-import { RootStackScreenProps } from "../../types";
+import { RootStackScreenProps } from "../../../types";
+import { MakeLogin } from "../../redux/actions";
 
 export default function Login({ navigation }: RootStackScreenProps<"Login">) {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = () => {
-    console.log(email, password);
+    if (email === "" || password === "") {
+      Alert.alert("Mesaj", "Her iki alanda dolu olmalı!", [
+        { text: "Tamam", onPress: () => null },
+      ]);
+    } else {
+      dispatch(MakeLogin(email, password));
+    }
   };
 
   return (
