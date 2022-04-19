@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 import { TouchableOpacity, TextInput } from "react-native";
 import { View, Text } from "../../components/PureComponents";
-import { RootStackScreenProps } from "../../types";
+import { RootStackScreenProps } from "../../../types";
 
 export default function ForgetPassword({
   navigation,

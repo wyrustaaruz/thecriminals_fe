@@ -1,6 +1,6 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
-import { Text, View } from "../components/PureComponents";
-import { RootStackScreenProps } from "../types";
+import { Text, View } from "../../components/PureComponents";
+import { RootStackScreenProps } from "../../../types";
 
 export default function Splash({}: RootStackScreenProps<"Splash">) {
   return (

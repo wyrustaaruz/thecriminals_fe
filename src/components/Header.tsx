@@ -21,7 +21,7 @@ export const Header = () => {
         ) : (
           <Image
             style={styles.tinyLogo}
-            source={require("../assets/images/avatar_20.png")}
+            source={require("../../assets/images/avatar_20.png")}
           />
         )}
       </View>
@@ -52,7 +52,7 @@ export const Header = () => {
         >
           <Image
             style={styles.menuLogo}
-            source={require("../assets/images/32px-Hamburger_icon.png")}
+            source={require("../../assets/images/32px-Hamburger_icon.png")}
           />
         </TouchableOpacity>
       </View>

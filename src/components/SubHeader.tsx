@@ -11,15 +11,15 @@ export const SubHeader = () => {
       <View style={[styles.flexDirectionRow]}>
         <Image
           style={[styles.tinyLogo, styles.marginHorizontal10]}
-          source={require("../assets/images/icon_msgcenter_bw.png")}
+          source={require("../../assets/images/icon_msgcenter_bw.png")}
         />
         <Image
           style={[styles.tinyLogo, styles.marginHorizontal10]}
-          source={require("../assets/images/icon_friends_bw_old.png")}
+          source={require("../../assets/images/icon_friends_bw_old.png")}
         />
         <Image
           style={[styles.tinyLogo, styles.marginHorizontal10]}
-          source={require("../assets/images/icon_gangcenter_bw.png")}
+          source={require("../../assets/images/icon_gangcenter_bw.png")}
         />
       </View>
       <View style={styles.alignSelfCenter}>
@@ -29,7 +29,7 @@ export const SubHeader = () => {
         <Text>{credit ? credit : "5000"}</Text>
         <Image
           style={styles.coinImage}
-          source={require("../assets/images/credits.png")}
+          source={require("../../assets/images/credits.png")}
         />
       </View>
     </View>

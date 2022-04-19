@@ -1,6 +1,6 @@
 import { StyleSheet, SafeAreaView } from "react-native";
-import { Header, SubHeader } from "../components";
-import { View } from "../components/PureComponents";
+import { Header, SubHeader } from "../../components";
+import { View } from "../../components/PureComponents";
 
 export default function TabOneScreen() {
   return (

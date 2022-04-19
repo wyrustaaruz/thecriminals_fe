@@ -9,15 +9,15 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ColorSchemeName } from "react-native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import ModalScreen from "../screens/ModalScreen";
-import NotFoundScreen from "../screens/NotFoundScreen";
-import Splash from "../screens/Splash";
-import Robbery from "../screens/Robbery";
-import Club from "../screens/Club";
+import ModalScreen from "../screens/general/ModalScreen";
+import NotFoundScreen from "../screens/general/NotFoundScreen";
+import Splash from "../screens/general/Splash";
+import Robbery from "../screens/home/Robbery";
+import Club from "../screens/home/Club";
 import Login from "../screens/auth/Login";
 import Signup from "../screens/auth/Signup";
 import ForgetPassword from "../screens/auth/ForgetPassword";
-import { RootStackParamList, RootTabParamList } from "../types";
+import { RootStackParamList, RootTabParamList } from "../../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 
 export default function Navigation({
