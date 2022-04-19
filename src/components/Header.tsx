@@ -1,7 +1,6 @@
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, View } from "./PureComponents";
 import { useDispatch, useSelector } from "react-redux";
-import * as SecureStore from "expo-secure-store";
 import { Logout } from "../redux/actions";
 
 export const Header = () => {
