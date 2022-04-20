@@ -1,13 +1,20 @@
 import { useState } from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 import { TouchableOpacity, TextInput } from "react-native";
+import { useDispatch } from "react-redux";
 import { View, Text } from "../../components/PureComponents";
+import { MakeRegister } from "../../redux/actions";
 
-export default function Signup() {
+export default function Signup({ navigation }: any) {
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const handleLSignup = () => {
-    console.log("email", email, "password", password);
+    dispatch(
+      MakeRegister(username, email, password, passwordConfirmation, navigation)
+    );
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -17,6 +24,15 @@ export default function Signup() {
       <View style={styles.inputAreaContent}>
         <View>
           <Text style={styles.infoText}>Kayıt Ol</Text>
+          <TextInput
+            style={styles.input}
+            value={username}
+            placeholder="Kullanıcı Adı"
+            placeholderTextColor="#C0B184"
+            onChangeText={(value) => {
+              setUsername(value);
+            }}
+          />
           <TextInput
             style={styles.input}
             value={email}
@@ -37,7 +53,16 @@ export default function Signup() {
               setPassword(value);
             }}
           />
-          <Text>Avatar Seç</Text>
+          <TextInput
+            style={styles.input}
+            value={passwordConfirmation}
+            placeholder="Şifre Tekrar"
+            placeholderTextColor="#C0B184"
+            secureTextEntry={true}
+            onChangeText={(value) => {
+              setPasswordConfirmation(value);
+            }}
+          />
         </View>
         <View>
           <TouchableOpacity

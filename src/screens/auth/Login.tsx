@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, StyleSheet, SafeAreaView } from "react-native";
 import { TouchableOpacity, TextInput } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,7 +6,10 @@ import { View, Text } from "../../components/PureComponents";
 import { RootStackScreenProps } from "../../../types";
 import { MakeLogin } from "../../redux/actions";
 
-export default function Login({ navigation }: RootStackScreenProps<"Login">) {
+export default function Login({
+  route,
+  navigation,
+}: RootStackScreenProps<"Login">) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +22,14 @@ export default function Login({ navigation }: RootStackScreenProps<"Login">) {
       dispatch(MakeLogin(email, password));
     }
   };
+  useEffect(() => {
+    const { registeredEmail, registeredPassword } = route.params || {
+      registeredEmail: "",
+      registeredPassword: "",
+    };
+    setEmail(registeredEmail);
+    setPassword(registeredPassword);
+  }, [route]);
 
   return (
     <SafeAreaView style={styles.container}>

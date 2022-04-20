@@ -1,15 +1,24 @@
 import { useState } from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, Alert } from "react-native";
 import { TouchableOpacity, TextInput } from "react-native";
 import { View, Text } from "../../components/PureComponents";
 import { RootStackScreenProps } from "../../../types";
+import { useDispatch } from "react-redux";
+import { ForgetPass } from "../../redux/actions";
 
 export default function ForgetPassword({
   navigation,
 }: RootStackScreenProps<"ForgetPassword">) {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const handleLForgetPassword = () => {
-    navigation.goBack();
+    if (email === "") {
+      Alert.alert("Mesaj", "Email adresi dolu olmalı!", [
+        { text: "Tamam", onPress: () => null },
+      ]);
+    } else {
+      dispatch(ForgetPass(email, navigation));
+    }
   };
   return (
     <SafeAreaView style={styles.container}>

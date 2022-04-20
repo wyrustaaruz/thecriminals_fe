@@ -6,8 +6,16 @@ export default (state = initialState, action: any) => {
   switch (action.type) {
     case "LOGIN":
       return {
-        ...state, //copy all previous states
+        ...state,
         authToken: action.payload,
+      };
+    case "REGISTER":
+      return {
+        ...state,
+      };
+    case "FORGET_PASSWORD":
+      return {
+        ...state,
       };
     case "LOGOUT":
       return {
