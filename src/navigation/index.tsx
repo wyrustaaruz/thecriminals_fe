@@ -19,7 +19,7 @@ import Signup from "../screens/auth/Signup";
 import ForgetPassword from "../screens/auth/ForgetPassword";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStackParamList, RootTabParamList } from "../../types";
-import { Init } from "../redux/actions";
+import Actions from "../redux/actions";
 import LinkingConfiguration from "./LinkingConfiguration";
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
@@ -181,13 +181,13 @@ export default function Navigation({
 }: {
   colorScheme: ColorSchemeName;
 }) {
-  const token = useSelector((state: any) => state.Reducers.authToken);
+  const token = useSelector((state: any) => state.authReducers.authToken);
   console.log(token);
   const [loading, setLoading] = React.useState(true);
 
   const dispatch = useDispatch();
   const init = async () => {
-    await dispatch(Init());
+    await dispatch(Actions.authActions.Init());
     setLoading(false);
   };
 

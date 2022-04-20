@@ -3,7 +3,7 @@ import { StyleSheet, SafeAreaView } from "react-native";
 import { TouchableOpacity, TextInput } from "react-native";
 import { useDispatch } from "react-redux";
 import { View, Text } from "../../components/PureComponents";
-import { MakeRegister } from "../../redux/actions";
+import Actions from "../../redux/actions";
 
 export default function Signup({ navigation }: any) {
   const dispatch = useDispatch();
@@ -13,7 +13,13 @@ export default function Signup({ navigation }: any) {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const handleLSignup = () => {
     dispatch(
-      MakeRegister(username, email, password, passwordConfirmation, navigation)
+      Actions.authActions.MakeRegister(
+        username,
+        email,
+        password,
+        passwordConfirmation,
+        navigation
+      )
     );
   };
   return (

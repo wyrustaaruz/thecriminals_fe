@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { Alert } from "react-native";
 
-export const Init = () => {
+const Init = () => {
   return async (dispatch: any) => {
     let token = await AsyncStorage.getItem("token");
     if (token !== null) {
@@ -14,7 +14,7 @@ export const Init = () => {
   };
 };
 
-export const MakeLogin = (email: string, password: string) => {
+const MakeLogin = (email: string, password: string) => {
   return async (dispatch: any) => {
     let token = null;
     axios
@@ -44,7 +44,7 @@ export const MakeLogin = (email: string, password: string) => {
   };
 };
 
-export const MakeRegister = (
+const MakeRegister = (
   username: string,
   email: string,
   password: string,
@@ -108,7 +108,7 @@ export const MakeRegister = (
   };
 };
 
-export const ForgetPass = (email: string, navigation: any) => {
+const ForgetPass = (email: string, navigation: any) => {
   return async (dispatch: any) => {
     axios
       .post("https://thecriminals.yazilim.online/api/v1/forget-password", {
@@ -147,7 +147,7 @@ export const ForgetPass = (email: string, navigation: any) => {
   };
 };
 
-export const Logout = () => {
+const Logout = () => {
   return async (dispatch: any) => {
     await AsyncStorage.clear();
     dispatch({
@@ -155,3 +155,13 @@ export const Logout = () => {
     });
   };
 };
+
+const authActions = {
+  Init,
+  MakeLogin,
+  MakeRegister,
+  ForgetPass,
+  Logout,
+};
+
+export default authActions;

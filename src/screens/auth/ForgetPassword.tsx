@@ -4,7 +4,7 @@ import { TouchableOpacity, TextInput } from "react-native";
 import { View, Text } from "../../components/PureComponents";
 import { RootStackScreenProps } from "../../../types";
 import { useDispatch } from "react-redux";
-import { ForgetPass } from "../../redux/actions";
+import Actions from "../../redux/actions";
 
 export default function ForgetPassword({
   navigation,
@@ -17,7 +17,7 @@ export default function ForgetPassword({
         { text: "Tamam", onPress: () => null },
       ]);
     } else {
-      dispatch(ForgetPass(email, navigation));
+      dispatch(Actions.authActions.ForgetPass(email, navigation));
     }
   };
   return (

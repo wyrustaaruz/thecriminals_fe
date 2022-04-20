@@ -1,7 +1,7 @@
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, View } from "./PureComponents";
 import { useDispatch, useSelector } from "react-redux";
-import { Logout } from "../redux/actions";
+import Actions from "../redux/actions";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -9,7 +9,7 @@ export const Header = () => {
   const { logo, name, hp, stamina, int, str, char, tol } = characterInfo || {};
   const handleLogOut = async () => {
     try {
-      dispatch(Logout());
+      dispatch(Actions.authActions.Logout());
     } catch (e) {
       console.log(e);
     }

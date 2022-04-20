@@ -2,7 +2,7 @@ const initialState = {
   authToken: null,
 };
 
-export default (state = initialState, action: any) => {
+const authReducers = (state = initialState, action: any) => {
   switch (action.type) {
     case "LOGIN":
       return {
@@ -25,3 +25,5 @@ export default (state = initialState, action: any) => {
       return state;
   }
 };
+
+export default authReducers;
