@@ -6,3 +6,4 @@ export const FORGET_URL = "/forget-password";
 
 //homepage
 export const HEADER_URL = "/character";
+export const ROBBERY_LIST_URL = "/robbery-list";
