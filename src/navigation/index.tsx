@@ -182,7 +182,6 @@ export default function Navigation({
   colorScheme: ColorSchemeName;
 }) {
   const token = useSelector((state: any) => state.authReducers.authToken);
-  console.log(token);
   const [loading, setLoading] = React.useState(true);
 
   const dispatch = useDispatch();

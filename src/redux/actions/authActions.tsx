@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { Alert } from "react-native";
+import { FORGET_URL, LOGIN_URL, REGISTER_URL } from "../endpoints";
 
 const Init = () => {
   return async (dispatch: any) => {
@@ -18,7 +19,7 @@ const MakeLogin = (email: string, password: string) => {
   return async (dispatch: any) => {
     let token = null;
     axios
-      .post("https://thecriminals.yazilim.online/api/v1/login", {
+      .post(LOGIN_URL, {
         email,
         password,
       })
@@ -53,7 +54,7 @@ const MakeRegister = (
 ) => {
   return async (dispatch: any) => {
     axios
-      .post("https://thecriminals.yazilim.online/api/v1/register", {
+      .post(REGISTER_URL, {
         username,
         email,
         password,
@@ -111,7 +112,7 @@ const MakeRegister = (
 const ForgetPass = (email: string, navigation: any) => {
   return async (dispatch: any) => {
     axios
-      .post("https://thecriminals.yazilim.online/api/v1/forget-password", {
+      .post(FORGET_URL, {
         email,
       })
       .then((response) => {

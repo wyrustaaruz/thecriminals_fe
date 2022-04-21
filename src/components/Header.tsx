@@ -2,6 +2,7 @@ import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, View } from "./PureComponents";
 import { useDispatch, useSelector } from "react-redux";
 import Actions from "../redux/actions";
+import { useEffect } from "react";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -11,9 +12,13 @@ export const Header = () => {
     try {
       dispatch(Actions.authActions.Logout());
     } catch (e) {
-      console.log(e);
+      console.log("dispatchErr_Header", e);
     }
   };
+  const token = useSelector((state: any) => state.authReducers.authToken);
+  useEffect(() => {
+    console.log("aaa", token);
+  }, [token]);
   return (
     <View style={styles.headerContainer}>
       <View>
