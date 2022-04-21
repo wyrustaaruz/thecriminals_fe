@@ -12,6 +12,11 @@ const myinterceptor = async () => {
         Authorization: token,
       };
     }
+    console.log(
+      "\x1b[47mREQUEST_LOG_BEGIN:\x1b[0m   \n",
+      JSON.stringify(request),
+      "\n \x1b[47mREQUEST_LOG_END:\x1b[0m"
+    );
     return request;
   });
 };

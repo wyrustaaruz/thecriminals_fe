@@ -1,13 +1,34 @@
+import { useEffect } from "react";
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, View } from "./PureComponents";
 import { useDispatch, useSelector } from "react-redux";
 import Actions from "../redux/actions";
-import { useEffect } from "react";
 
-export const Header = () => {
+export const Header = (characterInfo: {
+  avatar: string;
+  name: number;
+  health: number;
+  max_health: number;
+  stamina: number;
+  intelligence: number;
+  strength: number;
+  charisma: number;
+  tolerance: number;
+  addiction: number;
+}) => {
   const dispatch = useDispatch();
-  const characterInfo = useSelector((state: any) => state.drinks) || {};
-  const { logo, name, hp, stamina, int, str, char, tol } = characterInfo || {};
+  const {
+    avatar,
+    name,
+    health,
+    max_health,
+    stamina,
+    intelligence,
+    strength,
+    charisma,
+    tolerance,
+    addiction,
+  } = characterInfo || {};
   const handleLogOut = async () => {
     try {
       dispatch(Actions.authActions.Logout());
@@ -15,18 +36,15 @@ export const Header = () => {
       console.log("dispatchErr_Header", e);
     }
   };
-  const token = useSelector((state: any) => state.authReducers.authToken);
-  useEffect(() => {
-    console.log("aaa", token);
-  }, [token]);
+
   return (
     <View style={styles.headerContainer}>
       <View>
-        {logo ? (
+        {avatar ? (
           <Image
             style={styles.tinyLogo}
             source={{
-              uri: logo,
+              uri: avatar,
             }}
           />
         ) : (
@@ -37,23 +55,36 @@ export const Header = () => {
         )}
       </View>
       <View>
-        <Text style={styles.nameText}>{name ? name : "Hasan"}</Text>
-        <Text>Stamina: {stamina ? stamina : "100%"}</Text>
-        <Text>HP: {hp ? hp : "51 / 51"}</Text>
+        <Text style={styles.nameText}>
+          {name !== undefined ? name : "Hasan"}
+        </Text>
+        <Text>Stamina: {stamina !== undefined ? stamina : "100%"}</Text>
+        <Text>
+          HP: {health !== undefined ? health + " / " + max_health : "0 / 0"}
+        </Text>
+        <Text>Bağımlılık: {addiction !== undefined ? addiction : "0"}</Text>
       </View>
       <View>
         <Text style={styles.centeredText}>Intelligence</Text>
-        <Text style={styles.centeredText}>{int ? int : 0}</Text>
+        <Text style={styles.centeredText}>
+          {intelligence !== undefined ? intelligence : 0}
+        </Text>
 
         <Text style={styles.centeredText}>Strength</Text>
-        <Text style={styles.centeredText}>{str ? str : 0}</Text>
+        <Text style={styles.centeredText}>
+          {strength !== undefined ? strength : 0}
+        </Text>
       </View>
       <View>
         <Text style={styles.centeredText}>Charisma</Text>
-        <Text style={styles.centeredText}>{char ? char : 0}</Text>
+        <Text style={styles.centeredText}>
+          {charisma !== undefined ? charisma : 0}
+        </Text>
 
         <Text style={styles.centeredText}>Tolerance</Text>
-        <Text style={styles.centeredText}>{tol ? tol : 0}</Text>
+        <Text style={styles.centeredText}>
+          {tolerance !== undefined ? tolerance : 0}
+        </Text>
       </View>
       <View style={styles.centeredView}>
         <TouchableOpacity

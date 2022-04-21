@@ -1,7 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { Alert } from "react-native";
-import { FORGET_URL, LOGIN_URL, REGISTER_URL } from "../endpoints";
+import {
+  CREATE_CHARACTER_URL,
+  FORGET_URL,
+  LOGIN_URL,
+  REGISTER_URL,
+} from "../endpoints";
 
 const Init = () => {
   return async (dispatch: any) => {
@@ -61,20 +66,29 @@ const MakeRegister = (
         password_confirmation: passwordConfirmation,
       })
       .then((response) => {
-        Alert.alert("Tebrikler", "Başarıyla kayıt oldunuz.", [
-          {
-            text: "Tamam",
-            onPress: () =>
-              navigation.navigate("Login", {
-                registeredEmail: email,
-                registeredPassword: password,
-              }),
-          },
-        ]);
-        dispatch({
-          type: "REGISTER",
-          payload: "OK",
-        });
+        axios
+          .post(CREATE_CHARACTER_URL, { avatar: "avatar_1" })
+          .then(() => {
+            Alert.alert("Tebrikler", "Başarıyla kayıt oldunuz.", [
+              {
+                text: "Tamam",
+                onPress: () =>
+                  navigation.navigate("Login", {
+                    registeredEmail: email,
+                    registeredPassword: password,
+                  }),
+              },
+            ]);
+            dispatch({
+              type: "REGISTER",
+              payload: "OK",
+            });
+          })
+          .catch((error) => {
+            Alert.alert("HATA", "Karakter oluşturulurken bir hata oluştu", [
+              { text: "Tamam", onPress: () => null },
+            ]);
+          });
       })
       .catch((error) => {
         if (error.response.data?.errors) {

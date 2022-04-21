@@ -1,10 +1,17 @@
 import { StyleSheet, Image } from "react-native";
 import { Text, View } from "./PureComponents";
-import { useSelector } from "react-redux";
 
-export const SubHeader = () => {
-  const subHeaderInfo = useSelector((state: any) => state.drinks) || {};
-  const { money, credit } = subHeaderInfo || {};
+export const SubHeader = (characterInfo: {
+  spirit: number;
+  respect: number;
+  cash: number;
+  weapon: number;
+  armor: number;
+  guard: number;
+  credits: number;
+}) => {
+  const { spirit, respect, cash, weapon, armor, guard, credits } =
+    characterInfo || {};
 
   return (
     <View style={styles.headerContainer}>
@@ -23,10 +30,11 @@ export const SubHeader = () => {
         />
       </View>
       <View style={styles.alignSelfCenter}>
-        <Text>{money ? money : "5000$"}</Text>
+        <Text>{cash !== undefined ? cash : "0$"}</Text>
       </View>
       <View style={[styles.flexDirectionRow, styles.alignSelfCenter]}>
-        <Text>{credit ? credit : "5000"}</Text>
+        {console.log("credits", credits)}
+        <Text>{credits !== undefined ? credits : "0"}</Text>
         <Image
           style={styles.coinImage}
           source={require("../../assets/images/credits.png")}
