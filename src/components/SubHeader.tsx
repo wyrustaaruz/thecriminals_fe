@@ -1,17 +1,8 @@
 import { StyleSheet, Image } from "react-native";
 import { Text, View } from "./PureComponents";
 
-export const SubHeader = (characterInfo: {
-  spirit: number;
-  respect: number;
-  cash: number;
-  weapon: number;
-  armor: number;
-  guard: number;
-  credits: number;
-}) => {
-  const { spirit, respect, cash, weapon, armor, guard, credits } =
-    characterInfo || {};
+export const SubHeader = (characterInfo: { cash: number; credits: number }) => {
+  const { cash, credits } = characterInfo || {};
 
   return (
     <View style={styles.headerContainer}>
@@ -33,7 +24,6 @@ export const SubHeader = (characterInfo: {
         <Text>{cash !== undefined ? cash : "0$"}</Text>
       </View>
       <View style={[styles.flexDirectionRow, styles.alignSelfCenter]}>
-        {console.log("credits", credits)}
         <Text>{credits !== undefined ? credits : "0"}</Text>
         <Image
           style={styles.coinImage}
