@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootStackParamList, RootTabParamList } from "../../types";
 import Actions from "../redux/actions";
 import LinkingConfiguration from "./LinkingConfiguration";
+import SelectAvatar from "../screens/home/SelectAvatar";
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -153,6 +154,18 @@ const AuthStack = () => {
         component={Signup}
         options={{
           title: "Kayıt Ol",
+          headerBackTitleVisible: false,
+          headerStyle: {
+            backgroundColor: "#C0B184",
+          },
+          headerTintColor: "#fff",
+        }}
+      />
+      <Stack.Screen
+        name="SelectAvatar"
+        component={SelectAvatar}
+        options={{
+          title: "Avatar Seç",
           headerBackTitleVisible: false,
           headerStyle: {
             backgroundColor: "#C0B184",

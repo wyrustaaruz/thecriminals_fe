@@ -6,6 +6,7 @@ import {
   FORGET_URL,
   LOGIN_URL,
   REGISTER_URL,
+  CHARACTER_AVATARS_URL,
 } from "../endpoints";
 
 const Init = () => {
@@ -171,12 +172,33 @@ const Logout = () => {
   };
 };
 
+const GetAvatars = () => {
+  return async (dispatch: any) => {
+    axios
+      .get(CHARACTER_AVATARS_URL)
+      .then((response) => {
+        dispatch({
+          type: "CHARACTER_AVATARS",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
+
 const authActions = {
   Init,
   MakeLogin,
   MakeRegister,
   ForgetPass,
   Logout,
+  GetAvatars,
 };
 
 export default authActions;

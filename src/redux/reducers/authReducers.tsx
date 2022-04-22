@@ -1,5 +1,6 @@
 const initialState = {
   authToken: null,
+  avatarList: [],
 };
 
 const authReducers = (state = initialState, action: any) => {
@@ -20,6 +21,11 @@ const authReducers = (state = initialState, action: any) => {
     case "LOGOUT":
       return {
         authToken: null,
+      };
+    case "CHARACTER_AVATARS":
+      return {
+        ...state,
+        avatarList: action.payload,
       };
     default:
       return state;

@@ -40,7 +40,7 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
           const message =
             res.data.message +
             "\nKazanılan Ödül:\n" +
-            "Cash:" +
+            "Cash: $" +
             res.data.rewards.cash +
             "\nItem: " +
             JSON.stringify(res.data.rewards.item);
@@ -81,7 +81,7 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text>Ödül:</Text>
           <Text>
-            {robberyList[selectedRob].reward_cash_min} -{" "}
+            ${robberyList[selectedRob].reward_cash_min} - $
             {robberyList[selectedRob].reward_cash_max}
           </Text>
         </View>

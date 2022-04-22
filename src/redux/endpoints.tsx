@@ -1,6 +1,7 @@
 export const API_URL = "https://thecriminals.yazilim.online/api/v1";
 export const LOGIN_URL = "/login";
 export const REGISTER_URL = "/register";
+export const CHARACTER_AVATARS_URL = "/character-avatars";
 export const CREATE_CHARACTER_URL = "/character";
 export const FORGET_URL = "/forget-password";
 

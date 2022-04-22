@@ -16,9 +16,8 @@ export default function Signup({ navigation }: any) {
   const ref_input2 = useRef<any>();
   const ref_input3 = useRef<any>();
   const ref_input4 = useRef<any>();
-  const ref_input5 = useRef<any>();
 
-  const handleLSignup = () => {
+  const handleSignup = () => {
     dispatch(
       Actions.authActions.MakeRegister(
         username,
@@ -100,7 +99,7 @@ export default function Signup({ navigation }: any) {
         <View>
           <TouchableOpacity
             style={styles.signupContainer}
-            onPress={handleLSignup}
+            onPress={handleSignup}
           >
             <Text style={styles.signupText}>Kayıt Ol</Text>
           </TouchableOpacity>

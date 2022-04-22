@@ -21,7 +21,7 @@ export const SubHeader = (characterInfo: { cash: number; credits: number }) => {
         />
       </View>
       <View style={styles.alignSelfCenter}>
-        <Text>{cash !== undefined ? cash : "0$"}</Text>
+        <Text>{cash !== undefined ? "$" + cash : "$0"}</Text>
       </View>
       <View style={[styles.flexDirectionRow, styles.alignSelfCenter]}>
         <Text>{credits !== undefined ? credits : "0"}</Text>
