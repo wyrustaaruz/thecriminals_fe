@@ -1,7 +1,11 @@
-import { StyleSheet } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View } from "./PureComponents";
 import { Picker } from "@react-native-community/picker";
 import { useState } from "react";
+import axios from "axios";
+import { ROBBERY_RUN_URL } from "../redux/endpoints";
+import { useDispatch } from "react-redux";
+import Actions from "../redux/actions";
 
 interface RobberyItem {
   name: string;
@@ -15,9 +19,43 @@ interface RobberyItem {
   percent: number;
 }
 export const RobberyList = (robberyList: Array<RobberyItem>) => {
+  const dispatch = useDispatch();
   const [selectedRob, setSelectedRob] = useState(0);
   const RobberyItemRender = (item: RobberyItem, index: number) => {
     return <Picker.Item key={index} label={item.name} value={index} />;
+  };
+  const initHeader = async () => {
+    await dispatch(Actions.homepageActions.GetHeader());
+  };
+
+  const initRobberyList = async () => {
+    await dispatch(Actions.homepageActions.GetRobberyList());
+  };
+  const robThis = () => {
+    axios
+      .get(ROBBERY_RUN_URL + selectedRob)
+      .then((res) => {
+        console.log(res.data.status);
+        if (res.data.status === "success") {
+          const message =
+            res.data.message +
+            "\nKazanılan Ödül:\n" +
+            "Cash:" +
+            res.data.rewards.cash +
+            "\nItem: " +
+            JSON.stringify(res.data.rewards.item);
+          Alert.alert("BAŞARILI", message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        } else {
+          Alert.alert("Ops.", res.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+        initHeader();
+        initRobberyList();
+      })
+      .catch((error) => console.log("err", error.response.data));
   };
   return (
     <View style={styles.headerContainer}>
@@ -32,7 +70,6 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
       ) : null}
       <View
         style={{
-          backgroundColor: "black",
           paddingVertical: 20,
           paddingHorizontal: 10,
         }}
@@ -79,6 +116,14 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
           </Text>
         </View>
       </View>
+      <TouchableOpacity
+        style={{ borderWidth: 1, padding: 10 }}
+        onPress={() => robThis()}
+      >
+        <Text style={{ textAlign: "center", justifyContent: "center" }}>
+          Soygun Yap
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
