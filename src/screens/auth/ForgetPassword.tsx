@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, SafeAreaView, Alert } from "react-native";
+import { StyleSheet, Alert } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TouchableOpacity, TextInput } from "react-native";
 import { View, Text } from "../../components/PureComponents";
@@ -40,6 +40,7 @@ export default function ForgetPassword({
           <Text style={styles.infoText}>Şifremi Unuttum</Text>
           <TextInput
             style={styles.input}
+            autoCapitalize="none"
             value={email}
             placeholder="Email Adresi"
             placeholderTextColor="#C0B184"

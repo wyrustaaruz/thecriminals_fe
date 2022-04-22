@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Alert, StyleSheet, SafeAreaView } from "react-native";
+import { useEffect, useState, useRef } from "react";
+import { Alert, StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TouchableOpacity, TextInput } from "react-native";
 import { useDispatch } from "react-redux";
@@ -12,6 +12,9 @@ export default function Login({
   navigation,
 }: RootStackScreenProps<"Login">) {
   const dispatch = useDispatch();
+
+  const ref_input2 = useRef<any>();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = () => {
@@ -51,14 +54,19 @@ export default function Login({
           <TextInput
             style={styles.input}
             value={email}
+            autoCapitalize="none"
             placeholder="Email Adresi"
             placeholderTextColor="#C0B184"
             keyboardType="email-address"
             onChangeText={(value) => {
               setEmail(value);
             }}
+            autoFocus={true}
+            returnKeyType="next"
+            onSubmitEditing={(): any => ref_input2.current.focus()}
           />
           <TextInput
+            ref={ref_input2}
             style={styles.input}
             value={password}
             placeholder="Şifre"

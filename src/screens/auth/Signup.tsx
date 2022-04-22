@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { useState, useRef } from "react";
+import { StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TouchableOpacity, TextInput } from "react-native";
 import { useDispatch } from "react-redux";
@@ -12,6 +12,12 @@ export default function Signup({ navigation }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+
+  const ref_input2 = useRef<any>();
+  const ref_input3 = useRef<any>();
+  const ref_input4 = useRef<any>();
+  const ref_input5 = useRef<any>();
+
   const handleLSignup = () => {
     dispatch(
       Actions.authActions.MakeRegister(
@@ -43,23 +49,31 @@ export default function Signup({ navigation }: any) {
           <TextInput
             style={styles.input}
             value={username}
+            autoCapitalize="none"
             placeholder="Kullanıcı Adı"
             placeholderTextColor="#C0B184"
             onChangeText={(value) => {
               setUsername(value);
             }}
+            returnKeyType="next"
+            onSubmitEditing={(): any => ref_input2.current.focus()}
           />
           <TextInput
+            ref={ref_input2}
             style={styles.input}
             value={email}
+            autoCapitalize="none"
             placeholder="Email Adresi"
             placeholderTextColor="#C0B184"
             keyboardType="email-address"
             onChangeText={(value) => {
               setEmail(value);
             }}
+            returnKeyType="next"
+            onSubmitEditing={(): any => ref_input3.current.focus()}
           />
           <TextInput
+            ref={ref_input3}
             style={styles.input}
             value={password}
             placeholder="Şifre"
@@ -68,8 +82,11 @@ export default function Signup({ navigation }: any) {
             onChangeText={(value) => {
               setPassword(value);
             }}
+            returnKeyType="next"
+            onSubmitEditing={(): any => ref_input4.current.focus()}
           />
           <TextInput
+            ref={ref_input4}
             style={styles.input}
             value={passwordConfirmation}
             placeholder="Şifre Tekrar"
