@@ -21,7 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootStackParamList, RootTabParamList } from "../../types";
 import Actions from "../redux/actions";
 import LinkingConfiguration from "./LinkingConfiguration";
-import SelectAvatar from "../screens/home/SelectAvatar";
+import SelectAvatar from "../screens/auth/SelectAvatar";
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -52,7 +52,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Club"
-        component={Club}
+        component={SelectAvatar}
         options={{
           title: "Kulüp",
           tabBarStyle: { backgroundColor: Colors.custom.background },

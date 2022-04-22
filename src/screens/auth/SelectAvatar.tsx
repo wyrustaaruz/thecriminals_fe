@@ -47,7 +47,11 @@ export default function SelectAvatar({ navigation }: any) {
           }
           initHeader();
         })
-        .catch((error) => console.log("err", error.response.data));
+        .catch((error) => {
+          Alert.alert("Bir Sorun Oluştu", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        });
     } else {
       Alert.alert("HATA", "Lütfen avatar seçtiğinize emin olunuz", [
         { text: "Tamam", onPress: () => null },
@@ -76,9 +80,12 @@ export default function SelectAvatar({ navigation }: any) {
               }}
             >
               {avatarList.map((item: any, index: number) => (
-                <TouchableOpacity onPress={() => setSelectedAvatar(item.name)}>
+                <TouchableOpacity
+                  style={{ margin: 1 }}
+                  key={index}
+                  onPress={() => setSelectedAvatar(item.name)}
+                >
                   <Image
-                    key={index}
                     style={[
                       styles.tinyLogo,
                       selectedAvatar === item.name ? styles.selected : null,
