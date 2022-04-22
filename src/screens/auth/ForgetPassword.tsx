@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, SafeAreaView, Alert } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TouchableOpacity, TextInput } from "react-native";
 import { View, Text } from "../../components/PureComponents";
 import { RootStackScreenProps } from "../../../types";
@@ -21,7 +22,16 @@ export default function ForgetPassword({
     }
   };
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAwareScrollView
+      style={{
+        flex: 1,
+        backgroundColor: "#464646",
+      }}
+      contentContainerStyle={{
+        flex: 1,
+        justifyContent: "space-evenly",
+      }}
+    >
       <View>
         <Text style={styles.title}>The Criminals</Text>
       </View>
@@ -48,7 +58,7 @@ export default function ForgetPassword({
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
   );
 }
 

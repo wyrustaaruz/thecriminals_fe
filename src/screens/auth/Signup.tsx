@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TouchableOpacity, TextInput } from "react-native";
 import { useDispatch } from "react-redux";
 import { View, Text } from "../../components/PureComponents";
@@ -23,7 +24,16 @@ export default function Signup({ navigation }: any) {
     );
   };
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAwareScrollView
+      style={{
+        flex: 1,
+        backgroundColor: "#464646",
+      }}
+      contentContainerStyle={{
+        flex: 1,
+        justifyContent: "space-evenly",
+      }}
+    >
       <View>
         <Text style={styles.title}>The Criminals</Text>
       </View>
@@ -79,7 +89,7 @@ export default function Signup({ navigation }: any) {
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
   );
 }
 
