@@ -23,6 +23,9 @@ const Init = () => {
 
 const MakeLogin = (email: string, password: string) => {
   return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
     let token = null;
     axios
       .post(LOGIN_URL, {
@@ -32,12 +35,19 @@ const MakeLogin = (email: string, password: string) => {
       .then((response) => {
         token = response.data.token || "";
         AsyncStorage.setItem("token", token);
+
+        dispatch({
+          type: "LOADING_FALSE",
+        });
         dispatch({
           type: "LOGIN",
           payload: token,
         });
       })
       .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
         if (error.response.data?.errors?.email.length > 0) {
           Alert.alert("HATA", error.response.data.errors.email[0], [
             { text: "Tamam", onPress: () => null },
@@ -59,6 +69,9 @@ const MakeRegister = (
   navigation: any
 ) => {
   return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
     axios
       .post(REGISTER_URL, {
         username,
@@ -70,6 +83,9 @@ const MakeRegister = (
         axios
           .post(CREATE_CHARACTER_URL, { avatar: "avatar_1" })
           .then(() => {
+            dispatch({
+              type: "LOADING_FALSE",
+            });
             Alert.alert("Tebrikler", "Başarıyla kayıt oldunuz.", [
               {
                 text: "Tamam",
@@ -86,12 +102,18 @@ const MakeRegister = (
             });
           })
           .catch((error) => {
+            dispatch({
+              type: "LOADING_FALSE",
+            });
             Alert.alert("HATA", "Karakter oluşturulurken bir hata oluştu", [
               { text: "Tamam", onPress: () => null },
             ]);
           });
       })
       .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
         if (error.response.data?.errors) {
           if (
             error.response.data?.errors.username &&
@@ -126,11 +148,17 @@ const MakeRegister = (
 
 const ForgetPass = (email: string, navigation: any) => {
   return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
     axios
       .post(FORGET_URL, {
         email,
       })
       .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
         Alert.alert("Başarılı", "Mail adresinizi kontrol ediniz.", [
           {
             text: "Tamam",
@@ -146,6 +174,9 @@ const ForgetPass = (email: string, navigation: any) => {
         });
       })
       .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
         if (
           error.response.data?.errors &&
           error.response.data?.errors.email &&
@@ -174,15 +205,24 @@ const Logout = () => {
 
 const GetAvatars = () => {
   return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
     axios
       .get(CHARACTER_AVATARS_URL)
       .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
         dispatch({
           type: "CHARACTER_AVATARS",
           payload: response.data,
         });
       })
       .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
         if (error.response.data.message) {
           Alert.alert("HATA", error.response.data.message, [
             { text: "Tamam", onPress: () => null },

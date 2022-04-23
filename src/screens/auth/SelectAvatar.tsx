@@ -7,14 +7,16 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-import { TouchableOpacity, TextInput } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Text, View } from "../../components/PureComponents";
+import { Loading, Text, View } from "../../components/PureComponents";
 import Actions from "../../redux/actions";
 import { CREATE_CHARACTER_URL } from "../../redux/endpoints";
 
 export default function SelectAvatar({ navigation }: any) {
   const dispatch = useDispatch();
+  const loading = useSelector((state: any) => state.commonReducers.loading);
+
   const [selectedAvatar, setSelectedAvatar] = useState("");
 
   const avatarList =
@@ -65,6 +67,7 @@ export default function SelectAvatar({ navigation }: any) {
 
   return (
     <ScrollView style={{ backgroundColor: "#464646" }}>
+      <Loading status={loading} />
       <SafeAreaView style={styles.container}>
         <View>
           <Text style={styles.title}>The Criminals</Text>

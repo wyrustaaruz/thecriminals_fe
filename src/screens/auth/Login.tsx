@@ -2,8 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { Alert, StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TouchableOpacity, TextInput } from "react-native";
-import { useDispatch } from "react-redux";
-import { View, Text } from "../../components/PureComponents";
+import { useDispatch, useSelector } from "react-redux";
+import { View, Text, Loading } from "../../components/PureComponents";
 import { RootStackScreenProps } from "../../../types";
 import Actions from "../../redux/actions";
 
@@ -12,6 +12,8 @@ export default function Login({
   navigation,
 }: RootStackScreenProps<"Login">) {
   const dispatch = useDispatch();
+
+  const loading = useSelector((state: any) => state.commonReducers.loading);
 
   const ref_input2 = useRef<any>();
 
@@ -46,6 +48,7 @@ export default function Login({
         justifyContent: "space-evenly",
       }}
     >
+      <Loading status={loading} />
       <View>
         <Text style={styles.title}>The Criminals</Text>
       </View>

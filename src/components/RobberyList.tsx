@@ -1,8 +1,8 @@
-import { Alert, StyleSheet, TouchableOpacity } from "react-native";
-import { Text, View } from "./PureComponents";
-import { Picker } from "@react-native-community/picker";
 import { useState } from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import axios from "axios";
+import { Picker } from "@react-native-community/picker";
+import { Text, View, MyModal, Loading } from "./PureComponents";
 import { ROBBERY_RUN_URL } from "../redux/endpoints";
 import { useDispatch } from "react-redux";
 import Actions from "../redux/actions";
@@ -20,7 +20,10 @@ interface RobberyItem {
 }
 export const RobberyList = (robberyList: Array<RobberyItem>) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [selectedRob, setSelectedRob] = useState(0);
+  const [hasan, setHasan] = useState(false);
+  const [modalChild, setModalChild] = useState(<></>);
   const RobberyItemRender = (item: RobberyItem, index: number) => {
     return <Picker.Item key={index} label={item.name} value={index} />;
   };
@@ -32,10 +35,11 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
     await dispatch(Actions.homepageActions.GetRobberyList());
   };
   const robThis = () => {
+    setLoading(true);
     axios
       .get(ROBBERY_RUN_URL + selectedRob)
       .then((res) => {
-        console.log(res.data.status);
+        setLoading(false);
         if (res.data.status === "success") {
           const message =
             res.data.message +
@@ -44,14 +48,25 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
             res.data.rewards.cash +
             "\nItem: " +
             JSON.stringify(res.data.rewards.item);
-          Alert.alert("BAŞARILI", message, [
-            { text: "Tamam", onPress: () => null },
-          ]);
+          const tempModalChild = () => (
+            <View>
+              <Text style={styles.centeredText}>Başarılı</Text>
+              <Text style={styles.centeredText}>{message}</Text>
+            </View>
+          );
+          setModalChild(tempModalChild);
+          setHasan(true);
         } else {
-          Alert.alert("Ops.", res.data.message, [
-            { text: "Tamam", onPress: () => null },
-          ]);
+          const tempModalChild = () => (
+            <View>
+              <Text style={styles.centeredText}>Opss.</Text>
+              <Text style={styles.centeredText}>{res.data.message}</Text>
+            </View>
+          );
+          setModalChild(tempModalChild);
+          setHasan(true);
         }
+        setLoading(false);
         initHeader();
         initRobberyList();
       })
@@ -59,6 +74,7 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
   };
   return (
     <View style={styles.headerContainer}>
+      <Loading status={loading} />
       {robberyList.length > 0 ? (
         <Picker
           itemStyle={{ color: "#C0B184" }}
@@ -119,11 +135,15 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
       <TouchableOpacity
         style={{ borderWidth: 1, padding: 10 }}
         onPress={() => robThis()}
+        // onPress={() => setHasan(true)}
       >
         <Text style={{ textAlign: "center", justifyContent: "center" }}>
           Soygun Yap
         </Text>
       </TouchableOpacity>
+      <MyModal visible={hasan} onRequestClose={() => setHasan(false)}>
+        {modalChild}
+      </MyModal>
     </View>
   );
 };
@@ -134,5 +154,8 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#464646",
     padding: 20,
+  },
+  centeredText: {
+    textAlign: "center",
   },
 });

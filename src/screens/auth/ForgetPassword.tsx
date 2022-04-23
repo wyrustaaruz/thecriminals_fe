@@ -2,15 +2,18 @@ import { useState } from "react";
 import { StyleSheet, Alert } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TouchableOpacity, TextInput } from "react-native";
-import { View, Text } from "../../components/PureComponents";
+import { View, Text, Loading } from "../../components/PureComponents";
 import { RootStackScreenProps } from "../../../types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Actions from "../../redux/actions";
 
 export default function ForgetPassword({
   navigation,
 }: RootStackScreenProps<"ForgetPassword">) {
   const dispatch = useDispatch();
+
+  const loading = useSelector((state: any) => state.commonReducers.loading);
+
   const [email, setEmail] = useState("");
   const handleLForgetPassword = () => {
     if (email === "") {
@@ -32,6 +35,7 @@ export default function ForgetPassword({
         justifyContent: "space-evenly",
       }}
     >
+      <Loading status={loading} />
       <View>
         <Text style={styles.title}>The Criminals</Text>
       </View>

@@ -2,12 +2,15 @@ import { useState, useRef } from "react";
 import { StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TouchableOpacity, TextInput } from "react-native";
-import { useDispatch } from "react-redux";
-import { View, Text } from "../../components/PureComponents";
+import { useDispatch, useSelector } from "react-redux";
+import { View, Text, Loading } from "../../components/PureComponents";
 import Actions from "../../redux/actions";
 
 export default function Signup({ navigation }: any) {
   const dispatch = useDispatch();
+
+  const loading = useSelector((state: any) => state.commonReducers.loading);
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,6 +42,7 @@ export default function Signup({ navigation }: any) {
         justifyContent: "space-evenly",
       }}
     >
+      <Loading status={loading} />
       <View>
         <Text style={styles.title}>The Criminals</Text>
       </View>
