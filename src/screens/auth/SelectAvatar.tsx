@@ -25,8 +25,15 @@ export default function SelectAvatar({ navigation }: any) {
   const initHeader = async () => {
     await dispatch(Actions.authActions.GetAvatars());
   };
+  const loadingTrue = async () => {
+    await dispatch(Actions.commonActions.LoadingTrue());
+  };
+  const loadingFalse = async () => {
+    await dispatch(Actions.commonActions.LoadingFalse());
+  };
   const handleSelectAvatar = () => {
     if (selectedAvatar) {
+      loadingTrue();
       axios
         .post(CREATE_CHARACTER_URL, { avatar: selectedAvatar })
         .then((res) => {
@@ -53,6 +60,7 @@ export default function SelectAvatar({ navigation }: any) {
           Alert.alert("Bir Sorun Oluştu", error.response.data.message, [
             { text: "Tamam", onPress: () => null },
           ]);
+          loadingFalse();
         });
     } else {
       Alert.alert("HATA", "Lütfen avatar seçtiğinize emin olunuz", [

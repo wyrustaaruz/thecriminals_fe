@@ -31,7 +31,7 @@ export const MyModal = ({ children, visible, onRequestClose }: ModalType) => {
             bottom: 0,
           }}
           tint="default"
-          intensity={50}
+          intensity={10}
         />
         <TouchableOpacity style={styles.modal} activeOpacity={1}>
           {children}

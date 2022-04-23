@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import axios from "axios";
 import { Picker } from "@react-native-community/picker";
-import { Text, View, MyModal, Loading } from "./PureComponents";
+import { Text, View, MyModal } from "./PureComponents";
 import { ROBBERY_RUN_URL } from "../redux/endpoints";
 import { useDispatch } from "react-redux";
 import Actions from "../redux/actions";
@@ -20,7 +20,6 @@ interface RobberyItem {
 }
 export const RobberyList = (robberyList: Array<RobberyItem>) => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
   const [selectedRob, setSelectedRob] = useState(0);
   const [hasan, setHasan] = useState(false);
   const [modalChild, setModalChild] = useState(<></>);
@@ -34,12 +33,18 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
   const initRobberyList = async () => {
     await dispatch(Actions.homepageActions.GetRobberyList());
   };
+
+  const loadingTrue = async () => {
+    await dispatch(Actions.commonActions.LoadingTrue());
+  };
+  const loadingFalse = async () => {
+    await dispatch(Actions.commonActions.LoadingFalse());
+  };
   const robThis = () => {
-    setLoading(true);
+    loadingTrue();
     axios
       .get(ROBBERY_RUN_URL + selectedRob)
       .then((res) => {
-        setLoading(false);
         if (res.data.status === "success") {
           const message =
             res.data.message +
@@ -66,15 +71,16 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
           setModalChild(tempModalChild);
           setHasan(true);
         }
-        setLoading(false);
         initHeader();
         initRobberyList();
       })
-      .catch((error) => console.log("err", error.response.data));
+      .catch((error) => {
+        loadingFalse();
+        console.log("err", error.response.data);
+      });
   };
   return (
     <View style={styles.headerContainer}>
-      <Loading status={loading} />
       {robberyList.length > 0 ? (
         <Picker
           itemStyle={{ color: "#C0B184" }}
