@@ -4,9 +4,12 @@ import { Text, View } from "./PureComponents";
 import { useDispatch, useSelector } from "react-redux";
 import Actions from "../redux/actions";
 
+type UserType = {
+  username: string;
+};
 export const Header = (characterInfo: {
   avatar: string;
-  username: string;
+  user: UserType;
   health: number;
   max_health: number;
   stamina: number;
@@ -19,7 +22,7 @@ export const Header = (characterInfo: {
   const dispatch = useDispatch();
   const {
     avatar,
-    username,
+    user,
     health,
     max_health,
     stamina,
@@ -56,7 +59,7 @@ export const Header = (characterInfo: {
       </View>
       <View>
         <Text style={styles.usernameText}>
-          {username !== undefined ? username : "wyrustaaruzbey"}
+          {user.username !== undefined ? user.username : ""}
         </Text>
         <Text>Stamina: {stamina !== undefined ? stamina : "100%"}</Text>
         <Text>

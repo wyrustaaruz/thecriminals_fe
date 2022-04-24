@@ -17,6 +17,7 @@ const initialState = {
     weapon: 0,
     armor: 0,
     guard: 0,
+    user: { username: "" },
   },
   robberyList: [
     {

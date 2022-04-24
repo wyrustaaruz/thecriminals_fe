@@ -19,7 +19,7 @@ const ChatScreen: any = (props: any) => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const prevMessages = useRef<IMessage[]>([]);
   const user = {
-    name: characterInfo.username,
+    name: characterInfo.user.username,
     _id: characterInfo.id,
     avatar: characterInfo.avatar,
   } as User;
