@@ -37,7 +37,6 @@ export default function SelectAvatar({ navigation }: any) {
       axios
         .post(CREATE_CHARACTER_URL, { avatar: selectedAvatar })
         .then((res) => {
-          console.log(res.data.status);
           if (res.data.status === "success") {
             Alert.alert("BAŞARILI", "Avatar seçildi", [
               { text: "Tamam", onPress: () => null },

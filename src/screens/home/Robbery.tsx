@@ -11,7 +11,6 @@ export default function Robbery() {
     useSelector((state: any) => state.homepageReducers.header) || {};
   const robberyList =
     useSelector((state: any) => state.homepageReducers.robberyList) || {};
-  console.log("characterInfo", characterInfo);
   const initHeader = async () => {
     await dispatch(Actions.homepageActions.GetHeader());
   };
