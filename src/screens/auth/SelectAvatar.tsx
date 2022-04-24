@@ -39,14 +39,7 @@ export default function SelectAvatar({ navigation }: any) {
         .then((res) => {
           console.log(res.data.status);
           if (res.data.status === "success") {
-            const message =
-              res.data.message +
-              "\nKazanılan Ödül:\n" +
-              "Cash:" +
-              res.data.rewards.cash +
-              "\nItem: " +
-              JSON.stringify(res.data.rewards.item);
-            Alert.alert("BAŞARILI", message, [
+            Alert.alert("BAŞARILI", "Avatar seçildi", [
               { text: "Tamam", onPress: () => null },
             ]);
           } else {
