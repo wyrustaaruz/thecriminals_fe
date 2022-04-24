@@ -22,6 +22,7 @@ import { RootStackParamList, RootTabParamList } from "../../types";
 import Actions from "../redux/actions";
 import LinkingConfiguration from "./LinkingConfiguration";
 import SelectAvatar from "../screens/auth/SelectAvatar";
+import ChatScreen from "../screens/ChatScreen";
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -52,7 +53,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Club"
-        component={SelectAvatar}
+        component={ChatScreen}
         options={{
           title: "Kulüp",
           tabBarStyle: { backgroundColor: Colors.custom.background },

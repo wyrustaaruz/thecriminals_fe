@@ -6,7 +6,7 @@ import Actions from "../redux/actions";
 
 export const Header = (characterInfo: {
   avatar: string;
-  name: number;
+  username: string;
   health: number;
   max_health: number;
   stamina: number;
@@ -19,7 +19,7 @@ export const Header = (characterInfo: {
   const dispatch = useDispatch();
   const {
     avatar,
-    name,
+    username,
     health,
     max_health,
     stamina,
@@ -55,8 +55,8 @@ export const Header = (characterInfo: {
         )}
       </View>
       <View>
-        <Text style={styles.nameText}>
-          {name !== undefined ? name : "Hasan"}
+        <Text style={styles.usernameText}>
+          {username !== undefined ? username : "wyrustaaruzbey"}
         </Text>
         <Text>Stamina: {stamina !== undefined ? stamina : "100%"}</Text>
         <Text>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  nameText: {
+  usernameText: {
     fontSize: 20,
   },
   centeredText: {
