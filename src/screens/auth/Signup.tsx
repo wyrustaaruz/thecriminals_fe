@@ -36,7 +36,6 @@ export default function Signup({ navigation }: any) {
     );
   };
   const selectedAvatarFunction = (item: any) => {
-    console.log("selected", item);
     setSelectedAvatar(item);
     setAvatarModal(false);
   };

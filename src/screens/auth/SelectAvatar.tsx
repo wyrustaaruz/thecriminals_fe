@@ -26,7 +26,6 @@ export default function SelectAvatar({
   }, []);
   const avatarList =
     useSelector((state: any) => state.authReducers.avatarList) || {};
-  console.log("avvv", avatarList[0]);
   const initHeader = async () => {
     await dispatch(Actions.authActions.GetAvatars());
   };
