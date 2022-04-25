@@ -54,7 +54,9 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
             "\nItem: " +
             JSON.stringify(res.data.rewards.item)
               .replaceAll("{", "")
-              .replaceAll("}", "");
+              .replaceAll("}", "")
+              .replaceAll("[", "")
+              .replaceAll("]", "");
           const tempModalChild = () => (
             <View>
               <Text style={styles.centeredText}>Başarılı</Text>

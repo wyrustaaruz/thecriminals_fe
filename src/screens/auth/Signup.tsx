@@ -1,10 +1,11 @@
 import { useState, useRef } from "react";
-import { StyleSheet } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TouchableOpacity, TextInput } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { View, Text, Loading } from "../../components/PureComponents";
+import { View, Text, Loading, MyModal } from "../../components/PureComponents";
 import Actions from "../../redux/actions";
+import SelectAvatar from "./SelectAvatar";
 
 export default function Signup({ navigation }: any) {
   const dispatch = useDispatch();
@@ -15,6 +16,8 @@ export default function Signup({ navigation }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [avatarModal, setAvatarModal] = useState(false);
+  const [selectedAvatar, setSelectedAvatar] = useState({ name: "", url: "" });
 
   const ref_input2 = useRef<any>();
   const ref_input3 = useRef<any>();
@@ -27,9 +30,15 @@ export default function Signup({ navigation }: any) {
         email,
         password,
         passwordConfirmation,
-        navigation
+        navigation,
+        selectedAvatar
       )
     );
+  };
+  const selectedAvatarFunction = (item: any) => {
+    console.log("selected", item);
+    setSelectedAvatar(item);
+    setAvatarModal(false);
   };
   return (
     <KeyboardAwareScrollView
@@ -99,6 +108,37 @@ export default function Signup({ navigation }: any) {
               setPasswordConfirmation(value);
             }}
           />
+          {selectedAvatar.url ? (
+            <TouchableOpacity
+              style={{ alignItems: "center", marginTop: 10 }}
+              onPress={() => setAvatarModal(true)}
+            >
+              <Image
+                style={styles.tinyLogo}
+                source={{
+                  uri: selectedAvatar.url,
+                }}
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.signupContainer}
+              onPress={() => setAvatarModal(true)}
+            >
+              <Text style={styles.signupText}>Avatar Seç</Text>
+            </TouchableOpacity>
+          )}
+          <MyModal
+            visible={avatarModal}
+            onRequestClose={() => setAvatarModal(false)}
+          >
+            <SelectAvatar
+              selectedAvatarFunction={(item: any) =>
+                selectedAvatarFunction(item)
+              }
+              selected={selectedAvatar}
+            />
+          </MyModal>
         </View>
         <View>
           <TouchableOpacity
@@ -138,5 +178,9 @@ const styles = StyleSheet.create({
     color: "#C0B184",
     padding: 10,
     borderWidth: 1,
+  },
+  tinyLogo: {
+    width: 70,
+    height: 70,
   },
 });

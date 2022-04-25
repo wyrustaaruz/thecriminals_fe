@@ -13,15 +13,20 @@ import { Loading, Text, View } from "../../components/PureComponents";
 import Actions from "../../redux/actions";
 import { CREATE_CHARACTER_URL } from "../../redux/endpoints";
 
-export default function SelectAvatar({ navigation }: any) {
+export default function SelectAvatar({
+  selectedAvatarFunction,
+  selected,
+}: any) {
   const dispatch = useDispatch();
   const loading = useSelector((state: any) => state.commonReducers.loading);
 
-  const [selectedAvatar, setSelectedAvatar] = useState("");
-
+  const [selectedAvatar, setSelectedAvatar] = useState({ name: "", url: "" });
+  useEffect(() => {
+    selected ? setSelectedAvatar(selected) : null;
+  }, []);
   const avatarList =
     useSelector((state: any) => state.authReducers.avatarList) || {};
-
+  console.log("avvv", avatarList[0]);
   const initHeader = async () => {
     await dispatch(Actions.authActions.GetAvatars());
   };
@@ -32,7 +37,9 @@ export default function SelectAvatar({ navigation }: any) {
     await dispatch(Actions.commonActions.LoadingFalse());
   };
   const handleSelectAvatar = () => {
-    if (selectedAvatar) {
+    if (selectedAvatar.name) {
+      selectedAvatarFunction(selectedAvatar);
+      return;
       loadingTrue();
       axios
         .post(CREATE_CHARACTER_URL, { avatar: selectedAvatar })
@@ -86,12 +93,14 @@ export default function SelectAvatar({ navigation }: any) {
                 <TouchableOpacity
                   style={{ margin: 1 }}
                   key={index}
-                  onPress={() => setSelectedAvatar(item.name)}
+                  onPress={() => setSelectedAvatar(item)}
                 >
                   <Image
                     style={[
                       styles.tinyLogo,
-                      selectedAvatar === item.name ? styles.selected : null,
+                      selectedAvatar.name === item.name
+                        ? styles.selected
+                        : null,
                     ]}
                     source={{
                       uri: item.url,

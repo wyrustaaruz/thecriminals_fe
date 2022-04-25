@@ -60,13 +60,17 @@ const MakeLogin = (email: string, password: string) => {
       });
   };
 };
-
+type AvatarItemType = {
+  name: string;
+  url: string;
+};
 const MakeRegister = (
   username: string,
   email: string,
   password: string,
   passwordConfirmation: string,
-  navigation: any
+  navigation: any,
+  selectedAvatar: AvatarItemType
 ) => {
   return async (dispatch: any) => {
     dispatch({
@@ -78,42 +82,32 @@ const MakeRegister = (
         email,
         password,
         password_confirmation: passwordConfirmation,
+        avatar: selectedAvatar.name,
       })
       .then((response) => {
-        axios
-          .post(CREATE_CHARACTER_URL, { avatar: "avatar_1" })
-          .then(() => {
-            dispatch({
-              type: "LOADING_FALSE",
-            });
-            Alert.alert("Tebrikler", "Başarıyla kayıt oldunuz.", [
-              {
-                text: "Tamam",
-                onPress: () =>
-                  navigation.navigate("Login", {
-                    registeredEmail: email,
-                    registeredPassword: password,
-                  }),
-              },
-            ]);
-            dispatch({
-              type: "REGISTER",
-              payload: "OK",
-            });
-          })
-          .catch((error) => {
-            dispatch({
-              type: "LOADING_FALSE",
-            });
-            Alert.alert("HATA", "Karakter oluşturulurken bir hata oluştu", [
-              { text: "Tamam", onPress: () => null },
-            ]);
-          });
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        Alert.alert("Tebrikler", "Başarıyla kayıt oldunuz.", [
+          {
+            text: "Tamam",
+            onPress: () =>
+              navigation.navigate("Login", {
+                registeredEmail: email,
+                registeredPassword: password,
+              }),
+          },
+        ]);
+        dispatch({
+          type: "REGISTER",
+          payload: "OK",
+        });
       })
       .catch((error) => {
         dispatch({
           type: "LOADING_FALSE",
         });
+        console.log("error.response.data", error.response.data);
         if (error.response.data?.errors) {
           if (
             error.response.data?.errors.username &&
@@ -134,6 +128,13 @@ const MakeRegister = (
             error.response.data?.errors?.password?.length > 0
           ) {
             Alert.alert("HATA", error.response.data.errors.password[0], [
+              { text: "Tamam", onPress: () => null },
+            ]);
+          } else if (
+            error.response.data?.errors.avatar &&
+            error.response.data?.errors?.avatar?.length > 0
+          ) {
+            Alert.alert("HATA", error.response.data.errors.avatar[0], [
               { text: "Tamam", onPress: () => null },
             ]);
           }
