@@ -76,6 +76,7 @@ const MakeRegister = (
     dispatch({
       type: "LOADING_TRUE",
     });
+    let token = null;
     axios
       .post(REGISTER_URL, {
         username,
@@ -88,16 +89,16 @@ const MakeRegister = (
         dispatch({
           type: "LOADING_FALSE",
         });
-        Alert.alert("Tebrikler", "Başarıyla kayıt oldunuz.", [
-          {
-            text: "Tamam",
-            onPress: () =>
-              navigation.navigate("Login", {
-                registeredEmail: email,
-                registeredPassword: password,
-              }),
-          },
-        ]);
+        token = response.data.token || "";
+        AsyncStorage.setItem("token", token);
+
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "LOGIN",
+          payload: token,
+        });
         dispatch({
           type: "REGISTER",
           payload: "OK",
