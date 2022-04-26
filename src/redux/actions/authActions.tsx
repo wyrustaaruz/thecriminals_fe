@@ -2,7 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { Alert } from "react-native";
 import {
-  CREATE_CHARACTER_URL,
   FORGET_URL,
   LOGIN_URL,
   REGISTER_URL,
@@ -157,7 +156,7 @@ const ForgetPass = (email: string, navigation: any) => {
       .post(FORGET_URL, {
         email,
       })
-      .then((response) => {
+      .then(() => {
         dispatch({
           type: "LOADING_FALSE",
         });
