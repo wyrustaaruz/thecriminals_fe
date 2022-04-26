@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import FirebaseStorage from "../data/FirebaseStorage";
+import FirebaseStorage from "../../data/FirebaseStorage";
 import { SafeAreaView } from "react-native";
 import {
   GiftedChat,
@@ -10,7 +10,7 @@ import {
   Send,
   Bubble,
 } from "react-native-gifted-chat";
-import { Text, View } from "../components/PureComponents";
+import { Text, View } from "../../components/PureComponents";
 import { useSelector } from "react-redux";
 
 const ChatScreen: any = (props: any) => {

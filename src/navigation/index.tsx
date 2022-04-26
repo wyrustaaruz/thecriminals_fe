@@ -22,7 +22,7 @@ import { RootStackParamList, RootTabParamList } from "../../types";
 import Actions from "../redux/actions";
 import LinkingConfiguration from "./LinkingConfiguration";
 import SelectAvatar from "../screens/auth/SelectAvatar";
-import ChatScreen from "../screens/ChatScreen";
+import ChatScreen from "../screens/home/ChatScreen";
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
