@@ -76,8 +76,6 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
                 autoPlay={true}
                 loop={false}
                 source={lottieImages[randIndex]}
-                // OR find more Lottie files @ https://lottiefiles.com/featured
-                // Just click the one you like, place that file in the 'assets' folder to the left, and replace the above 'require' statement
               />
               <Text style={styles.centeredText}>Başarılı</Text>
               <Text style={styles.centeredText}>{message}</Text>
@@ -175,7 +173,6 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
       <TouchableOpacity
         style={{ borderWidth: 1, padding: 10 }}
         onPress={() => robThis()}
-        // onPress={() => setHasan(true)}
       >
         <Text style={{ textAlign: "center", justifyContent: "center" }}>
           Soygun Yap
