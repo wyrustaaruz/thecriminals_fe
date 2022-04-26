@@ -6,6 +6,7 @@ import { Text, View, MyModal } from "./PureComponents";
 import { ROBBERY_RUN_URL } from "../redux/endpoints";
 import { useDispatch } from "react-redux";
 import Actions from "../redux/actions";
+import LottieView from "lottie-react-native";
 
 interface RobberyItem {
   name: string;
@@ -57,8 +58,27 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
               .replaceAll("}", "")
               .replaceAll("[", "")
               .replaceAll("]", "");
+          const lottieImages = [
+            require("../../assets/lotties/man-in-brown.json"),
+            require("../../assets/lotties/man-in-green.json"),
+            require("../../assets/lotties/mustache.json"),
+            require("../../assets/lotties/woman.json"),
+          ];
+          let randIndex = Math.floor(Math.random() * lottieImages.length);
           const tempModalChild = () => (
             <View>
+              <LottieView
+                style={{
+                  width: 400,
+                  height: 400,
+                  backgroundColor: "transparent",
+                }}
+                autoPlay={true}
+                loop={false}
+                source={lottieImages[randIndex]}
+                // OR find more Lottie files @ https://lottiefiles.com/featured
+                // Just click the one you like, place that file in the 'assets' folder to the left, and replace the above 'require' statement
+              />
               <Text style={styles.centeredText}>Başarılı</Text>
               <Text style={styles.centeredText}>{message}</Text>
             </View>
@@ -68,6 +88,16 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
         } else {
           const tempModalChild = () => (
             <View>
+              <LottieView
+                style={{
+                  width: 400,
+                  height: 400,
+                  backgroundColor: "transparent",
+                }}
+                autoPlay={true}
+                loop={false}
+                source={require("../../assets/lotties/boss.json")}
+              />
               <Text style={styles.centeredText}>Opss.</Text>
               <Text style={styles.centeredText}>{res.data.message}</Text>
             </View>
