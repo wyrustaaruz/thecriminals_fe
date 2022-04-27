@@ -1,9 +1,12 @@
 import { StyleSheet, Image } from "react-native";
 import { Text, View } from "./PureComponents";
 
-export const SubHeader = (characterInfo: { cash: number; credits: number }) => {
-  const { cash, credits } = characterInfo || {};
-
+type UserType = {
+  credits: number;
+};
+export const SubHeader = (characterInfo: { cash: number; user: UserType }) => {
+  const { cash, user } = characterInfo || {};
+  const { credits } = user || 0;
   return (
     <View style={styles.headerContainer}>
       <View style={[styles.flexDirectionRow]}>
