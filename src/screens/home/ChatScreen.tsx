@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import FirebaseStorage from "../../data/FirebaseStorage";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import {
   GiftedChat,
   IMessage,
@@ -12,6 +12,7 @@ import {
 } from "react-native-gifted-chat";
 import { Text, View } from "../../components/PureComponents";
 import { useSelector } from "react-redux";
+import { Header } from "../../components";
 
 const ChatScreen: any = (props: any) => {
   const characterInfo =
@@ -66,7 +67,8 @@ const ChatScreen: any = (props: any) => {
     );
   };
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
+      <View>{Header(characterInfo, props.navigation)}</View>
       <GiftedChat
         messagesContainerStyle={{ backgroundColor: "#464646" }}
         placeholder="Mesajını yaz"
@@ -102,5 +104,12 @@ const ChatScreen: any = (props: any) => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#464646",
+  },
+});
 
 export default ChatScreen;

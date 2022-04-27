@@ -33,6 +33,7 @@ const MakeLogin = (email: string, password: string) => {
       })
       .then((response) => {
         token = response.data.token || "";
+        console.log("res", response);
         AsyncStorage.setItem("token", token);
 
         dispatch({

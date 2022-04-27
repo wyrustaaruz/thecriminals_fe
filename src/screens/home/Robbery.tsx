@@ -5,7 +5,7 @@ import { Header, SubHeader, LastHeader, RobberyList } from "../../components";
 import { Loading, View } from "../../components/PureComponents";
 import Actions from "../../redux/actions";
 
-export default function Robbery() {
+export default function Robbery({ navigation }: any) {
   const dispatch = useDispatch();
   const characterInfo =
     useSelector((state: any) => state.homepageReducers.header) || {};
@@ -29,7 +29,7 @@ export default function Robbery() {
   return (
     <SafeAreaView style={styles.container}>
       <Loading status={loading} />
-      <View>{Header(characterInfo)}</View>
+      <View>{Header(characterInfo, navigation)}</View>
       <View>{SubHeader(characterInfo)}</View>
       <View>{LastHeader(characterInfo)}</View>
       <View>{RobberyList(robberyList)}</View>

@@ -1,25 +1,24 @@
-import { useEffect } from "react";
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, View } from "./PureComponents";
-import { useDispatch, useSelector } from "react-redux";
-import Actions from "../redux/actions";
 
 type UserType = {
   username: string;
 };
-export const Header = (characterInfo: {
-  avatar: string;
-  user: UserType;
-  health: number;
-  max_health: number;
-  stamina: number;
-  intelligence: number;
-  strength: number;
-  charisma: number;
-  tolerance: number;
-  addiction: number;
-}) => {
-  const dispatch = useDispatch();
+export const Header = (
+  characterInfo: {
+    avatar: string;
+    user: UserType;
+    health: number;
+    max_health: number;
+    stamina: number;
+    intelligence: number;
+    strength: number;
+    charisma: number;
+    tolerance: number;
+    addiction: number;
+  },
+  navigation: any
+) => {
   const {
     avatar,
     user,
@@ -32,13 +31,6 @@ export const Header = (characterInfo: {
     tolerance,
     addiction,
   } = characterInfo || {};
-  const handleLogOut = async () => {
-    try {
-      dispatch(Actions.authActions.Logout());
-    } catch (e) {
-      console.log("dispatchErr_Header", e);
-    }
-  };
 
   return (
     <View style={styles.headerContainer}>
@@ -92,7 +84,7 @@ export const Header = (characterInfo: {
       <View style={styles.centeredView}>
         <TouchableOpacity
           onPress={() => {
-            handleLogOut();
+            navigation.toggleDrawer();
           }}
         >
           <Image

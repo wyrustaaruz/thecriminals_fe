@@ -6,7 +6,7 @@ import {
   DarkTheme,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ColorSchemeName } from "react-native";
+import { Button, ColorSchemeName } from "react-native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/general/ModalScreen";
@@ -23,9 +23,29 @@ import Actions from "../redux/actions";
 import LinkingConfiguration from "./LinkingConfiguration";
 import SelectAvatar from "../screens/auth/SelectAvatar";
 import ChatScreen from "../screens/home/ChatScreen";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { CustomDrawerContent } from "./CustomDrawerContent";
 
+const Drawer = createDrawerNavigator();
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
+function MyDrawer() {
+  return (
+    <Drawer.Navigator
+      screenOptions={{
+        drawerType: "back",
+        drawerStyle: { width: "50%", backgroundColor: "#333" },
+        overlayColor: "transparent",
+        headerShown: false,
+        drawerPosition: "right",
+      }}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
+    >
+      <Drawer.Screen name="Home" component={RootNavigator} />
+      <Drawer.Screen name="ChatScreen" component={ChatScreen} />
+    </Drawer.Navigator>
+  );
+}
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
   return (
@@ -53,7 +73,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Club"
-        component={ChatScreen}
+        component={Club}
         options={{
           title: "Kulüp",
           tabBarStyle: { backgroundColor: Colors.custom.background },
@@ -225,7 +245,7 @@ export default function Navigation({
       linking={LinkingConfiguration}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
-      {token === null ? <AuthStack /> : <RootNavigator />}
+      {token === null ? <AuthStack /> : <MyDrawer />}
     </NavigationContainer>
   );
 }
