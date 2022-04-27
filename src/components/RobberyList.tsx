@@ -18,6 +18,7 @@ interface RobberyItem {
   attr_min: number;
   attr_max: number;
   percent: number;
+  reward_item: any;
 }
 export const RobberyList = (robberyList: Array<RobberyItem>) => {
   const dispatch = useDispatch();
@@ -163,13 +164,24 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
           </View>
         </View>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text>Attr:</Text>
+          <Text>Kazanacağın Stat:</Text>
           <Text>
             {robberyList[selectedRob].attr_min} -{" "}
             {robberyList[selectedRob].attr_max}
           </Text>
         </View>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text>Kazanacağın Item:</Text>
+          <Text>
+            {robberyList[selectedRob].reward_item
+              ? Object.keys(robberyList[selectedRob].reward_item) +
+                ": " +
+                Object.values(robberyList[selectedRob].reward_item)
+              : "-"}
+          </Text>
+        </View>
       </View>
+
       <TouchableOpacity
         style={{ borderWidth: 1, padding: 10 }}
         onPress={() => robThis()}
