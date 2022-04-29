@@ -17,7 +17,17 @@ const initialState = {
     weapon: 0,
     armor: 0,
     guard: 0,
-    user: { username: "" },
+    gender: "",
+    bank_cash: 0,
+    kill: 0,
+    play_time: 0,
+    visitors: 0,
+    country: "",
+    birthday: "",
+    bio: "",
+    block: 0, //0 normal, 1 jail, 2 hospital
+    block_expire: null,
+    user: { username: "", credits: 0 },
   },
   robberyList: [
     {

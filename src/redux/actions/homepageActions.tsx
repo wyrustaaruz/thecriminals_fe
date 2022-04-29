@@ -22,7 +22,6 @@ const GetHeader = () => {
         dispatch({
           type: "LOADING_FALSE",
         });
-        console.log("err", error);
         if (error.response.data.message) {
           Alert.alert("HATA", error.response.data.message, [
             { text: "Tamam", onPress: () => null },
@@ -56,7 +55,6 @@ const GetRobberyList = () => {
         }
       })
       .catch((error) => {
-        console.log("err", error);
         dispatch({
           type: "LOADING_FALSE",
         });

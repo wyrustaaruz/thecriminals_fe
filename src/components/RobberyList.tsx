@@ -116,9 +116,15 @@ export const RobberyList = (
       })
       .catch((error) => {
         loadingFalse();
-        console.log("err", error.response.data);
       });
   };
+
+  const jailGifs = [
+    require("../../assets/lotties/jail.gif"),
+    require("../../assets/lotties/jail2.gif"),
+  ];
+  let randJailIndex = Math.floor(Math.random() * jailGifs.length);
+
   return (
     <View style={styles.headerContainer}>
       {jailStatus.block ? (
@@ -131,7 +137,10 @@ export const RobberyList = (
             alignItems: "center",
           }}
         >
-          <Image source={require("../../assets/lotties/jail.gif")} />
+          <Image
+            style={{ width: "100%", height: "40%" }}
+            source={jailGifs[randJailIndex]}
+          />
           <Text style={{ marginTop: 20, textAlign: "center" }}>
             {jailStatus.message}
           </Text>

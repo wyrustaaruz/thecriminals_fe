@@ -62,7 +62,6 @@ class FirebaseStorage {
     return this.ref.limitToLast(50).on("child_added", function (snapshot) {
       var message = snapshot.val();
       if (message.status === chatRoom) {
-        console.log(message);
         return callback(parse(snapshot));
       }
     });

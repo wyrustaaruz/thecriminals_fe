@@ -33,7 +33,6 @@ const MakeLogin = (email: string, password: string) => {
       })
       .then((response) => {
         token = response.data.token || "";
-        console.log("res", response);
         AsyncStorage.setItem("token", token);
 
         dispatch({
@@ -108,7 +107,6 @@ const MakeRegister = (
         dispatch({
           type: "LOADING_FALSE",
         });
-        console.log("error.response.data", error.response.data);
         if (error.response.data?.errors) {
           if (
             error.response.data?.errors.username &&

@@ -17,10 +17,9 @@ import { Header } from "../../components";
 const ChatScreen: any = (props: any) => {
   const characterInfo =
     useSelector((state: any) => state.homepageReducers.header) || {};
-  const jailStatus =
-    useSelector((state: any) => state.homepageReducers.jailStatus) || {};
 
   const [messages, setMessages] = useState<IMessage[]>([]);
+  const [chatRoomState, setChatRoomState] = useState("");
   const prevMessages = useRef<IMessage[]>([]);
   const user = {
     name: characterInfo.user.username,
@@ -29,7 +28,15 @@ const ChatScreen: any = (props: any) => {
   } as User;
   useEffect(() => {
     setMessages([]);
-    const chatRoom = jailStatus.block ? "jail" : "normal";
+    let chatRoom = "";
+    if (characterInfo.block === 0) {
+      chatRoom = "normal";
+    } else if (characterInfo.block === 1) {
+      chatRoom = "hospital";
+    } else if (characterInfo.block === 2) {
+      chatRoom = "jail";
+    }
+    setChatRoomState(chatRoom);
     FirebaseStorage.on((messages: any): any => {
       const newMessages = GiftedChat.append(prevMessages.current, messages);
       prevMessages.current = newMessages;
@@ -38,7 +45,7 @@ const ChatScreen: any = (props: any) => {
     return function cleanup() {
       FirebaseStorage.off();
     };
-  }, [jailStatus]);
+  }, [characterInfo]);
   const renderInputToolbar = (props: any) => {
     return (
       <InputToolbar
@@ -80,9 +87,7 @@ const ChatScreen: any = (props: any) => {
         renderSend={(props) => renderSend(props)}
         renderUsernameOnMessage
         messages={messages}
-        onSend={(item) =>
-          FirebaseStorage.send(item, jailStatus.block ? "jail" : "normal")
-        }
+        onSend={(item) => FirebaseStorage.send(item, chatRoomState)}
         user={user}
         renderInputToolbar={renderInputToolbar}
         renderComposer={(props) => renderComposer(props)}
