@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Header, SubHeader, LastHeader, RobberyList } from "../../components";
-import { Loading, View } from "../../components/PureComponents";
+import { Loading, Text, View } from "../../components/PureComponents";
 import Actions from "../../redux/actions";
 
 export default function Robbery({ navigation }: any) {
@@ -11,6 +11,10 @@ export default function Robbery({ navigation }: any) {
     useSelector((state: any) => state.homepageReducers.header) || {};
   const robberyList =
     useSelector((state: any) => state.homepageReducers.robberyList) || {};
+  const loading = useSelector((state: any) => state.commonReducers.loading);
+  const jailStatus = useSelector(
+    (state: any) => state.homepageReducers.jailStatus
+  );
   const initHeader = async () => {
     await dispatch(Actions.homepageActions.GetHeader());
   };
@@ -18,8 +22,6 @@ export default function Robbery({ navigation }: any) {
   const initRobberyList = async () => {
     await dispatch(Actions.homepageActions.GetRobberyList());
   };
-
-  const loading = useSelector((state: any) => state.commonReducers.loading);
 
   useEffect(() => {
     initHeader();
@@ -32,7 +34,7 @@ export default function Robbery({ navigation }: any) {
       <View>{Header(characterInfo, navigation)}</View>
       <View>{SubHeader(characterInfo)}</View>
       <View>{LastHeader(characterInfo)}</View>
-      <View>{RobberyList(robberyList)}</View>
+      <View>{RobberyList(robberyList, jailStatus)}</View>
     </SafeAreaView>
   );
 }

@@ -32,6 +32,10 @@ const initialState = {
       percent: 0,
     },
   ],
+  jailStatus: {
+    block: null,
+    message: "",
+  },
 };
 
 const homepageReducers = (state = initialState, action: any) => {
@@ -40,6 +44,11 @@ const homepageReducers = (state = initialState, action: any) => {
       return {
         ...state,
         header: action.payload,
+      };
+    case "INTO_JAIL":
+      return {
+        ...state,
+        jailStatus: action.payload,
       };
     case "GET_ROBBERY_LIST":
       return {

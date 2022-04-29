@@ -46,29 +46,36 @@ class FirebaseStorage {
     }
   };
 
-  parse = (snapshot: any) => {
-    const { timestamp: numberStamp, text, user } = snapshot.val();
-    const { key: _id } = snapshot;
-    const timestamp = new Date(numberStamp);
-    return {
-      _id,
-      timestamp,
-      text,
-      user,
+  on = (callback: (messages: any) => void, chatRoom: string) => {
+    const parse = (snapshot: any) => {
+      const { timestamp: numberStamp, text, status, user } = snapshot.val();
+      const { key: _id } = snapshot;
+      const timestamp = new Date(numberStamp);
+      return {
+        _id,
+        timestamp,
+        text,
+        status,
+        user,
+      };
     };
+    return this.ref.limitToLast(50).on("child_added", function (snapshot) {
+      var message = snapshot.val();
+      if (message.status === chatRoom) {
+        console.log(message);
+        return callback(parse(snapshot));
+      }
+    });
   };
+  // .on("child_added", (snapshot) => callback(this.parse(snapshot)));
 
-  on = (callback: (messages: any) => void) =>
-    this.ref
-      .limitToLast(50)
-      .on("child_added", (snapshot) => callback(this.parse(snapshot)));
-
-  send = (messages: any[]) => {
+  send = (messages: any[], status: string) => {
     for (let i = 0; i < messages.length; i++) {
       const { text, user } = messages[i];
       const message = {
         text,
         user,
+        status: status,
         timestamp: this.timestamp,
       };
       this.append(message);

@@ -17,6 +17,9 @@ import { Header } from "../../components";
 const ChatScreen: any = (props: any) => {
   const characterInfo =
     useSelector((state: any) => state.homepageReducers.header) || {};
+  const jailStatus =
+    useSelector((state: any) => state.homepageReducers.jailStatus) || {};
+
   const [messages, setMessages] = useState<IMessage[]>([]);
   const prevMessages = useRef<IMessage[]>([]);
   const user = {
@@ -25,15 +28,17 @@ const ChatScreen: any = (props: any) => {
     avatar: characterInfo.avatar,
   } as User;
   useEffect(() => {
+    setMessages([]);
+    const chatRoom = jailStatus.block ? "jail" : "normal";
     FirebaseStorage.on((messages: any): any => {
       const newMessages = GiftedChat.append(prevMessages.current, messages);
       prevMessages.current = newMessages;
       setMessages(newMessages);
-    });
+    }, chatRoom);
     return function cleanup() {
       FirebaseStorage.off();
     };
-  }, []);
+  }, [jailStatus]);
   const renderInputToolbar = (props: any) => {
     return (
       <InputToolbar
@@ -75,7 +80,9 @@ const ChatScreen: any = (props: any) => {
         renderSend={(props) => renderSend(props)}
         renderUsernameOnMessage
         messages={messages}
-        onSend={FirebaseStorage.send}
+        onSend={(item) =>
+          FirebaseStorage.send(item, jailStatus.block ? "jail" : "normal")
+        }
         user={user}
         renderInputToolbar={renderInputToolbar}
         renderComposer={(props) => renderComposer(props)}

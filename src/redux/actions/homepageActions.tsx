@@ -43,10 +43,17 @@ const GetRobberyList = () => {
         dispatch({
           type: "LOADING_FALSE",
         });
-        dispatch({
-          type: "GET_ROBBERY_LIST",
-          payload: response.data,
-        });
+        if (response.data.block) {
+          dispatch({
+            type: "INTO_JAIL",
+            payload: response.data,
+          });
+        } else {
+          dispatch({
+            type: "GET_ROBBERY_LIST",
+            payload: response.data,
+          });
+        }
       })
       .catch((error) => {
         console.log("err", error);

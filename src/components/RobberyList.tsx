@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import axios from "axios";
 import { Picker } from "@react-native-community/picker";
 import { Text, View, MyModal } from "./PureComponents";
@@ -20,7 +20,14 @@ interface RobberyItem {
   percent: number;
   reward_item: any;
 }
-export const RobberyList = (robberyList: Array<RobberyItem>) => {
+type JailStatusType = {
+  block: boolean;
+  message: string;
+};
+export const RobberyList = (
+  robberyList: Array<RobberyItem>,
+  jailStatus: JailStatusType
+) => {
   const dispatch = useDispatch();
   const [selectedRob, setSelectedRob] = useState(0);
   const [hasan, setHasan] = useState(false);
@@ -114,85 +121,119 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
   };
   return (
     <View style={styles.headerContainer}>
-      {robberyList.length > 0 ? (
-        <Picker
-          itemStyle={{ color: "#C0B184" }}
-          selectedValue={selectedRob}
-          onValueChange={(itemValue, itemIndex) => setSelectedRob(itemIndex)}
+      {jailStatus.block ? (
+        <View
+          style={{
+            height: "100%",
+            width: "100%",
+            backgroundColor: "#464646",
+            padding: 20,
+            alignItems: "center",
+          }}
         >
-          {robberyList.map((item, index) => RobberyItemRender(item, index))}
-        </Picker>
-      ) : null}
-      <View
-        style={{
-          paddingVertical: 20,
-          paddingHorizontal: 10,
-        }}
-      >
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text>İstenilen Stamina:</Text>
-          <Text>{robberyList[selectedRob].required_stamina_percent}</Text>
-        </View>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text>Ödül:</Text>
-          <Text>
-            ${robberyList[selectedRob].reward_cash_min} - $
-            {robberyList[selectedRob].reward_cash_max}
+          <Image source={require("../../assets/lotties/jail.gif")} />
+          <Text style={{ marginTop: 20, textAlign: "center" }}>
+            {jailStatus.message}
           </Text>
         </View>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text>İhtimal:</Text>
+      ) : (
+        <>
+          {robberyList.length > 0 ? (
+            <Picker
+              itemStyle={{ color: "#C0B184" }}
+              selectedValue={selectedRob}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedRob(itemIndex)
+              }
+            >
+              {robberyList.map((item, index) => RobberyItemRender(item, index))}
+            </Picker>
+          ) : null}
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            style={{
+              paddingVertical: 20,
+              paddingHorizontal: 10,
+            }}
           >
-            <Text>{robberyList[selectedRob].percent}</Text>
             <View
-              style={{
-                marginLeft: 5,
-                width: 20,
-                height: 20,
-                backgroundColor:
-                  robberyList[selectedRob].percent >= 80
-                    ? "green"
-                    : robberyList[selectedRob].percent < 80 &&
-                      robberyList[selectedRob].percent >= 40
-                    ? "orange"
-                    : "red",
-                borderRadius: 10,
-              }}
-            />
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text>İstenilen Stamina:</Text>
+              <Text>{robberyList[selectedRob].required_stamina_percent}</Text>
+            </View>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text>Ödül:</Text>
+              <Text>
+                ${robberyList[selectedRob].reward_cash_min} - $
+                {robberyList[selectedRob].reward_cash_max}
+              </Text>
+            </View>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text>İhtimal:</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text>{robberyList[selectedRob].percent}</Text>
+                <View
+                  style={{
+                    marginLeft: 5,
+                    width: 20,
+                    height: 20,
+                    backgroundColor:
+                      robberyList[selectedRob].percent >= 80
+                        ? "green"
+                        : robberyList[selectedRob].percent < 80 &&
+                          robberyList[selectedRob].percent >= 40
+                        ? "orange"
+                        : "red",
+                    borderRadius: 10,
+                  }}
+                />
+              </View>
+            </View>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text>Kazanacağın Stat:</Text>
+              <Text>
+                {robberyList[selectedRob].attr_min} -{" "}
+                {robberyList[selectedRob].attr_max}
+              </Text>
+            </View>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Text>Kazanacağın Item:</Text>
+              <Text>
+                {robberyList[selectedRob].reward_item
+                  ? Object.keys(robberyList[selectedRob].reward_item) +
+                    ": " +
+                    Object.values(robberyList[selectedRob].reward_item)
+                  : "-"}
+              </Text>
+            </View>
           </View>
-        </View>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text>Kazanacağın Stat:</Text>
-          <Text>
-            {robberyList[selectedRob].attr_min} -{" "}
-            {robberyList[selectedRob].attr_max}
-          </Text>
-        </View>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text>Kazanacağın Item:</Text>
-          <Text>
-            {robberyList[selectedRob].reward_item
-              ? Object.keys(robberyList[selectedRob].reward_item) +
-                ": " +
-                Object.values(robberyList[selectedRob].reward_item)
-              : "-"}
-          </Text>
-        </View>
-      </View>
 
-      <TouchableOpacity
-        style={{ borderWidth: 1, padding: 10 }}
-        onPress={() => robThis()}
-      >
-        <Text style={{ textAlign: "center", justifyContent: "center" }}>
-          Soygun Yap
-        </Text>
-      </TouchableOpacity>
-      <MyModal visible={hasan} onRequestClose={() => setHasan(false)}>
-        {modalChild}
-      </MyModal>
+          <TouchableOpacity
+            style={{ borderWidth: 1, padding: 10 }}
+            onPress={() => robThis()}
+          >
+            <Text style={{ textAlign: "center", justifyContent: "center" }}>
+              Soygun Yap
+            </Text>
+          </TouchableOpacity>
+          <MyModal visible={hasan} onRequestClose={() => setHasan(false)}>
+            {modalChild}
+          </MyModal>
+        </>
+      )}
     </View>
   );
 };
