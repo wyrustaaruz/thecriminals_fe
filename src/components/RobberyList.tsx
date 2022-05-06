@@ -231,7 +231,7 @@ export const RobberyList = (
           </View>
 
           <TouchableOpacity
-            style={{ borderWidth: 1, padding: 10 }}
+            style={{ borderWidth: 1, padding: 10, borderColor: "#C0B184" }}
             onPress={() => robThis()}
           >
             <Text style={{ textAlign: "center", justifyContent: "center" }}>

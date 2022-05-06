@@ -6,13 +6,14 @@ import {
   DarkTheme,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Button, ColorSchemeName } from "react-native";
+import { ColorSchemeName } from "react-native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/general/ModalScreen";
 import NotFoundScreen from "../screens/general/NotFoundScreen";
 import Splash from "../screens/general/Splash";
 import Robbery from "../screens/home/Robbery";
+import Bank from "../screens/home/Bank";
 import Club from "../screens/home/Club";
 import Login from "../screens/auth/Login";
 import Signup from "../screens/auth/Signup";
@@ -76,6 +77,7 @@ function BottomTabNavigator() {
         component={Club}
         options={{
           title: "Kulüp",
+          headerShown: false,
           tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
@@ -87,6 +89,7 @@ function BottomTabNavigator() {
         component={Club}
         options={{
           title: "Eğlence",
+          headerShown: false,
           tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
@@ -98,6 +101,7 @@ function BottomTabNavigator() {
         component={Club}
         options={{
           title: "Hastahane",
+          headerShown: false,
           tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
@@ -106,9 +110,10 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Bank"
-        component={Club}
+        component={Bank}
         options={{
           title: "Banka",
+          headerShown: false,
           tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
@@ -120,6 +125,7 @@ function BottomTabNavigator() {
         component={Club}
         options={{
           title: "Silahçı",
+          headerShown: false,
           tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,

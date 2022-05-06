@@ -46,6 +46,9 @@ const initialState = {
     block: null,
     message: "",
   },
+  transactionStatus: {
+    message: "",
+  },
 };
 
 const homepageReducers = (state = initialState, action: any) => {
@@ -64,6 +67,11 @@ const homepageReducers = (state = initialState, action: any) => {
       return {
         ...state,
         robberyList: action.payload,
+      };
+    case "BANK_TRANSACTION_COMPLETE":
+      return {
+        ...state,
+        transactionStatus: action.payload,
       };
     default:
       return state;

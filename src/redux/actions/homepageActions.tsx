@@ -1,6 +1,10 @@
 import axios from "axios";
 import { Alert } from "react-native";
-import { HEADER_URL, ROBBERY_LIST_URL } from "../endpoints";
+import {
+  HEADER_URL,
+  ROBBERY_LIST_URL,
+  BANK_TRANSACTION_URL,
+} from "../endpoints";
 
 const GetHeader = () => {
   return async (dispatch: any) => {
@@ -67,9 +71,43 @@ const GetRobberyList = () => {
   };
 };
 
+const BankAction = (amount: string, operation: string) => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
+    axios
+      .post(BANK_TRANSACTION_URL, {
+        amount,
+        operation,
+      })
+      .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+
+        dispatch({
+          type: "BANK_TRANSACTION_COMPLETE",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
+
 const homepageActions = {
   GetHeader,
   GetRobberyList,
+  BankAction,
 };
 
 export default homepageActions;
