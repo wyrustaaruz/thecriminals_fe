@@ -24,6 +24,9 @@ import Actions from "../redux/actions";
 import LinkingConfiguration from "./LinkingConfiguration";
 import SelectAvatar from "../screens/auth/SelectAvatar";
 import ChatScreen from "../screens/home/ChatScreen";
+import Profile from "../screens/home/Profile";
+import Messages from "../screens/home/Messages";
+import Friendship from "../screens/home/Friendship";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { CustomDrawerContent } from "./CustomDrawerContent";
 
@@ -44,6 +47,9 @@ function MyDrawer() {
     >
       <Drawer.Screen name="Home" component={RootNavigator} />
       <Drawer.Screen name="ChatScreen" component={ChatScreen} />
+      <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="Messages" component={Messages} />
+      <Drawer.Screen name="Friendship" component={Friendship} />
     </Drawer.Navigator>
   );
 }

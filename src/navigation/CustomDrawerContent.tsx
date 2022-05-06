@@ -41,6 +41,9 @@ export function CustomDrawerContent({ navigation }: any) {
     <SafeAreaView>
       <CustomDrawerItem navigateTo="Home" title="Soygun" />
       <CustomDrawerItem navigateTo="ChatScreen" title="Chat" />
+      <CustomDrawerItem navigateTo="Profile" title="Profil" />
+      <CustomDrawerItem navigateTo="Messages" title="Mesajlar" />
+      <CustomDrawerItem navigateTo="Friendship" title="Arkadaşlar" />
       <CustomDrawerItem
         status="function"
         myFunction={() => dispatch(Actions.authActions.Logout())}
