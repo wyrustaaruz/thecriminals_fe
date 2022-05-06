@@ -56,6 +56,7 @@ export const BankComponent = () => {
           marginTop: 50,
           borderWidth: 1,
           padding: 10,
+          borderRadius: 8,
           borderColor: "#C0B184",
           zIndex: -1,
         }}

@@ -52,9 +52,14 @@ const GetRobberyList = () => {
             payload: response.data,
           });
         } else {
+          const myData = response.data;
+          myData.map((item: any, index: number) => {
+            item.value = index;
+            item.label = item.name;
+          });
           dispatch({
             type: "GET_ROBBERY_LIST",
-            payload: response.data,
+            payload: myData,
           });
         }
       })

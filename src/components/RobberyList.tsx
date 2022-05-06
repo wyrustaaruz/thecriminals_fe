@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import axios from "axios";
-import { Picker } from "@react-native-community/picker";
-import { Text, View, MyModal } from "./PureComponents";
+import { Text, View, MyModal, Picker } from "./PureComponents";
 import { ROBBERY_RUN_URL } from "../redux/endpoints";
 import { useDispatch } from "react-redux";
 import Actions from "../redux/actions";
@@ -32,9 +31,8 @@ export const RobberyList = (
   const [selectedRob, setSelectedRob] = useState(0);
   const [hasan, setHasan] = useState(false);
   const [modalChild, setModalChild] = useState(<></>);
-  const RobberyItemRender = (item: RobberyItem, index: number) => {
-    return <Picker.Item key={index} label={item.name} value={index} />;
-  };
+  const [open, setOpen] = useState(false);
+
   const initHeader = async () => {
     await dispatch(Actions.homepageActions.GetHeader());
   };
@@ -147,17 +145,14 @@ export const RobberyList = (
         </View>
       ) : (
         <>
-          {robberyList.length > 0 ? (
-            <Picker
-              itemStyle={{ color: "#C0B184" }}
-              selectedValue={selectedRob}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedRob(itemIndex)
-              }
-            >
-              {robberyList.map((item, index) => RobberyItemRender(item, index))}
-            </Picker>
-          ) : null}
+          <Picker
+            containerStyle={{ width: "100%" }}
+            open={open}
+            value={selectedRob}
+            items={robberyList}
+            setOpen={setOpen}
+            setValue={setSelectedRob}
+          />
           <View
             style={{
               paddingVertical: 20,
@@ -231,7 +226,12 @@ export const RobberyList = (
           </View>
 
           <TouchableOpacity
-            style={{ borderWidth: 1, padding: 10, borderColor: "#C0B184" }}
+            style={{
+              borderWidth: 1,
+              padding: 10,
+              borderRadius: 8,
+              borderColor: "#C0B184",
+            }}
             onPress={() => robThis()}
           >
             <Text style={{ textAlign: "center", justifyContent: "center" }}>

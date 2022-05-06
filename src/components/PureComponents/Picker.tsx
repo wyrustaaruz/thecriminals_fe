@@ -11,7 +11,9 @@ export function Picker(props: any) {
     <DefaultDropDownPicker
       {...styles}
       {...otherProps}
-      containerStyle={styles.container}
+      containerStyle={
+        otherProps.containerStyle ? otherProps.containerStyle : styles.container
+      }
       dropDownContainerStyle={styles.dropDownContainer}
       modalContentContainerStyle={styles.modalContentContainer}
       itemSeparatorStyle={styles.itemSeparator}
