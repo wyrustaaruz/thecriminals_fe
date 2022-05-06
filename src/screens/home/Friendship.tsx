@@ -5,7 +5,7 @@ import { Header, SubHeader, LastHeader } from "../../components";
 import { Loading, Text, View } from "../../components/PureComponents";
 import Actions from "../../redux/actions";
 
-export default function Profile({ navigation }: any) {
+export default function Friendship({ navigation }: any) {
   const dispatch = useDispatch();
   const characterInfo =
     useSelector((state: any) => state.homepageReducers.header) || {};
@@ -28,7 +28,7 @@ export default function Profile({ navigation }: any) {
     <SafeAreaView style={styles.container}>
       <Loading status={loading} />
       <View>{Header(characterInfo, navigation)}</View>
-      <View>{SubHeader(characterInfo)}</View>
+      <View>{SubHeader(characterInfo, navigation)}</View>
       <View>{LastHeader(characterInfo)}</View>
       <View style={{ flex: 1 }}>
         <Text>Arkadaş Ekranı</Text>

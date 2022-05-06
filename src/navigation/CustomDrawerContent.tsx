@@ -39,11 +39,12 @@ export function CustomDrawerContent({ navigation }: any) {
   const dispatch = useDispatch();
   return (
     <SafeAreaView>
-      <CustomDrawerItem navigateTo="Home" title="Soygun" />
+      <CustomDrawerItem navigateTo="Home" title="Anasayfa" />
       <CustomDrawerItem navigateTo="ChatScreen" title="Chat" />
       <CustomDrawerItem navigateTo="Profile" title="Profil" />
       <CustomDrawerItem navigateTo="Messages" title="Mesajlar" />
       <CustomDrawerItem navigateTo="Friendship" title="Arkadaşlar" />
+      <CustomDrawerItem navigateTo="Clan" title="Çete" />
       <CustomDrawerItem
         status="function"
         myFunction={() => dispatch(Actions.authActions.Logout())}

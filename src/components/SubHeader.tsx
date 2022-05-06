@@ -1,27 +1,36 @@
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, View } from "./PureComponents";
 
 type UserType = {
   credits: number;
 };
-export const SubHeader = (characterInfo: { cash: number; user: UserType }) => {
+export const SubHeader = (
+  characterInfo: { cash: number; user: UserType },
+  navigation: any
+) => {
   const { cash, user } = characterInfo || {};
   const { credits } = user || 0;
   return (
     <View style={styles.headerContainer}>
       <View style={[styles.flexDirectionRow]}>
-        <Image
-          style={[styles.tinyLogo, styles.marginHorizontal10]}
-          source={require("../../assets/images/icon_msgcenter_bw.png")}
-        />
-        <Image
-          style={[styles.tinyLogo, styles.marginHorizontal10]}
-          source={require("../../assets/images/icon_friends_bw_old.png")}
-        />
-        <Image
-          style={[styles.tinyLogo, styles.marginHorizontal10]}
-          source={require("../../assets/images/icon_gangcenter_bw.png")}
-        />
+        <TouchableOpacity onPress={() => navigation.navigate("Messages")}>
+          <Image
+            style={[styles.tinyLogo, styles.marginHorizontal10]}
+            source={require("../../assets/images/icon_msgcenter_bw.png")}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Friendship")}>
+          <Image
+            style={[styles.tinyLogo, styles.marginHorizontal10]}
+            source={require("../../assets/images/icon_friends_bw_old.png")}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Clan")}>
+          <Image
+            style={[styles.tinyLogo, styles.marginHorizontal10]}
+            source={require("../../assets/images/icon_gangcenter_bw.png")}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.alignSelfCenter}>
         <Text>{cash !== undefined ? "$" + cash : "$0"}</Text>

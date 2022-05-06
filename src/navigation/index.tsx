@@ -15,6 +15,10 @@ import Splash from "../screens/general/Splash";
 import Robbery from "../screens/home/Robbery";
 import Bank from "../screens/home/Bank";
 import Club from "../screens/home/Club";
+import Enjoying from "../screens/home/Enjoying";
+import Hospital from "../screens/home/Hospital";
+import GunShop from "../screens/home/GunShop";
+import Clan from "../screens/home/Clan";
 import Login from "../screens/auth/Login";
 import Signup from "../screens/auth/Signup";
 import ForgetPassword from "../screens/auth/ForgetPassword";
@@ -50,6 +54,7 @@ function MyDrawer() {
       <Drawer.Screen name="Profile" component={Profile} />
       <Drawer.Screen name="Messages" component={Messages} />
       <Drawer.Screen name="Friendship" component={Friendship} />
+      <Drawer.Screen name="Clan" component={Clan} />
     </Drawer.Navigator>
   );
 }
@@ -92,7 +97,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Enjoy"
-        component={Club}
+        component={Enjoying}
         options={{
           title: "Eğlence",
           headerShown: false,
@@ -104,7 +109,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Hospital"
-        component={Club}
+        component={Hospital}
         options={{
           title: "Hastahane",
           headerShown: false,
@@ -128,7 +133,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="GunStore"
-        component={Club}
+        component={GunShop}
         options={{
           title: "Silahçı",
           headerShown: false,

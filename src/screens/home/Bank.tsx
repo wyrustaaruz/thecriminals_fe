@@ -12,7 +12,7 @@ export default function Bank({ navigation }: any) {
     <SafeAreaView style={styles.container}>
       <Loading status={loading} />
       <View>{Header(characterInfo, navigation)}</View>
-      <View>{SubHeader(characterInfo)}</View>
+      <View>{SubHeader(characterInfo, navigation)}</View>
       <View>{LastHeader(characterInfo)}</View>
       <View>{BankComponent()}</View>
     </SafeAreaView>
