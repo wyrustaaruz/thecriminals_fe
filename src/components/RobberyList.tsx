@@ -29,7 +29,7 @@ export const RobberyList = (
 ) => {
   const dispatch = useDispatch();
   const [selectedRob, setSelectedRob] = useState(0);
-  const [hasan, setHasan] = useState(false);
+  const [modalShown, setModalShown] = useState(false);
   const [modalChild, setModalChild] = useState(<></>);
   const [open, setOpen] = useState(false);
 
@@ -88,7 +88,7 @@ export const RobberyList = (
             </View>
           );
           setModalChild(tempModalChild);
-          setHasan(true);
+          setModalShown(true);
         } else {
           const tempModalChild = () => (
             <View>
@@ -107,7 +107,7 @@ export const RobberyList = (
             </View>
           );
           setModalChild(tempModalChild);
-          setHasan(true);
+          setModalShown(true);
         }
         initHeader();
         initRobberyList();
@@ -144,19 +144,28 @@ export const RobberyList = (
           </Text>
         </View>
       ) : (
-        <>
-          <Picker
-            containerStyle={{ width: "100%" }}
-            open={open}
-            value={selectedRob}
-            items={robberyList}
-            setOpen={setOpen}
-            setValue={setSelectedRob}
-          />
+        <View style={{ flex: 1, justifyContent: "space-between" }}>
           <View
             style={{
               paddingVertical: 20,
-              paddingHorizontal: 10,
+            }}
+          >
+            {robberyList.length > 1 && (
+              <Picker
+                containerStyle={{ width: "100%" }}
+                open={open}
+                value={selectedRob}
+                items={robberyList}
+                setOpen={setOpen}
+                setValue={setSelectedRob}
+              />
+            )}
+          </View>
+          <View
+            style={{
+              zIndex: -1,
+              backgroundColor: "#333333",
+              padding: 20,
             }}
           >
             <View
@@ -224,7 +233,6 @@ export const RobberyList = (
               </Text>
             </View>
           </View>
-
           <TouchableOpacity
             style={{
               borderWidth: 1,
@@ -238,10 +246,13 @@ export const RobberyList = (
               Soygun Yap
             </Text>
           </TouchableOpacity>
-          <MyModal visible={hasan} onRequestClose={() => setHasan(false)}>
+          <MyModal
+            visible={modalShown}
+            onRequestClose={() => setModalShown(false)}
+          >
             {modalChild}
           </MyModal>
-        </>
+        </View>
       )}
     </View>
   );
@@ -249,8 +260,7 @@ export const RobberyList = (
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: "100%",
-    width: "100%",
+    flex: 1,
     backgroundColor: "#464646",
     padding: 20,
   },

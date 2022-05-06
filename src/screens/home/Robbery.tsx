@@ -34,7 +34,7 @@ export default function Robbery({ navigation }: any) {
       <View>{Header(characterInfo, navigation)}</View>
       <View>{SubHeader(characterInfo)}</View>
       <View>{LastHeader(characterInfo)}</View>
-      <View>{RobberyList(robberyList, jailStatus)}</View>
+      <View style={{ flex: 1 }}>{RobberyList(robberyList, jailStatus)}</View>
     </SafeAreaView>
   );
 }
