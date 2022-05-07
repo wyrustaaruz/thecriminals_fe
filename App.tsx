@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import { store } from "./src/redux/store";
 import myinterceptor from "./src/axios/interceptor";
 import { useState } from "react";
+import axios from "axios";
+import { TICK_URL } from "./src/redux/endpoints";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -16,6 +18,9 @@ export default function App() {
   if (firstCall) {
     myinterceptor();
     setFirstCall(false);
+    setInterval(() => {
+      axios.get(TICK_URL);
+    }, 60000);
   }
   if (!isLoadingComplete) {
     return null;
