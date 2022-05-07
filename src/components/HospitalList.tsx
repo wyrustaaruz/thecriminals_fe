@@ -3,8 +3,8 @@ import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import axios from "axios";
 import _ from "lodash";
 import { Text, View, MyModal, Picker } from "./PureComponents";
-import { ROBBERY_RUN_URL } from "../redux/endpoints";
-import { useDispatch } from "react-redux";
+import { HOSPITAL_BUY_URL } from "../redux/endpoints";
+import { useDispatch, useSelector } from "react-redux";
 import Actions from "../redux/actions";
 import LottieView from "lottie-react-native";
 
@@ -30,6 +30,8 @@ export const HospitalList = (
   const [modalChild, setModalChild] = useState(<></>);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<HospitalItem>({});
+  const chemicalResponse =
+    useSelector((state: any) => state.homepageReducers.chemicalResponse) || {};
 
   useEffect(() => {
     setSelectedItem(
@@ -43,10 +45,6 @@ export const HospitalList = (
     await dispatch(Actions.homepageActions.GetHeader());
   };
 
-  const initRobberyList = async () => {
-    await dispatch(Actions.homepageActions.GetRobberyList());
-  };
-
   const loadingTrue = async () => {
     await dispatch(Actions.commonActions.LoadingTrue());
   };
@@ -55,30 +53,21 @@ export const HospitalList = (
     await dispatch(Actions.commonActions.LoadingFalse());
   };
 
-  const robThis = () => {
-    loadingTrue();
-    axios
-      .get(ROBBERY_RUN_URL + value)
-      .then((res) => {
-        if (res.data.status === "success") {
-          const message =
-            res.data.message +
-            "\nKazanılan Ödül:\n" +
-            "Cash: $" +
-            res.data.rewards.cash +
-            "\nItem: " +
-            JSON.stringify(res.data.rewards.item)
-              .replaceAll("{", "")
-              .replaceAll("}", "")
-              .replaceAll("[", "")
-              .replaceAll("]", "");
+  const robThis = async () => {
+    if (!_.isEmpty(selectedItem)) {
+      loadingTrue();
+      axios
+        .get(HOSPITAL_BUY_URL + selectedItem.value)
+        .then((res) => {
           const lottieImages = [
-            require("../../assets/lotties/man-in-brown.json"),
-            require("../../assets/lotties/man-in-green.json"),
-            require("../../assets/lotties/mustache.json"),
-            require("../../assets/lotties/woman.json"),
+            require("../../assets/lotties/morhap.json"),
+            require("../../assets/lotties/yesilhap.json"),
+            require("../../assets/lotties/kirmizihap.json"),
+            require("../../assets/lotties/siyahhap.json"),
+            require("../../assets/lotties/medicine.json"),
           ];
-          let randIndex = Math.floor(Math.random() * lottieImages.length);
+          let randIndex = selectedItem.value || 0;
+          randIndex = randIndex !== 0 ? randIndex - 1 : randIndex;
           const tempModalChild = () => (
             <View>
               <LottieView
@@ -91,13 +80,17 @@ export const HospitalList = (
                 loop={false}
                 source={lottieImages[randIndex]}
               />
-              <Text style={styles.centeredText}>Başarılı</Text>
-              <Text style={styles.centeredText}>{message}</Text>
+              <Text style={styles.centeredText}>{res.data.message}</Text>
             </View>
           );
           setModalChild(tempModalChild);
           setModalShown(true);
-        } else {
+
+          initHeader();
+        })
+        .catch((error) => {
+          loadingFalse();
+          const message = error.response.data.message;
           const tempModalChild = () => (
             <View>
               <LottieView
@@ -111,18 +104,32 @@ export const HospitalList = (
                 source={require("../../assets/lotties/boss.json")}
               />
               <Text style={styles.centeredText}>Opss.</Text>
-              <Text style={styles.centeredText}>{res.data.message}</Text>
+              <Text style={styles.centeredText}>{message}</Text>
             </View>
           );
           setModalChild(tempModalChild);
           setModalShown(true);
-        }
-        initHeader();
-        initRobberyList();
-      })
-      .catch((error) => {
-        loadingFalse();
-      });
+        });
+    } else {
+      const tempModalChild = () => (
+        <View>
+          <LottieView
+            style={{
+              width: 400,
+              height: 400,
+              backgroundColor: "transparent",
+            }}
+            autoPlay={true}
+            loop={false}
+            source={require("../../assets/lotties/boss.json")}
+          />
+          <Text style={styles.centeredText}>Opss.</Text>
+          <Text style={styles.centeredText}>Sanırım seçim yapmayı unuttun</Text>
+        </View>
+      );
+      setModalChild(tempModalChild);
+      setModalShown(true);
+    }
   };
 
   const jailGifs = [

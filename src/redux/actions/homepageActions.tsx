@@ -5,6 +5,7 @@ import {
   ROBBERY_LIST_URL,
   BANK_TRANSACTION_URL,
   HOSPITAL_LIST_URL,
+  HOSPITAL_BUY_URL,
 } from "../endpoints";
 
 const GetHeader = () => {
@@ -88,15 +89,39 @@ const GetHospitalList = () => {
             payload: response.data,
           });
         } else {
-          const myData = response.data;
-          myData.map((item: any) => {
-            item.label = item.name;
-          });
           dispatch({
             type: "GET_HOSPITAL_LIST",
-            payload: myData,
+            payload: response.data,
           });
         }
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
+
+const BuyMedicane = (id: number) => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
+    axios
+      .get(HOSPITAL_BUY_URL + id)
+      .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "BUY_MEDICINE_SUCCESS",
+        });
       })
       .catch((error) => {
         dispatch({
@@ -149,6 +174,7 @@ const homepageActions = {
   GetRobberyList,
   BankAction,
   GetHospitalList,
+  BuyMedicane,
 };
 
 export default homepageActions;

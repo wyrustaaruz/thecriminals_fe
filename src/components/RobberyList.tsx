@@ -59,73 +59,94 @@ export const RobberyList = (
     await dispatch(Actions.commonActions.LoadingFalse());
   };
   const robThis = () => {
-    loadingTrue();
-    axios
-      .get(ROBBERY_RUN_URL + selectedItem.value)
-      .then((res) => {
-        if (res.data.status === "success") {
-          const message =
-            res.data.message +
-            "\nKazanılan Ödül:\n" +
-            "Cash: $" +
-            res.data.rewards.cash +
-            "\nItem: " +
-            JSON.stringify(res.data.rewards.item)
-              .replaceAll("{", "")
-              .replaceAll("}", "")
-              .replaceAll("[", "")
-              .replaceAll("]", "");
-          const lottieImages = [
-            require("../../assets/lotties/man-in-brown.json"),
-            require("../../assets/lotties/man-in-green.json"),
-            require("../../assets/lotties/mustache.json"),
-            require("../../assets/lotties/woman.json"),
-          ];
-          let randIndex = Math.floor(Math.random() * lottieImages.length);
-          const tempModalChild = () => (
-            <View>
-              <LottieView
-                style={{
-                  width: 400,
-                  height: 400,
-                  backgroundColor: "transparent",
-                }}
-                autoPlay={true}
-                loop={false}
-                source={lottieImages[randIndex]}
-              />
-              <Text style={styles.centeredText}>Başarılı</Text>
-              <Text style={styles.centeredText}>{message}</Text>
-            </View>
-          );
-          setModalChild(tempModalChild);
-          setModalShown(true);
-        } else {
-          const tempModalChild = () => (
-            <View>
-              <LottieView
-                style={{
-                  width: 400,
-                  height: 400,
-                  backgroundColor: "transparent",
-                }}
-                autoPlay={true}
-                loop={false}
-                source={require("../../assets/lotties/boss.json")}
-              />
-              <Text style={styles.centeredText}>Opss.</Text>
-              <Text style={styles.centeredText}>{res.data.message}</Text>
-            </View>
-          );
-          setModalChild(tempModalChild);
-          setModalShown(true);
-        }
-        initHeader();
-        initRobberyList();
-      })
-      .catch((error) => {
-        loadingFalse();
-      });
+    if (!_.isEmpty(selectedItem)) {
+      loadingTrue();
+      axios
+        .get(ROBBERY_RUN_URL + selectedItem.value)
+        .then((res) => {
+          if (res.data.status === "success") {
+            const message =
+              res.data.message +
+              "\nKazanılan Ödül:\n" +
+              "Cash: $" +
+              res.data.rewards.cash +
+              "\nItem: " +
+              JSON.stringify(res.data.rewards.item)
+                .replaceAll("{", "")
+                .replaceAll("}", "")
+                .replaceAll("[", "")
+                .replaceAll("]", "");
+            const lottieImages = [
+              require("../../assets/lotties/man-in-brown.json"),
+              require("../../assets/lotties/man-in-green.json"),
+              require("../../assets/lotties/mustache.json"),
+              require("../../assets/lotties/woman.json"),
+            ];
+            let randIndex = Math.floor(Math.random() * lottieImages.length);
+            const tempModalChild = () => (
+              <View>
+                <LottieView
+                  style={{
+                    width: 400,
+                    height: 400,
+                    backgroundColor: "transparent",
+                  }}
+                  autoPlay={true}
+                  loop={false}
+                  source={lottieImages[randIndex]}
+                />
+                <Text style={styles.centeredText}>Başarılı</Text>
+                <Text style={styles.centeredText}>{message}</Text>
+              </View>
+            );
+            setModalChild(tempModalChild);
+            setModalShown(true);
+          } else {
+            const tempModalChild = () => (
+              <View>
+                <LottieView
+                  style={{
+                    width: 400,
+                    height: 400,
+                    backgroundColor: "transparent",
+                  }}
+                  autoPlay={true}
+                  loop={false}
+                  source={require("../../assets/lotties/boss.json")}
+                />
+                <Text style={styles.centeredText}>Opss.</Text>
+                <Text style={styles.centeredText}>{res.data.message}</Text>
+              </View>
+            );
+            setModalChild(tempModalChild);
+            setModalShown(true);
+          }
+          initHeader();
+          initRobberyList();
+        })
+        .catch((error) => {
+          loadingFalse();
+        });
+    } else {
+      const tempModalChild = () => (
+        <View>
+          <LottieView
+            style={{
+              width: 400,
+              height: 400,
+              backgroundColor: "transparent",
+            }}
+            autoPlay={true}
+            loop={false}
+            source={require("../../assets/lotties/boss.json")}
+          />
+          <Text style={styles.centeredText}>Opss.</Text>
+          <Text style={styles.centeredText}>Sanırım seçim yapmayı unuttun</Text>
+        </View>
+      );
+      setModalChild(tempModalChild);
+      setModalShown(true);
+    }
   };
 
   const jailGifs = [
@@ -179,17 +200,6 @@ export const RobberyList = (
                   padding: 20,
                 }}
               >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text>label:</Text>
-                  <Text>{selectedItem.label}</Text>
-                  <Text>value:</Text>
-                  <Text>{selectedItem.value}</Text>
-                </View>
                 <View
                   style={{
                     flexDirection: "row",
