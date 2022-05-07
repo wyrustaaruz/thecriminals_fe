@@ -8,37 +8,32 @@ import { useDispatch } from "react-redux";
 import Actions from "../redux/actions";
 import LottieView from "lottie-react-native";
 
-interface RobberyItem {
-  label?: string;
+interface HospitalItem {
   value?: number;
-  power?: number;
-  required_stamina_percent?: number;
-  daily?: number;
-  reward_cash_min?: number;
-  reward_cash_max?: number;
-  attr_min?: number;
-  attr_max?: number;
-  percent?: number;
-  reward_item?: any;
+  name?: string;
+  attr?: string;
+  attr_value?: number;
+  price?: number;
 }
 type JailStatusType = {
   block: boolean;
   message: string;
 };
-export const RobberyList = (
-  robberyList: Array<RobberyItem>,
+
+export const HospitalList = (
+  hospitalList: Array<HospitalItem>,
   jailStatus: JailStatusType
 ) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState(null);
-  const [selectedItem, setSelectedItem] = useState<RobberyItem>({});
   const [modalShown, setModalShown] = useState(false);
   const [modalChild, setModalChild] = useState(<></>);
   const [open, setOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<HospitalItem>({});
 
   useEffect(() => {
     setSelectedItem(
-      robberyList.filter((item) => {
+      hospitalList.filter((item) => {
         return item.value === value;
       })[0]
     );
@@ -55,13 +50,15 @@ export const RobberyList = (
   const loadingTrue = async () => {
     await dispatch(Actions.commonActions.LoadingTrue());
   };
+
   const loadingFalse = async () => {
     await dispatch(Actions.commonActions.LoadingFalse());
   };
+
   const robThis = () => {
     loadingTrue();
     axios
-      .get(ROBBERY_RUN_URL + selectedItem.value)
+      .get(ROBBERY_RUN_URL + value)
       .then((res) => {
         if (res.data.status === "success") {
           const message =
@@ -155,7 +152,7 @@ export const RobberyList = (
           </Text>
         </View>
       ) : (
-        robberyList.length > 1 && (
+        hospitalList.length > 1 && (
           <View style={{ flex: 1, justifyContent: "space-between" }}>
             <View
               style={{
@@ -166,9 +163,13 @@ export const RobberyList = (
                 containerStyle={{ width: "100%" }}
                 open={open}
                 value={value}
-                items={robberyList}
+                items={hospitalList}
                 setOpen={setOpen}
                 setValue={setValue}
+                schema={{
+                  label: "name",
+                  value: "value",
+                }}
               />
             </View>
             {!_.isEmpty(selectedItem) && (
@@ -185,10 +186,8 @@ export const RobberyList = (
                     justifyContent: "space-between",
                   }}
                 >
-                  <Text>label:</Text>
-                  <Text>{selectedItem.label}</Text>
-                  <Text>value:</Text>
-                  <Text>{selectedItem.value}</Text>
+                  <Text>İsim:</Text>
+                  <Text>{selectedItem.name}</Text>
                 </View>
                 <View
                   style={{
@@ -196,8 +195,8 @@ export const RobberyList = (
                     justifyContent: "space-between",
                   }}
                 >
-                  <Text>İstenilen Stamina:</Text>
-                  <Text>{selectedItem.required_stamina_percent}</Text>
+                  <Text>Stat:</Text>
+                  <Text>{selectedItem.attr}</Text>
                 </View>
                 <View
                   style={{
@@ -205,42 +204,14 @@ export const RobberyList = (
                     justifyContent: "space-between",
                   }}
                 >
-                  <Text>Ödül:</Text>
-                  <Text>
-                    ${selectedItem.reward_cash_min} - $
-                    {selectedItem.reward_cash_max}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text>İhtimal:</Text>
+                  <Text>Miktar:</Text>
                   <View
                     style={{
                       flexDirection: "row",
                       justifyContent: "space-between",
                     }}
                   >
-                    <Text>{selectedItem.percent}</Text>
-                    <View
-                      style={{
-                        marginLeft: 5,
-                        width: 20,
-                        height: 20,
-                        backgroundColor:
-                          selectedItem.percent && selectedItem.percent >= 80
-                            ? "green"
-                            : selectedItem.percent &&
-                              selectedItem.percent < 80 &&
-                              selectedItem.percent >= 40
-                            ? "orange"
-                            : "red",
-                        borderRadius: 10,
-                      }}
-                    />
+                    <Text>{selectedItem.attr_value}</Text>
                   </View>
                 </View>
                 <View
@@ -249,25 +220,8 @@ export const RobberyList = (
                     justifyContent: "space-between",
                   }}
                 >
-                  <Text>Kazanacağın Stat:</Text>
-                  <Text>
-                    {selectedItem.attr_min} - {selectedItem.attr_max}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text>Kazanacağın Item:</Text>
-                  <Text>
-                    {selectedItem.reward_item
-                      ? Object.keys(selectedItem.reward_item) +
-                        ": " +
-                        Object.values(selectedItem.reward_item)
-                      : "-"}
-                  </Text>
+                  <Text>Ücret:</Text>
+                  <Text>${selectedItem.price}</Text>
                 </View>
               </View>
             )}
@@ -281,7 +235,7 @@ export const RobberyList = (
               onPress={() => robThis()}
             >
               <Text style={{ textAlign: "center", justifyContent: "center" }}>
-                Soygun Yap
+                Satın Al
               </Text>
             </TouchableOpacity>
             <MyModal

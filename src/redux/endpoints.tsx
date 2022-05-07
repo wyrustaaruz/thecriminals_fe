@@ -10,3 +10,5 @@ export const HEADER_URL = "/character";
 export const ROBBERY_LIST_URL = "/robbery-list";
 export const ROBBERY_RUN_URL = "/robbery-run/";
 export const BANK_TRANSACTION_URL = "/bank";
+
+export const HOSPITAL_LIST_URL = "/chemist";

@@ -42,6 +42,15 @@ const initialState = {
       percent: 0,
     },
   ],
+  hospitalList: [
+    {
+      value: 0,
+      name: "",
+      attr: "",
+      attr_value: 1,
+      price: 0,
+    },
+  ],
   jailStatus: {
     block: null,
     message: "",
@@ -67,6 +76,11 @@ const homepageReducers = (state = initialState, action: any) => {
       return {
         ...state,
         robberyList: action.payload,
+      };
+    case "GET_HOSPITAL_LIST":
+      return {
+        ...state,
+        hospitalList: action.payload,
       };
     case "BANK_TRANSACTION_COMPLETE":
       return {

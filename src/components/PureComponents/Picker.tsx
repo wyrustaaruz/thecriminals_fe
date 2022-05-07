@@ -14,6 +14,8 @@ export function Picker(props: any) {
       containerStyle={
         otherProps.containerStyle ? otherProps.containerStyle : styles.container
       }
+      placeholder="Seçimini Yap!"
+      placeholderStyle={styles.placeholder}
       dropDownContainerStyle={styles.dropDownContainer}
       modalContentContainerStyle={styles.modalContentContainer}
       itemSeparatorStyle={styles.itemSeparator}
@@ -138,6 +140,9 @@ const styles = StyleSheet.create({
   selectedItemLabel: {},
   modalTitle: {
     fontSize: 18,
+    color: Colors.GOLD,
+  },
+  placeholder: {
     color: Colors.GOLD,
   },
 });
