@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import axios from "axios";
 import { Text, View, MyModal, Picker } from "./PureComponents";
@@ -28,7 +28,7 @@ export const RobberyList = (
   jailStatus: JailStatusType
 ) => {
   const dispatch = useDispatch();
-  const [selectedRob, setSelectedRob] = useState(0);
+  const [selectedRob, setSelectedRob] = useState(1);
   const [modalShown, setModalShown] = useState(false);
   const [modalChild, setModalChild] = useState(<></>);
   const [open, setOpen] = useState(false);
@@ -116,7 +116,9 @@ export const RobberyList = (
         loadingFalse();
       });
   };
-
+  useEffect(() => {
+    console.log("111", selectedRob);
+  }, [selectedRob]);
   const jailGifs = [
     require("../../assets/lotties/jail.gif"),
     require("../../assets/lotties/jail2.gif"),
@@ -144,13 +146,13 @@ export const RobberyList = (
           </Text>
         </View>
       ) : (
-        <View style={{ flex: 1, justifyContent: "space-between" }}>
-          <View
-            style={{
-              paddingVertical: 20,
-            }}
-          >
-            {robberyList.length > 1 && (
+        robberyList.length > 1 && (
+          <View style={{ flex: 1, justifyContent: "space-between" }}>
+            <View
+              style={{
+                paddingVertical: 20,
+              }}
+            >
               <Picker
                 containerStyle={{ width: "100%" }}
                 open={open}
@@ -159,100 +161,115 @@ export const RobberyList = (
                 setOpen={setOpen}
                 setValue={setSelectedRob}
               />
-            )}
-          </View>
-          <View
-            style={{
-              zIndex: -1,
-              backgroundColor: "#333333",
-              padding: 20,
-            }}
-          >
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text>İstenilen Stamina:</Text>
-              <Text>{robberyList[selectedRob].required_stamina_percent}</Text>
             </View>
             <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
+              style={{
+                zIndex: -1,
+                backgroundColor: "#333333",
+                padding: 20,
+              }}
             >
-              <Text>Ödül:</Text>
-              <Text>
-                ${robberyList[selectedRob].reward_cash_min} - $
-                {robberyList[selectedRob].reward_cash_max}
-              </Text>
-            </View>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text>İhtimal:</Text>
               <View
                 style={{
                   flexDirection: "row",
                   justifyContent: "space-between",
                 }}
               >
-                <Text>{robberyList[selectedRob].percent}</Text>
+                <Text>İstenilen Stamina:</Text>
+                <Text>{robberyList[selectedRob].required_stamina_percent}</Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text>Ödül:</Text>
+                <Text>
+                  ${robberyList[selectedRob].reward_cash_min} - $
+                  {robberyList[selectedRob].reward_cash_max}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text>İhtimal:</Text>
                 <View
                   style={{
-                    marginLeft: 5,
-                    width: 20,
-                    height: 20,
-                    backgroundColor:
-                      robberyList[selectedRob].percent >= 80
-                        ? "green"
-                        : robberyList[selectedRob].percent < 80 &&
-                          robberyList[selectedRob].percent >= 40
-                        ? "orange"
-                        : "red",
-                    borderRadius: 10,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
                   }}
-                />
+                >
+                  <Text>{robberyList[selectedRob].percent}</Text>
+                  <View
+                    style={{
+                      marginLeft: 5,
+                      width: 20,
+                      height: 20,
+                      backgroundColor:
+                        robberyList[selectedRob].percent >= 80
+                          ? "green"
+                          : robberyList[selectedRob].percent < 80 &&
+                            robberyList[selectedRob].percent >= 40
+                          ? "orange"
+                          : "red",
+                      borderRadius: 10,
+                    }}
+                  />
+                </View>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text>Kazanacağın Stat:</Text>
+                <Text>
+                  {robberyList[selectedRob].attr_min} -{" "}
+                  {robberyList[selectedRob].attr_max}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text>Kazanacağın Item:</Text>
+                <Text>
+                  {robberyList[selectedRob].reward_item
+                    ? Object.keys(robberyList[selectedRob].reward_item) +
+                      ": " +
+                      Object.values(robberyList[selectedRob].reward_item)
+                    : "-"}
+                </Text>
               </View>
             </View>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            <TouchableOpacity
+              style={{
+                borderWidth: 1,
+                padding: 10,
+                borderRadius: 8,
+                borderColor: "#C0B184",
+              }}
+              onPress={() => robThis()}
             >
-              <Text>Kazanacağın Stat:</Text>
-              <Text>
-                {robberyList[selectedRob].attr_min} -{" "}
-                {robberyList[selectedRob].attr_max}
+              <Text style={{ textAlign: "center", justifyContent: "center" }}>
+                Soygun Yap
               </Text>
-            </View>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            </TouchableOpacity>
+            <MyModal
+              visible={modalShown}
+              onRequestClose={() => setModalShown(false)}
             >
-              <Text>Kazanacağın Item:</Text>
-              <Text>
-                {robberyList[selectedRob].reward_item
-                  ? Object.keys(robberyList[selectedRob].reward_item) +
-                    ": " +
-                    Object.values(robberyList[selectedRob].reward_item)
-                  : "-"}
-              </Text>
-            </View>
+              {modalChild}
+            </MyModal>
           </View>
-          <TouchableOpacity
-            style={{
-              borderWidth: 1,
-              padding: 10,
-              borderRadius: 8,
-              borderColor: "#C0B184",
-            }}
-            onPress={() => robThis()}
-          >
-            <Text style={{ textAlign: "center", justifyContent: "center" }}>
-              Soygun Yap
-            </Text>
-          </TouchableOpacity>
-          <MyModal
-            visible={modalShown}
-            onRequestClose={() => setModalShown(false)}
-          >
-            {modalChild}
-          </MyModal>
-        </View>
+        )
       )}
     </View>
   );
