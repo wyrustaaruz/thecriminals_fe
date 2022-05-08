@@ -88,35 +88,40 @@ export default function SelectAvatar({
                 justifyContent: "center",
               }}
             >
-              {avatarList.map((item: any, index: number) => (
-                <TouchableOpacity
-                  style={{ margin: 1 }}
-                  key={index}
-                  onPress={() => setSelectedAvatar(item)}
-                >
-                  <Image
-                    style={[
-                      styles.tinyLogo,
-                      selectedAvatar.name === item.name
-                        ? styles.selected
-                        : null,
-                    ]}
-                    source={{
-                      uri: item.url,
+              {avatarList &&
+                avatarList.length > 1 &&
+                avatarList.map((item: any, index: number) => (
+                  <TouchableOpacity
+                    style={{ margin: 1 }}
+                    key={index}
+                    onPress={() => {
+                      setSelectedAvatar(item);
+                      selectedAvatarFunction(item);
                     }}
-                  />
-                </TouchableOpacity>
-              ))}
+                  >
+                    <Image
+                      style={[
+                        styles.tinyLogo,
+                        selectedAvatar.name === item.name
+                          ? styles.selected
+                          : null,
+                      ]}
+                      source={{
+                        uri: item.url,
+                      }}
+                    />
+                  </TouchableOpacity>
+                ))}
             </View>
           </View>
-          <View>
+          {/* <View>
             <TouchableOpacity
               style={styles.signupContainer}
               onPress={handleSelectAvatar}
             >
               <Text style={styles.signupText}>Avatar Seç</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       </SafeAreaView>
     </ScrollView>
