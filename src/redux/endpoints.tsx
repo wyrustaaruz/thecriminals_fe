@@ -15,3 +15,5 @@ export const BANK_TRANSACTION_URL = "/bank";
 
 export const ECZANE_LIST_URL = "/chemist";
 export const ECZANE_BUY_URL = "/buy-chemist/";
+
+export const UPDATE_PROFILE_URL = "/profile-update";

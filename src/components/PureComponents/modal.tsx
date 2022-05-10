@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: Colors.DarkGray,
     borderRadius: 20,
-    padding: 35,
+    paddingVertical: 35,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {

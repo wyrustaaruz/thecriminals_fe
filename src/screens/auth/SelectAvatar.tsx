@@ -1,18 +1,10 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
-import {
-  Image,
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  Alert,
-} from "react-native";
+import { Image, StyleSheet, ScrollView } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Loading, Text, View } from "../../components/PureComponents";
 import Colors from "../../constants/Colors";
 import Actions from "../../redux/actions";
-import { CREATE_CHARACTER_URL } from "../../redux/endpoints";
 
 export default function SelectAvatar({
   selectedAvatarFunction,
@@ -30,93 +22,60 @@ export default function SelectAvatar({
   const initHeader = async () => {
     await dispatch(Actions.authActions.GetAvatars());
   };
-  const loadingTrue = async () => {
-    await dispatch(Actions.commonActions.LoadingTrue());
-  };
-  const loadingFalse = async () => {
-    await dispatch(Actions.commonActions.LoadingFalse());
-  };
-  const handleSelectAvatar = () => {
-    if (selectedAvatar.name) {
-      selectedAvatarFunction(selectedAvatar);
-      return;
-      loadingTrue();
-      axios
-        .post(CREATE_CHARACTER_URL, { avatar: selectedAvatar })
-        .then((res) => {
-          if (res.data.status === "success") {
-            Alert.alert("BAŞARILI", "Avatar seçildi", [
-              { text: "Tamam", onPress: () => null },
-            ]);
-          } else {
-            Alert.alert("Ops.", res.data.message, [
-              { text: "Tamam", onPress: () => null },
-            ]);
-          }
-          initHeader();
-        })
-        .catch((error) => {
-          Alert.alert("Bir Sorun Oluştu", error.response.data.message, [
-            { text: "Tamam", onPress: () => null },
-          ]);
-          loadingFalse();
-        });
-    } else {
-      Alert.alert("HATA", "Lütfen avatar seçtiğinize emin olunuz", [
-        { text: "Tamam", onPress: () => null },
-      ]);
-    }
-  };
 
   useEffect(() => {
     initHeader();
   }, []);
 
   return (
-    <ScrollView style={{ backgroundColor: Colors.LightGray }}>
+    <ScrollView style={{ flex: 1, backgroundColor: Colors.LightGray }}>
       <Loading status={loading} />
-      <SafeAreaView style={styles.container}>
-        <View>
-          <Text style={styles.title}>The Criminals</Text>
-        </View>
-        <View style={styles.inputAreaContent}>
-          <View>
+      <View style={styles.container}>
+        <View style={styles.childrenContent}>
+          <View style={{ flex: 1 }}>
             <Text style={styles.infoText}>Avatar Seç</Text>
             <View
               style={{
+                flex: 1,
                 flexWrap: "wrap",
                 flexDirection: "row",
                 justifyContent: "center",
               }}
             >
-              {avatarList &&
-                avatarList.length > 1 &&
-                avatarList.map((item: any, index: number) => (
-                  <TouchableOpacity
-                    style={{ margin: 1 }}
-                    key={index}
-                    onPress={() => {
-                      setSelectedAvatar(item);
-                      selectedAvatarFunction(item);
-                    }}
-                  >
-                    <Image
-                      style={[
-                        styles.tinyLogo,
-                        selectedAvatar.name === item.name
-                          ? styles.selected
-                          : null,
-                      ]}
-                      source={{
-                        uri: item.url,
+              {avatarList ? (
+                avatarList.length > 1 ? (
+                  avatarList.map((item: any, index: number) => (
+                    <TouchableOpacity
+                      style={{ margin: 1 }}
+                      key={index}
+                      onPress={() => {
+                        setSelectedAvatar(item);
+                        selectedAvatarFunction(item);
                       }}
-                    />
-                  </TouchableOpacity>
-                ))}
+                    >
+                      <Image
+                        style={[
+                          styles.tinyLogo,
+                          selectedAvatar.name === item.name
+                            ? styles.selected
+                            : null,
+                        ]}
+                        source={{
+                          uri: item.url,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  ))
+                ) : (
+                  <View style={{ width: 1200 }} />
+                )
+              ) : (
+                <View style={{ width: 1200 }} />
+              )}
             </View>
           </View>
         </View>
-      </SafeAreaView>
+      </View>
     </ScrollView>
   );
 }
@@ -135,18 +94,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginVertical: 20,
   },
-  inputAreaContent: { marginHorizontal: 30 },
-  signupContainer: { marginVertical: 15, borderWidth: 1 },
-  signupText: {
-    padding: 10,
-    textAlign: "center",
-  },
-  input: {
-    width: "100%",
-    color: Colors.Gold,
-    padding: 10,
-    borderWidth: 1,
-  },
+  childrenContent: { flex: 1, marginHorizontal: 30 },
   selected: {
     borderWidth: 2,
     borderColor: "green",
