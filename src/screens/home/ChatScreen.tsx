@@ -13,6 +13,7 @@ import {
 import { Text, View } from "../../components/PureComponents";
 import { useSelector } from "react-redux";
 import { Header } from "../../components";
+import Colors from "../../constants/Colors";
 
 const ChatScreen: any = (props: any) => {
   const characterInfo =
@@ -59,8 +60,8 @@ const ChatScreen: any = (props: any) => {
     return (
       <Composer
         {...props}
-        textInputStyle={{ color: "#C0B184" }}
-        placeholderTextColor="#C0B184"
+        textInputStyle={{ color: Colors.Gold }}
+        placeholderTextColor={Colors.Gold}
       />
     );
   };
@@ -82,7 +83,7 @@ const ChatScreen: any = (props: any) => {
     <SafeAreaView style={styles.container}>
       <View>{Header(characterInfo, props.navigation)}</View>
       <GiftedChat
-        messagesContainerStyle={{ backgroundColor: "#464646" }}
+        messagesContainerStyle={{ backgroundColor: Colors.LightGray }}
         placeholder="Mesajını yaz"
         renderSend={(props) => renderSend(props)}
         renderUsernameOnMessage
@@ -96,17 +97,17 @@ const ChatScreen: any = (props: any) => {
             <Bubble
               {...props}
               wrapperStyle={{
-                left: { backgroundColor: "#333333" },
+                left: { backgroundColor: Colors.DarkGray },
                 right: { backgroundColor: "black" },
               }}
               textStyle={{
                 right: {
                   padding: 10,
-                  color: "#C0B184",
+                  color: Colors.Gold,
                 },
                 left: {
                   padding: 10,
-                  color: "#C0B184",
+                  color: Colors.Gold,
                 },
               }}
             />
@@ -120,7 +121,7 @@ const ChatScreen: any = (props: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#464646",
+    backgroundColor: Colors.LightGray,
   },
 });
 

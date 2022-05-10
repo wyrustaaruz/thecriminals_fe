@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { View, Text, Loading } from "../../components/PureComponents";
 import { RootStackScreenProps } from "../../../types";
 import Actions from "../../redux/actions";
+import Colors from "../../constants/Colors";
 
 export default function Login({
   route,
@@ -41,7 +42,7 @@ export default function Login({
     <KeyboardAwareScrollView
       style={{
         flex: 1,
-        backgroundColor: "#464646",
+        backgroundColor: Colors.LightGray,
       }}
       contentContainerStyle={{
         flex: 1,
@@ -59,7 +60,7 @@ export default function Login({
             value={email}
             autoCapitalize="none"
             placeholder="Email Adresi"
-            placeholderTextColor="#C0B184"
+            placeholderTextColor={Colors.Gold}
             keyboardType="email-address"
             onChangeText={(value) => {
               setEmail(value);
@@ -73,7 +74,7 @@ export default function Login({
             style={styles.input}
             value={password}
             placeholder="Şifre"
-            placeholderTextColor="#C0B184"
+            placeholderTextColor={Colors.Gold}
             secureTextEntry={true}
             onChangeText={(value) => {
               setPassword(value);
@@ -101,7 +102,7 @@ export default function Login({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#464646",
+    backgroundColor: Colors.LightGray,
     justifyContent: "space-evenly",
   },
   title: {
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    color: "#C0B184",
+    color: Colors.Gold,
     padding: 10,
     borderWidth: 1,
   },

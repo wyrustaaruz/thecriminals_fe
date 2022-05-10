@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View, TextInput, Picker } from "./PureComponents";
 import { useDispatch, useSelector } from "react-redux";
 import Actions from "../redux/actions";
+import Colors from "../constants/Colors";
 
 export const BankComponent = () => {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ export const BankComponent = () => {
           borderWidth: 1,
           padding: 10,
           borderRadius: 8,
-          borderColor: "#C0B184",
+          borderColor: Colors.Gold,
           zIndex: -1,
         }}
         onPress={() => doBankAction()}
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     height: "100%",
     width: "100%",
-    backgroundColor: "#464646",
+    backgroundColor: Colors.LightGray,
     padding: 20,
   },
   centeredText: {

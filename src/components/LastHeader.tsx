@@ -1,4 +1,5 @@
 import { StyleSheet, Image } from "react-native";
+import Colors from "../constants/Colors";
 import { Text, View } from "./PureComponents";
 
 export const LastHeader = (characterInfo: {
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "space-evenly",
-    backgroundColor: "#333333",
+    backgroundColor: Colors.DarkGray,
   },
   tinyLogo: {
     width: 35,

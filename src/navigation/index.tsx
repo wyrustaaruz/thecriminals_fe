@@ -194,7 +194,7 @@ const AuthStack = () => {
           title: "Kayıt Ol",
           headerBackTitleVisible: false,
           headerStyle: {
-            backgroundColor: "#C0B184",
+            backgroundColor: Colors.Gold,
           },
           headerTintColor: "#fff",
         }}
@@ -206,7 +206,7 @@ const AuthStack = () => {
           title: "Avatar Seç",
           headerBackTitleVisible: false,
           headerStyle: {
-            backgroundColor: "#C0B184",
+            backgroundColor: Colors.Gold,
           },
           headerTintColor: "#fff",
         }}
@@ -218,7 +218,7 @@ const AuthStack = () => {
           title: "Şifre Unuttum",
           headerBackTitleVisible: false,
           headerStyle: {
-            backgroundColor: "#C0B184",
+            backgroundColor: Colors.Gold,
           },
           headerTintColor: "#fff",
         }}

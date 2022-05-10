@@ -1,10 +1,7 @@
 import { StyleSheet } from "react-native";
 import { default as DefaultDropDownPicker } from "react-native-dropdown-picker";
-export const Colors = {
-  GOLD: "#C0B184",
-  LIGHT_GRAY: "#464646",
-  DARK_GRAY: "#333333",
-};
+import Colors from "../../constants/Colors";
+
 export function Picker(props: any) {
   const { textStyle, ...otherProps } = props;
   return (
@@ -38,14 +35,14 @@ const styles = StyleSheet.create({
     minHeight: 50,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: Colors.GOLD,
+    borderColor: Colors.Gold,
     paddingHorizontal: 10,
     paddingVertical: 3,
-    backgroundColor: Colors.LIGHT_GRAY,
+    backgroundColor: Colors.LightGray,
   },
   label: {
     flex: 1,
-    color: Colors.GOLD,
+    color: Colors.Gold,
   },
   labelContainer: {
     flex: 1,
@@ -72,9 +69,9 @@ const styles = StyleSheet.create({
   },
   dropDownContainer: {
     position: "absolute",
-    backgroundColor: Colors.LIGHT_GRAY,
+    backgroundColor: Colors.LightGray,
     borderRadius: 0,
-    borderColor: Colors.GOLD,
+    borderColor: Colors.Gold,
     borderWidth: 1,
     width: "100%",
     overflow: "hidden",
@@ -82,7 +79,7 @@ const styles = StyleSheet.create({
   },
   modalContentContainer: {
     flexGrow: 1,
-    backgroundColor: Colors.LIGHT_GRAY,
+    backgroundColor: Colors.LightGray,
   },
   listItemContainer: {
     flexDirection: "row",
@@ -90,12 +87,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 10,
     height: 40,
-    backgroundColor: Colors.DARK_GRAY,
-    color: Colors.GOLD,
+    backgroundColor: Colors.DarkGray,
+    color: Colors.Gold,
   },
   listItemLabel: {
     flex: 1,
-    color: Colors.GOLD,
+    color: Colors.Gold,
     borderColor: "red",
   },
   iconContainer: {
@@ -118,7 +115,7 @@ const styles = StyleSheet.create({
   },
   itemSeparator: {
     height: 1,
-    backgroundColor: Colors.GOLD,
+    backgroundColor: Colors.Gold,
   },
   flatListContentContainer: {
     flexGrow: 1,
@@ -134,16 +131,16 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   listMessageText: {
-    color: Colors.GOLD,
+    color: Colors.Gold,
   },
   selectedItemContainer: {},
   selectedItemLabel: {},
   modalTitle: {
     fontSize: 18,
-    color: Colors.GOLD,
+    color: Colors.Gold,
   },
   placeholder: {
-    color: Colors.GOLD,
+    color: Colors.Gold,
   },
 });
 // const ICONS = {

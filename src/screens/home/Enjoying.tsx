@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Header, SubHeader, LastHeader } from "../../components";
 import { Loading, Text, View } from "../../components/PureComponents";
+import Colors from "../../constants/Colors";
 import Actions from "../../redux/actions";
 
 export default function Enjoying({ navigation }: any) {
@@ -40,6 +41,6 @@ export default function Enjoying({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#464646",
+    backgroundColor: Colors.LightGray,
   },
 });

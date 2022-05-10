@@ -1,4 +1,5 @@
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
+import Colors from "../constants/Colors";
 import { Text, View } from "./PureComponents";
 
 type UserType = {
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#464646",
+    backgroundColor: Colors.LightGray,
   },
   title: {
     fontSize: 20,

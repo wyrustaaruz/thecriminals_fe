@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { View, Text, Loading, MyModal } from "../../components/PureComponents";
 import Actions from "../../redux/actions";
 import SelectAvatar from "./SelectAvatar";
+import Colors from "../../constants/Colors";
 
 export default function Signup({ navigation }: any) {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ export default function Signup({ navigation }: any) {
     <KeyboardAwareScrollView
       style={{
         flex: 1,
-        backgroundColor: "#464646",
+        backgroundColor: Colors.LightGray,
       }}
       contentContainerStyle={{
         flex: 1,
@@ -62,7 +63,7 @@ export default function Signup({ navigation }: any) {
             value={username}
             autoCapitalize="none"
             placeholder="Kullanıcı Adı"
-            placeholderTextColor="#C0B184"
+            placeholderTextColor={Colors.Gold}
             onChangeText={(value) => {
               setUsername(value);
             }}
@@ -75,7 +76,7 @@ export default function Signup({ navigation }: any) {
             value={email}
             autoCapitalize="none"
             placeholder="Email Adresi"
-            placeholderTextColor="#C0B184"
+            placeholderTextColor={Colors.Gold}
             keyboardType="email-address"
             onChangeText={(value) => {
               setEmail(value);
@@ -88,7 +89,7 @@ export default function Signup({ navigation }: any) {
             style={styles.input}
             value={password}
             placeholder="Şifre"
-            placeholderTextColor="#C0B184"
+            placeholderTextColor={Colors.Gold}
             secureTextEntry={true}
             onChangeText={(value) => {
               setPassword(value);
@@ -101,7 +102,7 @@ export default function Signup({ navigation }: any) {
             style={styles.input}
             value={passwordConfirmation}
             placeholder="Şifre Tekrar"
-            placeholderTextColor="#C0B184"
+            placeholderTextColor={Colors.Gold}
             secureTextEntry={true}
             onChangeText={(value) => {
               setPasswordConfirmation(value);
@@ -155,7 +156,7 @@ export default function Signup({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#464646",
+    backgroundColor: Colors.LightGray,
     justifyContent: "space-evenly",
   },
   title: {
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    color: "#C0B184",
+    color: Colors.Gold,
     padding: 10,
     borderWidth: 1,
   },

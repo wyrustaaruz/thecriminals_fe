@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { StyleSheet, TouchableOpacity, Modal } from "react-native";
 import { BlurView } from "expo-blur";
+import Colors from "../../constants/Colors";
 
 interface ModalType {
   children: ReactNode;
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
   },
   modal: {
     margin: 20,
-    backgroundColor: "#333333",
+    backgroundColor: Colors.DarkGray,
     borderRadius: 20,
     padding: 35,
     alignItems: "center",

@@ -10,6 +10,7 @@ import {
 import { TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Loading, Text, View } from "../../components/PureComponents";
+import Colors from "../../constants/Colors";
 import Actions from "../../redux/actions";
 import { CREATE_CHARACTER_URL } from "../../redux/endpoints";
 
@@ -72,7 +73,7 @@ export default function SelectAvatar({
   }, []);
 
   return (
-    <ScrollView style={{ backgroundColor: "#464646" }}>
+    <ScrollView style={{ backgroundColor: Colors.LightGray }}>
       <Loading status={loading} />
       <SafeAreaView style={styles.container}>
         <View>
@@ -114,14 +115,6 @@ export default function SelectAvatar({
                 ))}
             </View>
           </View>
-          {/* <View>
-            <TouchableOpacity
-              style={styles.signupContainer}
-              onPress={handleSelectAvatar}
-            >
-              <Text style={styles.signupText}>Avatar Seç</Text>
-            </TouchableOpacity>
-          </View> */}
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -131,7 +124,7 @@ export default function SelectAvatar({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#464646",
+    backgroundColor: Colors.LightGray,
     justifyContent: "space-evenly",
   },
   title: {
@@ -150,7 +143,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    color: "#C0B184",
+    color: Colors.Gold,
     padding: 10,
     borderWidth: 1,
   },

@@ -6,6 +6,7 @@ import { View, Text, Loading } from "../../components/PureComponents";
 import { RootStackScreenProps } from "../../../types";
 import { useDispatch, useSelector } from "react-redux";
 import Actions from "../../redux/actions";
+import Colors from "../../constants/Colors";
 
 export default function ForgetPassword({
   navigation,
@@ -28,7 +29,7 @@ export default function ForgetPassword({
     <KeyboardAwareScrollView
       style={{
         flex: 1,
-        backgroundColor: "#464646",
+        backgroundColor: Colors.LightGray,
       }}
       contentContainerStyle={{
         flex: 1,
@@ -47,7 +48,7 @@ export default function ForgetPassword({
             autoCapitalize="none"
             value={email}
             placeholder="Email Adresi"
-            placeholderTextColor="#C0B184"
+            placeholderTextColor={Colors.Gold}
             keyboardType="email-address"
             onChangeText={(value) => {
               setEmail(value);
@@ -70,7 +71,7 @@ export default function ForgetPassword({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#464646",
+    backgroundColor: Colors.LightGray,
     justifyContent: "space-evenly",
   },
   title: {
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    color: "#C0B184",
+    color: Colors.Gold,
     padding: 10,
     borderWidth: 1,
   },

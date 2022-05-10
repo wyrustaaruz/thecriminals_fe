@@ -7,6 +7,7 @@ import { ROBBERY_RUN_URL } from "../redux/endpoints";
 import { useDispatch } from "react-redux";
 import Actions from "../redux/actions";
 import LottieView from "lottie-react-native";
+import Colors from "../constants/Colors";
 
 interface RobberyItem {
   label?: string;
@@ -162,7 +163,7 @@ export const RobberyList = (
           style={{
             height: "100%",
             width: "100%",
-            backgroundColor: "#464646",
+            backgroundColor: Colors.LightGray,
             padding: 20,
             alignItems: "center",
           }}
@@ -196,7 +197,7 @@ export const RobberyList = (
               <View
                 style={{
                   zIndex: -1,
-                  backgroundColor: "#333333",
+                  backgroundColor: Colors.DarkGray,
                   padding: 20,
                 }}
               >
@@ -286,7 +287,7 @@ export const RobberyList = (
                 borderWidth: 1,
                 padding: 10,
                 borderRadius: 8,
-                borderColor: "#C0B184",
+                borderColor: Colors.Gold,
               }}
               onPress={() => robThis()}
             >
@@ -310,7 +311,7 @@ export const RobberyList = (
 const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
-    backgroundColor: "#464646",
+    backgroundColor: Colors.LightGray,
     padding: 20,
   },
   centeredText: {

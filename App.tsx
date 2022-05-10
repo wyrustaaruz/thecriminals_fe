@@ -10,6 +10,7 @@ import myinterceptor from "./src/axios/interceptor";
 import { useState } from "react";
 import axios from "axios";
 import { TICK_URL } from "./src/redux/endpoints";
+import Colors from "./src/constants/Colors";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -27,7 +28,7 @@ export default function App() {
   } else {
     return (
       <Provider store={store}>
-        <SafeAreaProvider style={{ backgroundColor: "#464646" }}>
+        <SafeAreaProvider style={{ backgroundColor: Colors.LightGray }}>
           <Navigation colorScheme={colorScheme} />
           <StatusBar />
         </SafeAreaProvider>

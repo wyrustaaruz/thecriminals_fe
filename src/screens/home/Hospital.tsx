@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Header, SubHeader, LastHeader, HospitalList } from "../../components";
 import { Loading, Text, View } from "../../components/PureComponents";
+import Colors from "../../constants/Colors";
 import Actions from "../../redux/actions";
 
 export default function Hospital({ navigation }: any) {
@@ -43,6 +44,6 @@ export default function Hospital({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#464646",
+    backgroundColor: Colors.LightGray,
   },
 });
