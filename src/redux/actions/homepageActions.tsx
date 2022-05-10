@@ -4,8 +4,8 @@ import {
   HEADER_URL,
   ROBBERY_LIST_URL,
   BANK_TRANSACTION_URL,
-  HOSPITAL_LIST_URL,
-  HOSPITAL_BUY_URL,
+  ECZANE_LIST_URL,
+  ECZANE_BUY_URL,
 } from "../endpoints";
 
 const GetHeader = () => {
@@ -72,13 +72,13 @@ const GetRobberyList = () => {
       });
   };
 };
-const GetHospitalList = () => {
+const GetEczaneList = () => {
   return async (dispatch: any) => {
     dispatch({
       type: "LOADING_TRUE",
     });
     axios
-      .get(HOSPITAL_LIST_URL)
+      .get(ECZANE_LIST_URL)
       .then((response) => {
         dispatch({
           type: "LOADING_FALSE",
@@ -90,7 +90,7 @@ const GetHospitalList = () => {
           });
         } else {
           dispatch({
-            type: "GET_HOSPITAL_LIST",
+            type: "GET_ECZANE_LIST",
             payload: response.data,
           });
         }
@@ -114,7 +114,7 @@ const BuyMedicane = (id: number) => {
       type: "LOADING_TRUE",
     });
     axios
-      .get(HOSPITAL_BUY_URL + id)
+      .get(ECZANE_BUY_URL + id)
       .then((response) => {
         dispatch({
           type: "LOADING_FALSE",
@@ -173,7 +173,7 @@ const homepageActions = {
   GetHeader,
   GetRobberyList,
   BankAction,
-  GetHospitalList,
+  GetEczaneList,
   BuyMedicane,
 };
 

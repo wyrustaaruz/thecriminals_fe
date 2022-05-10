@@ -15,8 +15,7 @@ import Splash from "../screens/general/Splash";
 import Robbery from "../screens/home/Robbery";
 import Bank from "../screens/home/Bank";
 import Club from "../screens/home/Club";
-import Enjoying from "../screens/home/Enjoying";
-import Hospital from "../screens/home/Hospital";
+import Eczane from "../screens/home/Eczane";
 import GunShop from "../screens/home/GunShop";
 import Clan from "../screens/home/Clan";
 import Login from "../screens/auth/Login";
@@ -96,22 +95,10 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Enjoy"
-        component={Enjoying}
+        name="Eczane"
+        component={Eczane}
         options={{
-          title: "Eğlence",
-          headerShown: false,
-          tabBarStyle: { backgroundColor: Colors.custom.background },
-          tabBarActiveBackgroundColor: Colors.custom.background,
-          tabBarInactiveBackgroundColor: Colors.custom.background,
-          tabBarActiveTintColor: Colors.custom.tint,
-        }}
-      />
-      <BottomTab.Screen
-        name="Hospital"
-        component={Hospital}
-        options={{
-          title: "Hastahane",
+          title: "Eczane",
           headerShown: false,
           tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,

@@ -34,7 +34,7 @@ export type RootTabParamList = {
   Robbery: undefined;
   Club: undefined;
   Enjoy: undefined;
-  Hospital: undefined;
+  Eczane: undefined;
   Bank: undefined;
   GunStore: undefined;
 };

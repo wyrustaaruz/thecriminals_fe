@@ -13,5 +13,5 @@ export const ROBBERY_LIST_URL = "/robbery-list";
 export const ROBBERY_RUN_URL = "/robbery-run/";
 export const BANK_TRANSACTION_URL = "/bank";
 
-export const HOSPITAL_LIST_URL = "/chemist";
-export const HOSPITAL_BUY_URL = "/buy-chemist/";
+export const ECZANE_LIST_URL = "/chemist";
+export const ECZANE_BUY_URL = "/buy-chemist/";

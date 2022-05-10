@@ -42,7 +42,7 @@ const initialState = {
       percent: 0,
     },
   ],
-  hospitalList: [
+  eczaneList: [
     {
       value: 0,
       name: "",
@@ -77,10 +77,10 @@ const homepageReducers = (state = initialState, action: any) => {
         ...state,
         robberyList: action.payload,
       };
-    case "GET_HOSPITAL_LIST":
+    case "GET_ECZANE_LIST":
       return {
         ...state,
-        hospitalList: action.payload,
+        eczaneList: action.payload,
       };
     case "BANK_TRANSACTION_COMPLETE":
       return {

@@ -3,13 +3,13 @@ import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import axios from "axios";
 import _ from "lodash";
 import { Text, View, MyModal, Picker } from "./PureComponents";
-import { HOSPITAL_BUY_URL } from "../redux/endpoints";
+import { ECZANE_BUY_URL } from "../redux/endpoints";
 import { useDispatch, useSelector } from "react-redux";
 import Actions from "../redux/actions";
 import LottieView from "lottie-react-native";
 import Colors from "../constants/Colors";
 
-interface HospitalItem {
+interface EczaneItem {
   value?: number;
   name?: string;
   attr?: string;
@@ -21,8 +21,8 @@ type JailStatusType = {
   message: string;
 };
 
-export const HospitalList = (
-  hospitalList: Array<HospitalItem>,
+export const EczaneList = (
+  eczaneList: Array<EczaneItem>,
   jailStatus: JailStatusType
 ) => {
   const dispatch = useDispatch();
@@ -30,13 +30,13 @@ export const HospitalList = (
   const [modalShown, setModalShown] = useState(false);
   const [modalChild, setModalChild] = useState(<></>);
   const [open, setOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<HospitalItem>({});
+  const [selectedItem, setSelectedItem] = useState<EczaneItem>({});
   const chemicalResponse =
     useSelector((state: any) => state.homepageReducers.chemicalResponse) || {};
 
   useEffect(() => {
     setSelectedItem(
-      hospitalList.filter((item) => {
+      eczaneList.filter((item) => {
         return item.value === value;
       })[0]
     );
@@ -58,7 +58,7 @@ export const HospitalList = (
     if (!_.isEmpty(selectedItem)) {
       loadingTrue();
       axios
-        .get(HOSPITAL_BUY_URL + selectedItem.value)
+        .get(ECZANE_BUY_URL + selectedItem.value)
         .then((res) => {
           const lottieImages = [
             require("../../assets/lotties/morhap.json"),
@@ -160,7 +160,7 @@ export const HospitalList = (
           </Text>
         </View>
       ) : (
-        hospitalList.length > 1 && (
+        eczaneList.length > 1 && (
           <View style={{ flex: 1, justifyContent: "space-between" }}>
             <View
               style={{
@@ -171,7 +171,7 @@ export const HospitalList = (
                 containerStyle={{ width: "100%" }}
                 open={open}
                 value={value}
-                items={hospitalList}
+                items={eczaneList}
                 setOpen={setOpen}
                 setValue={setValue}
                 schema={{
