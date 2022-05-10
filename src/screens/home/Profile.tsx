@@ -27,6 +27,7 @@ export default function Profile({ navigation }: any) {
   const dispatch = useDispatch();
 
   const loading = useSelector((state: any) => state.commonReducers.loading);
+  const profile = useSelector((state: any) => state.homepageReducers.profile);
   const characterInfo =
     useSelector((state: any) => state.homepageReducers.header) || {};
   const fetchAvatar = characterInfo.avatar
@@ -60,10 +61,19 @@ export default function Profile({ navigation }: any) {
   const initHeader = async () => {
     await dispatch(Actions.homepageActions.GetHeader());
   };
+  const initProfile = async (userID: number) => {
+    await dispatch(Actions.homepageActions.GetProfile(userID));
+  };
 
   useEffect(() => {
     initHeader();
   }, []);
+
+  useEffect(() => {
+    if (characterInfo.user_id) {
+      initProfile(characterInfo.user_id);
+    }
+  }, [characterInfo]);
 
   const saveProfile = () => {
     let tempBirthday = "";
@@ -85,8 +95,20 @@ export default function Profile({ navigation }: any) {
       <View>{SubHeader(characterInfo, navigation)}</View>
       <View>{LastHeader(characterInfo)}</View>
       <View style={{ flex: 1, margin: 10 }}>
-        <Text>Hoşgeldin {characterInfo.user.username},</Text>
-        <Text>Buradan Bilgilerini değiştirebilirsin.</Text>
+        <View style={{ marginVertical: 10 }}>
+          <Text>Hoşgeldin {characterInfo.user.username},</Text>
+          <Text>Genel Oyun İstatistiklerin:</Text>
+        </View>
+        <View style={{ marginBottom: 10, alignSelf: "center" }}>
+          <Text>Oynama zamanı: {profile.play_time}</Text>
+          <Text>Profil Ziyaretçilerin: {profile.visitors}</Text>
+          <Text>Toplam Kill: {profile.kill}</Text>
+          <Text>
+            Bize Katılma Tarihin:{" "}
+            {new Date(profile.created_at).toLocaleDateString("tr")}
+          </Text>
+        </View>
+        <Text>Aşağıdan bilgilerini değiştirebilirsin.</Text>
         <View style={styles.itemContainer}>
           <Text style={{ flex: 1 }}>Avatar:</Text>
           <TouchableOpacity

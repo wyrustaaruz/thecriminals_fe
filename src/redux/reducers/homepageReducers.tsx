@@ -58,6 +58,18 @@ const initialState = {
   transactionStatus: {
     message: "",
   },
+  profile: {
+    avatar: "",
+    gender: "",
+    respect: 0,
+    kill: 0,
+    play_time: 0,
+    visitors: 0,
+    country: "",
+    birthday: "",
+    bio: "",
+    created_at: "",
+  },
 };
 
 const homepageReducers = (state = initialState, action: any) => {
@@ -66,6 +78,11 @@ const homepageReducers = (state = initialState, action: any) => {
       return {
         ...state,
         header: action.payload,
+      };
+    case "GET_PROFILE":
+      return {
+        ...state,
+        profile: action.payload,
       };
     case "INTO_JAIL":
       return {

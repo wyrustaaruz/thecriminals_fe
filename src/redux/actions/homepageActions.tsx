@@ -2,6 +2,7 @@ import axios from "axios";
 import { Alert } from "react-native";
 import {
   HEADER_URL,
+  PROFILE_URL,
   ROBBERY_LIST_URL,
   BANK_TRANSACTION_URL,
   ECZANE_LIST_URL,
@@ -21,6 +22,34 @@ const GetHeader = () => {
         });
         dispatch({
           type: "GET_HOMEPAGE",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
+const GetProfile = (userID: number) => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
+    axios
+      .get(PROFILE_URL + userID)
+      .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "GET_PROFILE",
           payload: response.data,
         });
       })
@@ -171,6 +200,7 @@ const BankAction = (amount: string, operation: string) => {
 
 const homepageActions = {
   GetHeader,
+  GetProfile,
   GetRobberyList,
   BankAction,
   GetEczaneList,
