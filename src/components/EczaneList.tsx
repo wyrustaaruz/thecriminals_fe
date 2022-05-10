@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import { Image, StyleSheet, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { FlatList, Image, StyleSheet } from "react-native";
 import axios from "axios";
 import _ from "lodash";
-import { Text, View, MyModal, Picker } from "./PureComponents";
+import { Text, View, MyModal, Button } from "./PureComponents";
 import { ECZANE_BUY_URL } from "../redux/endpoints";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Actions from "../redux/actions";
 import LottieView from "lottie-react-native";
 import Colors from "../constants/Colors";
 
-interface EczaneItem {
+type EczaneItem = {
   value?: number;
   name?: string;
   attr?: string;
   attr_value?: number;
   price?: number;
-}
+};
 type JailStatusType = {
   block: boolean;
   message: string;
@@ -26,21 +26,8 @@ export const EczaneList = (
   jailStatus: JailStatusType
 ) => {
   const dispatch = useDispatch();
-  const [value, setValue] = useState(null);
   const [modalShown, setModalShown] = useState(false);
   const [modalChild, setModalChild] = useState(<></>);
-  const [open, setOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<EczaneItem>({});
-  const chemicalResponse =
-    useSelector((state: any) => state.homepageReducers.chemicalResponse) || {};
-
-  useEffect(() => {
-    setSelectedItem(
-      eczaneList.filter((item) => {
-        return item.value === value;
-      })[0]
-    );
-  }, [value]);
 
   const initHeader = async () => {
     await dispatch(Actions.homepageActions.GetHeader());
@@ -54,83 +41,42 @@ export const EczaneList = (
     await dispatch(Actions.commonActions.LoadingFalse());
   };
 
-  const robThis = async () => {
-    if (!_.isEmpty(selectedItem)) {
-      loadingTrue();
-      axios
-        .get(ECZANE_BUY_URL + selectedItem.value)
-        .then((res) => {
-          const lottieImages = [
-            require("../../assets/lotties/morhap.json"),
-            require("../../assets/lotties/yesilhap.json"),
-            require("../../assets/lotties/kirmizihap.json"),
-            require("../../assets/lotties/siyahhap.json"),
-            require("../../assets/lotties/medicine.json"),
-          ];
-          let randIndex = selectedItem.value || 0;
-          randIndex = randIndex !== 0 ? randIndex - 1 : randIndex;
-          const tempModalChild = () => (
-            <View>
-              <LottieView
-                style={{
-                  width: 400,
-                  height: 400,
-                  backgroundColor: "transparent",
-                }}
-                autoPlay={true}
-                loop={false}
-                source={lottieImages[randIndex]}
-              />
-              <Text style={styles.centeredText}>{res.data.message}</Text>
-            </View>
-          );
-          setModalChild(tempModalChild);
-          setModalShown(true);
-
-          initHeader();
-        })
-        .catch((error) => {
-          loadingFalse();
-          const message = error.response.data.message;
-          const tempModalChild = () => (
-            <View>
-              <LottieView
-                style={{
-                  width: 400,
-                  height: 400,
-                  backgroundColor: "transparent",
-                }}
-                autoPlay={true}
-                loop={false}
-                source={require("../../assets/lotties/boss.json")}
-              />
-              <Text style={styles.centeredText}>Opss.</Text>
-              <Text style={styles.centeredText}>{message}</Text>
-            </View>
-          );
-          setModalChild(tempModalChild);
-          setModalShown(true);
-        });
-    } else {
-      const tempModalChild = () => (
-        <View>
-          <LottieView
-            style={{
-              width: 400,
-              height: 400,
-              backgroundColor: "transparent",
-            }}
-            autoPlay={true}
-            loop={false}
-            source={require("../../assets/lotties/boss.json")}
-          />
-          <Text style={styles.centeredText}>Opss.</Text>
-          <Text style={styles.centeredText}>Sanırım seçim yapmayı unuttun</Text>
-        </View>
-      );
-      setModalChild(tempModalChild);
-      setModalShown(true);
-    }
+  const getThis = async (value: number) => {
+    loadingTrue();
+    axios
+      .get(ECZANE_BUY_URL + value)
+      .then((res) => {
+        const tempModalChild = () => (
+          <View>
+            <Text style={styles.centeredText}>{res.data.message}</Text>
+          </View>
+        );
+        setModalChild(tempModalChild);
+        setModalShown(true);
+        initHeader();
+      })
+      .catch((error) => {
+        loadingFalse();
+        const message = error.response.data.message;
+        const tempModalChild = () => (
+          <View>
+            <LottieView
+              style={{
+                width: 400,
+                height: 400,
+                backgroundColor: "transparent",
+              }}
+              autoPlay={true}
+              loop={false}
+              source={require("../../assets/lotties/boss.json")}
+            />
+            <Text style={styles.centeredText}>Opss.</Text>
+            <Text style={styles.centeredText}>{message}</Text>
+          </View>
+        );
+        setModalChild(tempModalChild);
+        setModalShown(true);
+      });
   };
 
   const jailGifs = [
@@ -139,6 +85,77 @@ export const EczaneList = (
   ];
   let randJailIndex = Math.floor(Math.random() * jailGifs.length);
 
+  const ChemicalItem = ({ item }: any) => {
+    const lottieImages = [
+      require("../../assets/lotties/morhap.json"),
+      require("../../assets/lotties/yesilhap.json"),
+      require("../../assets/lotties/kirmizihap.json"),
+      require("../../assets/lotties/siyahhap.json"),
+      require("../../assets/lotties/medicine.json"),
+    ];
+    let randIndex = item.value || 0;
+    randIndex = randIndex !== 0 ? randIndex - 1 : randIndex;
+    return (
+      <View
+        key={item.value}
+        style={{
+          backgroundColor: Colors.DarkGray,
+          borderRadius: 8,
+          flex: 1,
+          paddingRight: 15,
+          paddingVertical: 15,
+          marginVertical: 5,
+          marginHorizontal: 15,
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <View
+          style={{
+            alignItems: "flex-start",
+            justifyContent: "center",
+            flex: 1,
+            marginHorizontal: 5,
+          }}
+        >
+          <LottieView
+            style={{
+              width: 50,
+              height: 50,
+              backgroundColor: "transparent",
+            }}
+            autoPlay={true}
+            loop={true}
+            source={lottieImages[randIndex]}
+          />
+        </View>
+        <View
+          style={{
+            alignItems: "flex-start",
+            justifyContent: "center",
+            flex: 3,
+          }}
+        >
+          <Text>İsim: {item.name}</Text>
+          <Text>Stat: {item.attr}</Text>
+          <Text>Miktar: {item.attr_value}</Text>
+          <Text>Ücret: {item.price}</Text>
+        </View>
+        <View
+          style={{ alignItems: "flex-end", justifyContent: "center", flex: 2 }}
+        >
+          <Button
+            style={{ marginBottom: 5 }}
+            onPress={() => getThis(item.value)}
+          >
+            <Text style={{ textAlign: "center", justifyContent: "center" }}>
+              Satın Al
+            </Text>
+          </Button>
+        </View>
+      </View>
+    );
+  };
   return (
     <View style={styles.headerContainer}>
       {jailStatus.block ? (
@@ -162,90 +179,15 @@ export const EczaneList = (
       ) : (
         eczaneList.length > 1 && (
           <View style={{ flex: 1, justifyContent: "space-between" }}>
-            <View
-              style={{
-                paddingVertical: 20,
-              }}
-            >
-              <Picker
-                containerStyle={{ width: "100%" }}
-                open={open}
-                value={value}
-                items={eczaneList}
-                setOpen={setOpen}
-                setValue={setValue}
-                schema={{
-                  label: "name",
-                  value: "value",
-                }}
+            <View style={{}}>
+              <FlatList
+                data={eczaneList}
+                renderItem={({ item }) => (
+                  <ChemicalItem key={item.value} item={item} />
+                )}
+                keyExtractor={(item, index) => index.toString()}
               />
             </View>
-            {!_.isEmpty(selectedItem) && (
-              <View
-                style={{
-                  zIndex: -1,
-                  backgroundColor: Colors.DarkGray,
-                  padding: 20,
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text>İsim:</Text>
-                  <Text>{selectedItem.name}</Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text>Stat:</Text>
-                  <Text>{selectedItem.attr}</Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text>Miktar:</Text>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Text>{selectedItem.attr_value}</Text>
-                  </View>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text>Ücret:</Text>
-                  <Text>${selectedItem.price}</Text>
-                </View>
-              </View>
-            )}
-            <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                padding: 10,
-                borderRadius: 8,
-                borderColor: Colors.Gold,
-              }}
-              onPress={() => robThis()}
-            >
-              <Text style={{ textAlign: "center", justifyContent: "center" }}>
-                Satın Al
-              </Text>
-            </TouchableOpacity>
             <MyModal
               visible={modalShown}
               onRequestClose={() => setModalShown(false)}
@@ -263,7 +205,6 @@ const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
     backgroundColor: Colors.LightGray,
-    padding: 20,
   },
   centeredText: {
     textAlign: "center",
