@@ -15,6 +15,7 @@ import Splash from "../screens/general/Splash";
 import Robbery from "../screens/home/Robbery";
 import Bank from "../screens/home/Bank";
 import Club from "../screens/home/Club";
+import Buildings from "../screens/home/Buildings";
 import Eczane from "../screens/home/Eczane";
 import GunShop from "../screens/home/GunShop";
 import Clan from "../screens/home/Clan";
@@ -87,6 +88,18 @@ function BottomTabNavigator() {
         component={Club}
         options={{
           title: "Kulüp",
+          headerShown: false,
+          tabBarStyle: { backgroundColor: Colors.custom.background },
+          tabBarActiveBackgroundColor: Colors.custom.background,
+          tabBarInactiveBackgroundColor: Colors.custom.background,
+          tabBarActiveTintColor: Colors.custom.tint,
+        }}
+      />
+      <BottomTab.Screen
+        name="Buildings"
+        component={Buildings}
+        options={{
+          title: "Binalar",
           headerShown: false,
           tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,

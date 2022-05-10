@@ -100,7 +100,7 @@ export default function Profile({ navigation }: any) {
           <Text>Genel Oyun İstatistiklerin:</Text>
         </View>
         <View style={{ marginBottom: 10, alignSelf: "center" }}>
-          <Text>Oynama zamanı: {profile.play_time}</Text>
+          <Text>Oynama zamanı: {profile.play_time} Dakika</Text>
           <Text>Profil Ziyaretçilerin: {profile.visitors}</Text>
           <Text>Toplam Kill: {profile.kill}</Text>
           <Text>
