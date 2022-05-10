@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Image, StyleSheet, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { FlatList, Image, StyleSheet } from "react-native";
 import axios from "axios";
 import _ from "lodash";
-import { Text, View, MyModal, Picker } from "./PureComponents";
+import { Text, View, MyModal, Button } from "./PureComponents";
 import { ROBBERY_RUN_URL } from "../redux/endpoints";
 import { useDispatch } from "react-redux";
 import Actions from "../redux/actions";
@@ -31,19 +31,8 @@ export const RobberyList = (
   jailStatus: JailStatusType
 ) => {
   const dispatch = useDispatch();
-  const [value, setValue] = useState(null);
-  const [selectedItem, setSelectedItem] = useState<RobberyItem>({});
   const [modalShown, setModalShown] = useState(false);
   const [modalChild, setModalChild] = useState(<></>);
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    setSelectedItem(
-      robberyList.filter((item) => {
-        return item.value === value;
-      })[0]
-    );
-  }, [value]);
 
   const initHeader = async () => {
     await dispatch(Actions.homepageActions.GetHeader());
@@ -59,95 +48,74 @@ export const RobberyList = (
   const loadingFalse = async () => {
     await dispatch(Actions.commonActions.LoadingFalse());
   };
-  const robThis = () => {
-    if (!_.isEmpty(selectedItem)) {
-      loadingTrue();
-      axios
-        .get(ROBBERY_RUN_URL + selectedItem.value)
-        .then((res) => {
-          if (res.data.status === "success") {
-            const message =
-              res.data.message +
-              "\nKazanılan Ödül:\n" +
-              "Cash: $" +
-              res.data.rewards.cash +
-              "\nItem: " +
-              JSON.stringify(res.data.rewards.item)
-                .replaceAll("{", "")
-                .replaceAll("}", "")
-                .replaceAll("[", "")
-                .replaceAll("]", "");
-            const lottieImages = [
-              require("../../assets/lotties/man-in-brown.json"),
-              require("../../assets/lotties/man-in-green.json"),
-              require("../../assets/lotties/mustache.json"),
-              require("../../assets/lotties/woman.json"),
-            ];
-            let randIndex = Math.floor(Math.random() * lottieImages.length);
-            const tempModalChild = () => (
-              <View>
-                <LottieView
-                  style={{
-                    width: 400,
-                    height: 400,
-                    backgroundColor: "transparent",
-                  }}
-                  autoPlay={true}
-                  loop={false}
-                  source={lottieImages[randIndex]}
-                />
-                <Text style={styles.centeredText}>Başarılı</Text>
-                <Text style={styles.centeredText}>{message}</Text>
-              </View>
-            );
-            setModalChild(tempModalChild);
-            setModalShown(true);
-          } else {
-            const tempModalChild = () => (
-              <View>
-                <LottieView
-                  style={{
-                    width: 400,
-                    height: 400,
-                    backgroundColor: "transparent",
-                  }}
-                  autoPlay={true}
-                  loop={false}
-                  source={require("../../assets/lotties/boss.json")}
-                />
-                <Text style={styles.centeredText}>Opss.</Text>
-                <Text style={styles.centeredText}>{res.data.message}</Text>
-              </View>
-            );
-            setModalChild(tempModalChild);
-            setModalShown(true);
-          }
-          initHeader();
-          initRobberyList();
-        })
-        .catch((error) => {
-          loadingFalse();
-        });
-    } else {
-      const tempModalChild = () => (
-        <View>
-          <LottieView
-            style={{
-              width: 400,
-              height: 400,
-              backgroundColor: "transparent",
-            }}
-            autoPlay={true}
-            loop={false}
-            source={require("../../assets/lotties/boss.json")}
-          />
-          <Text style={styles.centeredText}>Opss.</Text>
-          <Text style={styles.centeredText}>Sanırım seçim yapmayı unuttun</Text>
-        </View>
-      );
-      setModalChild(tempModalChild);
-      setModalShown(true);
-    }
+  const robThis = (value: number) => {
+    loadingTrue();
+    axios
+      .get(ROBBERY_RUN_URL + value)
+      .then((res) => {
+        if (res.data.status === "success") {
+          const message =
+            res.data.message +
+            "\nKazanılan Ödül:\n" +
+            "Cash: $" +
+            res.data.rewards.cash +
+            "\nItem: " +
+            JSON.stringify(res.data.rewards.item)
+              .replaceAll("{", "")
+              .replaceAll("}", "")
+              .replaceAll("[", "")
+              .replaceAll("]", "");
+          const lottieImages = [
+            require("../../assets/lotties/man-in-brown.json"),
+            require("../../assets/lotties/man-in-green.json"),
+            require("../../assets/lotties/mustache.json"),
+            require("../../assets/lotties/woman.json"),
+          ];
+          let randIndex = Math.floor(Math.random() * lottieImages.length);
+          const tempModalChild = () => (
+            <View>
+              <LottieView
+                style={{
+                  width: 400,
+                  height: 400,
+                  backgroundColor: "transparent",
+                }}
+                autoPlay={true}
+                loop={false}
+                source={lottieImages[randIndex]}
+              />
+              <Text style={styles.centeredText}>Başarılı</Text>
+              <Text style={styles.centeredText}>{message}</Text>
+            </View>
+          );
+          setModalChild(tempModalChild);
+          setModalShown(true);
+        } else {
+          const tempModalChild = () => (
+            <View>
+              <LottieView
+                style={{
+                  width: 400,
+                  height: 400,
+                  backgroundColor: "transparent",
+                }}
+                autoPlay={true}
+                loop={false}
+                source={require("../../assets/lotties/boss.json")}
+              />
+              <Text style={styles.centeredText}>Opss.</Text>
+              <Text style={styles.centeredText}>{res.data.message}</Text>
+            </View>
+          );
+          setModalChild(tempModalChild);
+          setModalShown(true);
+        }
+        initHeader();
+        initRobberyList();
+      })
+      .catch((error) => {
+        loadingFalse();
+      });
   };
 
   const jailGifs = [
@@ -155,6 +123,92 @@ export const RobberyList = (
     require("../../assets/lotties/jail2.gif"),
   ];
   let randJailIndex = Math.floor(Math.random() * jailGifs.length);
+  const RobItem = ({ item }: any) => (
+    <View
+      key={item.value}
+      style={{
+        backgroundColor: Colors.DarkGray,
+        borderRadius: 8,
+        flex: 1,
+        paddingRight: 15,
+        paddingVertical: 15,
+        marginVertical: 5,
+        marginHorizontal: 15,
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+      }}
+    >
+      <View
+        style={{
+          alignItems: "flex-start",
+          justifyContent: "center",
+          flex: 1,
+          marginHorizontal: 5,
+        }}
+      >
+        <Image
+          style={{ width: 50, height: 50 }}
+          source={require("../../assets/images/avatar_20.png")}
+        />
+      </View>
+      <View
+        style={{
+          alignItems: "flex-start",
+          justifyContent: "center",
+          flex: 3,
+        }}
+      >
+        <Text>{item.label}</Text>
+        <Text>Dayanıklılık: {item.required_stamina_percent}</Text>
+        <Text>
+          Ödül: ${item.reward_cash_min} - ${item.reward_cash_max}
+        </Text>
+        <Text>
+          Kazanılacak Puan: {item.attr_min} - {item.attr_max}
+        </Text>
+        <Text>
+          Kazanılacak Nesne:{" "}
+          {item.reward_item
+            ? Object.keys(item.reward_item) +
+              ": " +
+              Object.values(item.reward_item)
+            : "-"}
+        </Text>
+      </View>
+      <View
+        style={{ alignItems: "flex-end", justifyContent: "center", flex: 2 }}
+      >
+        <Button style={{ marginBottom: 5 }} onPress={() => robThis(item.value)}>
+          <Text style={{ textAlign: "center", justifyContent: "center" }}>
+            Soygun Yap
+          </Text>
+        </Button>
+        <Text>İhtimal:</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Text>{item.percent}</Text>
+          <View
+            style={{
+              marginLeft: 5,
+              width: 20,
+              height: 20,
+              backgroundColor:
+                item.percent && item.percent >= 80
+                  ? "green"
+                  : item.percent && item.percent < 80 && item.percent >= 40
+                  ? "orange"
+                  : "red",
+              borderRadius: 10,
+            }}
+          />
+        </View>
+      </View>
+    </View>
+  );
 
   return (
     <View style={styles.headerContainer}>
@@ -179,122 +233,15 @@ export const RobberyList = (
       ) : (
         robberyList.length > 1 && (
           <View style={{ flex: 1, justifyContent: "space-between" }}>
-            <View
-              style={{
-                paddingVertical: 20,
-              }}
-            >
-              <Picker
-                containerStyle={{ width: "100%" }}
-                open={open}
-                value={value}
-                items={robberyList}
-                setOpen={setOpen}
-                setValue={setValue}
+            <View style={{}}>
+              <FlatList
+                data={robberyList}
+                renderItem={({ item }) => (
+                  <RobItem key={item.value} item={item} />
+                )}
+                keyExtractor={(item, index) => index.toString()}
               />
             </View>
-            {!_.isEmpty(selectedItem) && (
-              <View
-                style={{
-                  zIndex: -1,
-                  backgroundColor: Colors.DarkGray,
-                  padding: 20,
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text>İstenilen Stamina:</Text>
-                  <Text>{selectedItem.required_stamina_percent}</Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text>Ödül:</Text>
-                  <Text>
-                    ${selectedItem.reward_cash_min} - $
-                    {selectedItem.reward_cash_max}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text>İhtimal:</Text>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Text>{selectedItem.percent}</Text>
-                    <View
-                      style={{
-                        marginLeft: 5,
-                        width: 20,
-                        height: 20,
-                        backgroundColor:
-                          selectedItem.percent && selectedItem.percent >= 80
-                            ? "green"
-                            : selectedItem.percent &&
-                              selectedItem.percent < 80 &&
-                              selectedItem.percent >= 40
-                            ? "orange"
-                            : "red",
-                        borderRadius: 10,
-                      }}
-                    />
-                  </View>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text>Kazanacağın Stat:</Text>
-                  <Text>
-                    {selectedItem.attr_min} - {selectedItem.attr_max}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Text>Kazanacağın Item:</Text>
-                  <Text>
-                    {selectedItem.reward_item
-                      ? Object.keys(selectedItem.reward_item) +
-                        ": " +
-                        Object.values(selectedItem.reward_item)
-                      : "-"}
-                  </Text>
-                </View>
-              </View>
-            )}
-            <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                padding: 10,
-                borderRadius: 8,
-                borderColor: Colors.Gold,
-              }}
-              onPress={() => robThis()}
-            >
-              <Text style={{ textAlign: "center", justifyContent: "center" }}>
-                Soygun Yap
-              </Text>
-            </TouchableOpacity>
             <MyModal
               visible={modalShown}
               onRequestClose={() => setModalShown(false)}
@@ -312,7 +259,6 @@ const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
     backgroundColor: Colors.LightGray,
-    padding: 20,
   },
   centeredText: {
     textAlign: "center",
