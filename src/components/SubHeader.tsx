@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
   tinyLogo: {
     width: 35,
     height: 35,
+    borderRadius: 8,
   },
   coinImage: {
     marginHorizontal: 5,

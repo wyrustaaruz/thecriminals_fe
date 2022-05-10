@@ -35,7 +35,7 @@ export const Header = (
 
   return (
     <View style={styles.headerContainer}>
-      <View>
+      <View style={styles.logoContainer}>
         {avatar ? (
           <Image
             style={styles.tinyLogo}
@@ -82,7 +82,7 @@ export const Header = (
           {tolerance !== undefined ? tolerance : 0}
         </Text>
       </View>
-      <View style={styles.centeredView}>
+      <View style={[styles.centeredView, styles.menuContainer]}>
         <TouchableOpacity
           onPress={() => {
             navigation.toggleDrawer();
@@ -109,12 +109,27 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   tinyLogo: {
+    paddingLeft: 5,
+    marginLeft: 10,
+    borderRadius: 8,
     width: 70,
     height: 70,
   },
-  menuLogo: {
+  logoContainer: {
+    shadowColor: Colors.Gold,
+    shadowOffset: { width: 5, height: 5 },
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+  },
+  menuContainer: {
     width: 50,
     height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  menuLogo: {
+    width: 20,
+    height: 20,
   },
   usernameText: {
     fontSize: 20,
