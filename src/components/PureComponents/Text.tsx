@@ -1,10 +1,14 @@
 import { Text as DefaultText } from "react-native";
 import Colors from "../../constants/Colors";
 
-export type TextProps = DefaultText["props"];
+type DefaultTextType = DefaultText["props"];
 
-export function Text(props: TextProps) {
-  const { style, ...otherProps } = props;
-  const color = Colors.Gold;
+interface TextType extends DefaultTextType {
+  type?: string;
+}
+
+export function Text(props: TextType) {
+  const { style, type, ...otherProps } = props;
+  const color = type === "danger" ? Colors.Red : Colors.Gold;
   return <DefaultText style={[{ color }, style]} {...otherProps} />;
 }

@@ -7,6 +7,8 @@ import {
   BANK_TRANSACTION_URL,
   ECZANE_LIST_URL,
   ECZANE_BUY_URL,
+  BUILDING_LIST_URL,
+  OWN_BUILDING_LIST_URL,
 } from "../endpoints";
 
 const GetHeader = () => {
@@ -197,6 +199,62 @@ const BankAction = (amount: string, operation: string) => {
       });
   };
 };
+const GetBuildList = () => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
+    axios
+      .get(BUILDING_LIST_URL)
+      .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "GET_BUILDINGS",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
+const GetOwnBuildList = () => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
+    axios
+      .get(OWN_BUILDING_LIST_URL)
+      .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "GET_OWN_BUILDINGS",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
 
 const homepageActions = {
   GetHeader,
@@ -205,6 +263,8 @@ const homepageActions = {
   BankAction,
   GetEczaneList,
   BuyMedicane,
+  GetBuildList,
+  GetOwnBuildList,
 };
 
 export default homepageActions;

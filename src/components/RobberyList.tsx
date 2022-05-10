@@ -11,7 +11,7 @@ import Colors from "../constants/Colors";
 
 interface RobberyItem {
   label?: string;
-  value?: number;
+  value: number;
   power?: number;
   required_stamina_percent?: number;
   daily?: number;
@@ -22,6 +22,9 @@ interface RobberyItem {
   percent?: number;
   reward_item?: any;
 }
+type RobItemType = {
+  item: RobberyItem;
+};
 type JailStatusType = {
   block: boolean;
   message: string;
@@ -123,7 +126,7 @@ export const RobberyList = (
     require("../../assets/lotties/jail2.gif"),
   ];
   let randJailIndex = Math.floor(Math.random() * jailGifs.length);
-  const RobItem = ({ item }: any) => (
+  const RobItem = ({ item }: RobItemType) => (
     <View
       key={item.value}
       style={{
@@ -231,9 +234,9 @@ export const RobberyList = (
           </Text>
         </View>
       ) : (
-        robberyList.length > 1 && (
+        robberyList.length > 0 && (
           <View style={{ flex: 1, justifyContent: "space-between" }}>
-            <View style={{}}>
+            <View>
               <FlatList
                 data={robberyList}
                 renderItem={({ item }) => (

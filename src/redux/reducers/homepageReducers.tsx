@@ -29,28 +29,8 @@ const initialState = {
     block_expire: null,
     user: { username: "", credits: 0 },
   },
-  robberyList: [
-    {
-      name: "",
-      power: 0,
-      required_stamina_percent: 0,
-      daily: 0,
-      reward_cash_min: 0,
-      reward_cash_max: 0,
-      attr_min: 0,
-      attr_max: 0,
-      percent: 0,
-    },
-  ],
-  eczaneList: [
-    {
-      value: 0,
-      name: "",
-      attr: "",
-      attr_value: 1,
-      price: 0,
-    },
-  ],
+  robberyList: [],
+  eczaneList: [],
   jailStatus: {
     block: null,
     message: "",
@@ -70,6 +50,8 @@ const initialState = {
     bio: "",
     created_at: "",
   },
+  buildList: [],
+  ownBuildList: [],
 };
 
 const homepageReducers = (state = initialState, action: any) => {
@@ -103,6 +85,16 @@ const homepageReducers = (state = initialState, action: any) => {
       return {
         ...state,
         transactionStatus: action.payload,
+      };
+    case "GET_BUILDINGS":
+      return {
+        ...state,
+        buildList: action.payload,
+      };
+    case "GET_OWN_BUILDINGS":
+      return {
+        ...state,
+        ownBuildList: action.payload,
       };
     default:
       return state;

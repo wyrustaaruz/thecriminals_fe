@@ -1,10 +1,14 @@
 import { TouchableOpacity as DefaultTouchableOpacity } from "react-native";
 import Colors from "../../constants/Colors";
 
-export type TouchableOpacityProps = DefaultTouchableOpacity["props"];
+type DefaultTouchableOpacityType = DefaultTouchableOpacity["props"];
 
-export function Button(props: TouchableOpacityProps) {
-  const { style, onPress } = props;
+export interface ButtonType extends DefaultTouchableOpacityType {
+  type?: string;
+}
+
+export function Button(props: ButtonType) {
+  const { style, onPress, type } = props;
   return (
     <DefaultTouchableOpacity
       style={[
@@ -13,7 +17,7 @@ export function Button(props: TouchableOpacityProps) {
           borderWidth: 1,
           padding: 10,
           borderRadius: 8,
-          borderColor: Colors.Gold,
+          borderColor: type === "danger" ? Colors.Red : Colors.Gold,
         },
       ]}
       onPress={onPress}

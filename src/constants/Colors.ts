@@ -1,5 +1,6 @@
 
 const Gold= "#C0B184"
+const Red= "red"
 const LightGray= "#464646"
 const DarkGray= "#333333"
 
@@ -34,6 +35,7 @@ const Colors = {
   DarkGray,
   LightGray,
   Gold,
+  Red,
   light,
   dark,
   custom

@@ -18,3 +18,9 @@ export const ECZANE_BUY_URL = "/buy-chemist/";
 
 export const PROFILE_URL = "/profile/";
 export const UPDATE_PROFILE_URL = "/profile-update";
+
+export const BUILDING_LIST_URL = "/build-list";
+export const BUILDING_BUY_URL = "/build-buy/";
+export const OWN_BUILDING_LIST_URL = "/build-my-list";
+export const BUILDING_COLLECT_URL = "/build-checkout/";
+export const BUILDING_SELL_URL = "/build-sell/";

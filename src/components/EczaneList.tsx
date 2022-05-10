@@ -10,11 +10,14 @@ import LottieView from "lottie-react-native";
 import Colors from "../constants/Colors";
 
 type EczaneItem = {
-  value?: number;
+  value: number;
   name?: string;
   attr?: string;
   attr_value?: number;
   price?: number;
+};
+type EczaneItemType = {
+  item: EczaneItem;
 };
 type JailStatusType = {
   block: boolean;
@@ -85,7 +88,7 @@ export const EczaneList = (
   ];
   let randJailIndex = Math.floor(Math.random() * jailGifs.length);
 
-  const ChemicalItem = ({ item }: any) => {
+  const ChemicalItem = ({ item }: EczaneItemType) => {
     const lottieImages = [
       require("../../assets/lotties/morhap.json"),
       require("../../assets/lotties/yesilhap.json"),
@@ -177,9 +180,9 @@ export const EczaneList = (
           </Text>
         </View>
       ) : (
-        eczaneList.length > 1 && (
+        eczaneList.length > 0 && (
           <View style={{ flex: 1, justifyContent: "space-between" }}>
-            <View style={{}}>
+            <View>
               <FlatList
                 data={eczaneList}
                 renderItem={({ item }) => (
