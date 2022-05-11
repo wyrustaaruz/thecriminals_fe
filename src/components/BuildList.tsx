@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList, Image, ScrollView, StyleSheet } from "react-native";
+import { FlatList, Image, StyleSheet } from "react-native";
 import axios from "axios";
 import _ from "lodash";
 import { Text, View, MyModal, Button } from "./PureComponents";
@@ -21,7 +21,8 @@ type BuildItem = {
   daily_earning: number;
   price: number;
   total_earning?: number;
-  item: number;
+  item_name: number;
+  count: number;
 };
 
 type ItemType = {
@@ -258,10 +259,7 @@ export const BuildList = (
             marginHorizontal: 5,
           }}
         >
-          <Image
-            style={{ width: "100%", height: "100%" }}
-            source={{ uri: item.img }}
-          />
+          <Image style={{ width: 50, height: 50 }} source={{ uri: item.img }} />
         </View>
         <View
           style={{
@@ -271,9 +269,11 @@ export const BuildList = (
           }}
         >
           <Text>İsim: {item.label}</Text>
-          <Text>Production: {item.production}</Text>
+          <Text>Üretilen Ürün: {item.item_name}</Text>
+          <Text>Üretilen miktar: {item.production}</Text>
           <Text>Günlük Kazanç: {item.daily_earning}</Text>
           <Text>Ücret: {item.price}</Text>
+          {!buyable && <Text>Sahip Olduğun Miktar: {item.count}</Text>}
           {!buyable && <Text>Toplam Kazanç: {item.total_earning}</Text>}
         </View>
         {buyable ? (

@@ -186,7 +186,7 @@ export const OwnClubList = (
   };
 
   const enterClub = (clubId: number) => {
-    navigation.navigate("InClub");
+    navigation.navigate("InClub", { clubId });
   };
 
   const jailGifs = [

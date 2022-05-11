@@ -45,6 +45,9 @@ export const BuyClubList = (
   const loadingFalse = async () => {
     await dispatch(Actions.commonActions.LoadingFalse());
   };
+  const initOwnClubs = async () => {
+    await dispatch(Actions.homepageActions.GetOwnClubList());
+  };
 
   const buyItem = async (value: number) => {
     loadingTrue();
@@ -59,6 +62,7 @@ export const BuyClubList = (
         setModalChild(tempModalChild);
         setModalShown(true);
         initHeader();
+        initOwnClubs();
       })
       .catch((error) => {
         loadingFalse();
