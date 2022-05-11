@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { FlatList, Image, StyleSheet } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import axios from "axios";
 import _ from "lodash";
-import { Text, View, MyModal, Button } from "./PureComponents";
+import { Text, View, MyModal, Button, TextInput } from "./PureComponents";
 import { ECZANE_BUY_URL } from "../redux/endpoints";
 import { useDispatch } from "react-redux";
 import Actions from "../redux/actions";
 import LottieView from "lottie-react-native";
 import Colors from "../constants/Colors";
+import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 
 type EczaneItem = {
   value: number;
@@ -29,6 +30,7 @@ export const EczaneList = (
   jailStatus: JailStatusType
 ) => {
   const dispatch = useDispatch();
+  const [textInputs, setTextInputs] = useState<any>([]);
   const [modalShown, setModalShown] = useState(false);
   const [modalChild, setModalChild] = useState(<></>);
 
@@ -47,7 +49,9 @@ export const EczaneList = (
   const getThis = async (value: number) => {
     loadingTrue();
     axios
-      .get(ECZANE_BUY_URL + value)
+      .post(ECZANE_BUY_URL + value, {
+        count: textInputs[value] ? textInputs[value] : "1",
+      })
       .then((res) => {
         const tempModalChild = () => (
           <View>
@@ -145,8 +149,28 @@ export const EczaneList = (
           <Text>Ücret: {item.price}</Text>
         </View>
         <View
-          style={{ alignItems: "flex-end", justifyContent: "center", flex: 2 }}
+          style={{
+            alignItems: "flex-end",
+            justifyContent: "center",
+            flex: 2,
+          }}
         >
+          <TextInput
+            style={{
+              marginBottom: 5,
+              padding: 10,
+              flex: 1,
+              width: "70%",
+            }}
+            keyboardType="number-pad"
+            placeholder="1"
+            placeholderTextColor={Colors.Gold}
+            returnKeyType="next"
+            onChangeText={(text) => {
+              textInputs[item.value] = text;
+              setTextInputs(textInputs);
+            }}
+          />
           <Button
             style={{ marginBottom: 5 }}
             onPress={() => getThis(item.value)}
@@ -182,15 +206,14 @@ export const EczaneList = (
       ) : (
         eczaneList.length > 0 && (
           <View style={{ flex: 1, justifyContent: "space-between" }}>
-            <View>
-              <FlatList
-                data={eczaneList}
-                renderItem={({ item }) => (
-                  <ChemicalItem key={item.value} item={item} />
-                )}
-                keyExtractor={(item, index) => index.toString()}
-              />
-            </View>
+            <KeyboardAwareFlatList
+              style={{ flex: 1 }}
+              data={eczaneList}
+              renderItem={({ item }) => (
+                <ChemicalItem key={item.value} item={item} />
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
             <MyModal
               visible={modalShown}
               onRequestClose={() => setModalShown(false)}
