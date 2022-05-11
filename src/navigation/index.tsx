@@ -15,6 +15,7 @@ import Splash from "../screens/general/Splash";
 import Robbery from "../screens/home/Robbery";
 import Bank from "../screens/home/Bank";
 import Club from "../screens/home/Club";
+import InClub from "../screens/home/InClub";
 import Buildings from "../screens/home/Buildings";
 import Eczane from "../screens/home/Eczane";
 import GunShop from "../screens/home/GunShop";
@@ -161,6 +162,13 @@ function RootNavigator() {
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
+      />
+      <Stack.Screen
+        name="InClub"
+        component={InClub}
+        options={{
+          title: "Kulüp",
+        }}
       />
       <Stack.Screen
         name="Splash"

@@ -52,6 +52,9 @@ const initialState = {
   },
   buildList: [],
   ownBuildList: [],
+  clubList: [],
+  ownClubList: [],
+  clubItems: [],
 };
 
 const homepageReducers = (state = initialState, action: any) => {
@@ -95,6 +98,21 @@ const homepageReducers = (state = initialState, action: any) => {
       return {
         ...state,
         ownBuildList: action.payload,
+      };
+    case "GET_CLUBS":
+      return {
+        ...state,
+        clubList: action.payload,
+      };
+    case "GET_OWN_CLUBS":
+      return {
+        ...state,
+        ownClubList: action.payload,
+      };
+    case "GET_CLUB_ITEMS":
+      return {
+        ...state,
+        clubItems: action.payload,
       };
     default:
       return state;

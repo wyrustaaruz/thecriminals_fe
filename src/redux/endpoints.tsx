@@ -24,3 +24,12 @@ export const BUILDING_BUY_URL = "/build-buy/";
 export const OWN_BUILDING_LIST_URL = "/build-my-list";
 export const BUILDING_COLLECT_URL = "/build-checkout/";
 export const BUILDING_SELL_URL = "/build-sell/";
+
+export const CLUB_LIST_URL = "/night-club-list";
+export const OWN_CLUB_LIST_URL = "/night-club-my-list";
+export const CLUB_BUY_URL = "/night-club-buy/";
+export const CLUB_COLLECT_URL = "/night-club-checkout/";
+export const CLUB_SELL_URL = "/night-club-sell/";
+export const CLUB_ADD_ITEM_URL = "/night-club-add-item/";
+export const CLUB_ENTER_URL = "/night-club-enter/";
+export const CLUB_BUY_ITEM_URL = "/night-club-buy-item/";

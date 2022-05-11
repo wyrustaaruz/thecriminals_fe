@@ -24,6 +24,7 @@ export type RootStackParamList = {
   ForgetPassword: undefined;
   Modal: undefined;
   NotFound: undefined;
+  InClub: undefined;
   Splash: undefined;
 };
 

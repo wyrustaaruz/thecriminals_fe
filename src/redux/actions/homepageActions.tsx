@@ -9,6 +9,9 @@ import {
   ECZANE_BUY_URL,
   BUILDING_LIST_URL,
   OWN_BUILDING_LIST_URL,
+  CLUB_LIST_URL,
+  OWN_CLUB_LIST_URL,
+  CLUB_ENTER_URL,
 } from "../endpoints";
 
 const GetHeader = () => {
@@ -255,6 +258,90 @@ const GetOwnBuildList = () => {
       });
   };
 };
+const GetClubList = () => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
+    axios
+      .get(CLUB_LIST_URL)
+      .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "GET_CLUBS",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
+const GetOwnClubList = () => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
+    axios
+      .get(OWN_CLUB_LIST_URL)
+      .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "GET_OWN_CLUBS",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
+const GetClubItems = (clubId: number) => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
+    axios
+      .get(CLUB_ENTER_URL + clubId)
+      .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "GET_CLUB_ITEMS",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
 
 const homepageActions = {
   GetHeader,
@@ -265,6 +352,9 @@ const homepageActions = {
   BuyMedicane,
   GetBuildList,
   GetOwnBuildList,
+  GetClubList,
+  GetOwnClubList,
+  GetClubItems,
 };
 
 export default homepageActions;
