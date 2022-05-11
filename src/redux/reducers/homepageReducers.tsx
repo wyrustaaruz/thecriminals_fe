@@ -55,6 +55,7 @@ const initialState = {
   clubList: [],
   ownClubList: [],
   clubItems: [],
+  characterItemList: [],
 };
 
 const homepageReducers = (state = initialState, action: any) => {
@@ -113,6 +114,11 @@ const homepageReducers = (state = initialState, action: any) => {
       return {
         ...state,
         clubItems: action.payload,
+      };
+    case "GET_CHARACTER_ITEM_LIST":
+      return {
+        ...state,
+        characterItemList: action.payload,
       };
     default:
       return state;

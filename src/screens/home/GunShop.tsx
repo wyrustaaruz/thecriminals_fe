@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Header, SubHeader, LastHeader } from "../../components";
+import { Header, SubHeader, LastHeader, Inventory } from "../../components";
 import { Loading, Text, View } from "../../components/PureComponents";
 import Colors from "../../constants/Colors";
 import Actions from "../../redux/actions";
@@ -11,18 +11,23 @@ export default function GunShop({ navigation }: any) {
   const characterInfo =
     useSelector((state: any) => state.homepageReducers.header) || {};
   const loading = useSelector((state: any) => state.commonReducers.loading);
-
+  const jailStatus = useSelector(
+    (state: any) => state.homepageReducers.jailStatus
+  );
+  const characterItemList = useSelector(
+    (state: any) => state.homepageReducers.characterItemList
+  );
   const initHeader = async () => {
     await dispatch(Actions.homepageActions.GetHeader());
   };
 
-  const initRobberyList = async () => {
-    await dispatch(Actions.homepageActions.GetRobberyList());
+  const initCharacterItemsList = async () => {
+    await dispatch(Actions.homepageActions.GetCharacterItems());
   };
 
   useEffect(() => {
     initHeader();
-    initRobberyList();
+    initCharacterItemsList();
   }, []);
 
   return (
@@ -31,8 +36,11 @@ export default function GunShop({ navigation }: any) {
       <View>{Header(characterInfo, navigation)}</View>
       <View>{SubHeader(characterInfo, navigation)}</View>
       <View>{LastHeader(characterInfo)}</View>
+      <Text style={{ marginLeft: 15, marginTop: 15 }}>
+        Sahip olduğun Eşyalar
+      </Text>
       <View style={{ flex: 1 }}>
-        <Text>Silahçı Ekranı</Text>
+        {Inventory(characterItemList, jailStatus)}
       </View>
     </SafeAreaView>
   );

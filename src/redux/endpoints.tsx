@@ -33,3 +33,5 @@ export const CLUB_SELL_URL = "/night-club-sell/";
 export const CLUB_ADD_ITEM_URL = "/night-club-add-item/";
 export const CLUB_ENTER_URL = "/night-club-enter/";
 export const CLUB_BUY_ITEM_URL = "/night-club-buy-item/";
+
+export const CHARACTER_ITEMS_URL = "/inventory-list";

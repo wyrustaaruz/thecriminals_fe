@@ -12,6 +12,7 @@ import {
   CLUB_LIST_URL,
   OWN_CLUB_LIST_URL,
   CLUB_ENTER_URL,
+  CHARACTER_ITEMS_URL,
 } from "../endpoints";
 
 const GetHeader = () => {
@@ -342,6 +343,34 @@ const GetClubItems = (clubId: number) => {
       });
   };
 };
+const GetCharacterItems = () => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
+    axios
+      .get(CHARACTER_ITEMS_URL)
+      .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "GET_CHARACTER_ITEM_LIST",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
 
 const homepageActions = {
   GetHeader,
@@ -355,6 +384,7 @@ const homepageActions = {
   GetClubList,
   GetOwnClubList,
   GetClubItems,
+  GetCharacterItems,
 };
 
 export default homepageActions;
