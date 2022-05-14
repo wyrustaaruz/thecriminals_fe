@@ -43,7 +43,7 @@ function MyDrawer() {
     <Drawer.Navigator
       screenOptions={{
         drawerType: "back",
-        drawerStyle: { width: "50%", backgroundColor: "#333" },
+        drawerStyle: { width: "50%", backgroundColor: Colors.DarkGray },
         overlayColor: "transparent",
         headerShown: false,
         drawerPosition: "right",
@@ -204,7 +204,7 @@ const AuthStack = () => {
           headerStyle: {
             backgroundColor: Colors.Gold,
           },
-          headerTintColor: "#fff",
+          headerTintColor: Colors.White,
         }}
       />
       <Stack.Screen
@@ -216,7 +216,7 @@ const AuthStack = () => {
           headerStyle: {
             backgroundColor: Colors.Gold,
           },
-          headerTintColor: "#fff",
+          headerTintColor: Colors.White,
         }}
       />
       <Stack.Screen
@@ -228,7 +228,7 @@ const AuthStack = () => {
           headerStyle: {
             backgroundColor: Colors.Gold,
           },
-          headerTintColor: "#fff",
+          headerTintColor: Colors.White,
         }}
       />
     </Stack.Navigator>

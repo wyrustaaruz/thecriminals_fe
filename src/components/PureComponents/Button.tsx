@@ -17,6 +17,7 @@ export function Button(props: ButtonType) {
           borderWidth: 1,
           padding: 10,
           borderRadius: 8,
+          backgroundColor: Colors.Gold,
           borderColor: type === "danger" ? Colors.Red : Colors.Gold,
         },
       ]}

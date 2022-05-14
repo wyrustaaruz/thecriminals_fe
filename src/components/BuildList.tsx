@@ -142,7 +142,7 @@ export const BuildList = (
               style={{ marginHorizontal: 15 }}
               onPress={() => setShowConfirmationModal(false)}
             >
-              <Text>Hayır</Text>
+              <Text type="button">Hayır</Text>
             </Button>
           </View>
         </View>
@@ -288,7 +288,10 @@ export const BuildList = (
               style={{ marginBottom: 5 }}
               onPress={() => buyItem(item.value)}
             >
-              <Text style={{ textAlign: "center", justifyContent: "center" }}>
+              <Text
+                type="button"
+                style={{ textAlign: "center", justifyContent: "center" }}
+              >
                 Satın Al
               </Text>
             </Button>
@@ -305,7 +308,10 @@ export const BuildList = (
               style={{ marginBottom: 5 }}
               onPress={() => collectMoney(item.value)}
             >
-              <Text style={{ textAlign: "center", justifyContent: "center" }}>
+              <Text
+                type="button"
+                style={{ textAlign: "center", justifyContent: "center" }}
+              >
                 Geliri Topla
               </Text>
             </Button>

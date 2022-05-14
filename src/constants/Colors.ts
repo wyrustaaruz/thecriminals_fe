@@ -1,8 +1,10 @@
 
-const Gold= "#C0B184"
+const Gold= "#facb46"
 const Red= "red"
-const LightGray= "#464646"
-const DarkGray= "#333333"
+const LightGray= "#222222"
+const DarkGray= "#101010"
+const Black= "#000"
+const White= "#fff"
 
 
 const tintColorLight = '#2f95dc';
@@ -25,13 +27,15 @@ const dark= {
 }
 const custom= {
   text: '#fff',
-  background: '#333',
+  background: DarkGray,
   tint: Gold,
   tabIconDefault: '#ccc',
   tabIconSelected: tintColorDark,
 }
 
 const Colors = {
+  Black,
+  White,
   DarkGray,
   LightGray,
   Gold,

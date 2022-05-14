@@ -130,8 +130,10 @@ export const BuyClubList = (
             flex: 3,
           }}
         >
-          <Text>İsim: {item.label}</Text>
-          <Text>Fiyat: {item.price}</Text>
+          <Text style={{ fontWeight: "600", color: Colors.White }}>
+            {item.label}
+          </Text>
+          <Text>Fiyat: ${item.price}</Text>
         </View>
         <View
           style={{
@@ -144,7 +146,10 @@ export const BuyClubList = (
             style={{ marginBottom: 5 }}
             onPress={() => buyItem(item.value)}
           >
-            <Text style={{ textAlign: "center", justifyContent: "center" }}>
+            <Text
+              type="button"
+              style={{ textAlign: "center", justifyContent: "center" }}
+            >
               Satın Al
             </Text>
           </Button>

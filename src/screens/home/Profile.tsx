@@ -186,7 +186,9 @@ export default function Profile({ navigation }: any) {
         />
       </MyModal>
       <Button style={{ marginHorizontal: 20 }} onPress={() => saveProfile()}>
-        <Text style={styles.centeredText}>Kaydet</Text>
+        <Text type="button" style={styles.centeredText}>
+          Kaydet
+        </Text>
       </Button>
     </SafeAreaView>
   );

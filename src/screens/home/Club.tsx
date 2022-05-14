@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Header, SubHeader, LastHeader } from "../../components";
 import { ClubList } from "../../components/ClubList";
@@ -46,22 +46,24 @@ export default function Club({ navigation }: any) {
       <View>{Header(characterInfo, navigation)}</View>
       <View>{SubHeader(characterInfo, navigation)}</View>
       <View>{LastHeader(characterInfo)}</View>
-      <Text style={{ marginLeft: 15, marginTop: 15 }}>Bir Kulübe gir</Text>
-      <View style={{ flex: 1 }}>
-        {ClubList(navigation, clubList, jailStatus)}
-      </View>
+      <ScrollView>
+        <Text style={{ marginLeft: 15, marginTop: 15 }}>Bir Kulübe gir</Text>
+        <View style={{ flex: 1 }}>
+          {ClubList(navigation, clubList, jailStatus)}
+        </View>
 
-      <Text style={{ marginLeft: 15, marginTop: 15 }}>
-        Sahip olduğun Kulüpler
-      </Text>
-      <View style={{ flex: 1 }}>
-        {OwnClubList(navigation, ownClubList, jailStatus)}
-      </View>
+        <Text style={{ marginLeft: 15, marginTop: 15 }}>
+          Sahip olduğun Kulüpler
+        </Text>
+        <View style={{ flex: 1 }}>
+          {OwnClubList(navigation, ownClubList, jailStatus)}
+        </View>
 
-      <Text style={{ marginLeft: 15, marginTop: 15 }}>
-        Satın Alabileceğin Kulüpler
-      </Text>
-      <View style={{ flex: 1 }}>{BuyClubList(clubList, jailStatus)}</View>
+        <Text style={{ marginLeft: 15, marginTop: 15 }}>
+          Satın Alabileceğin Kulüpler
+        </Text>
+        <View style={{ flex: 1 }}>{BuyClubList(clubList, jailStatus)}</View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

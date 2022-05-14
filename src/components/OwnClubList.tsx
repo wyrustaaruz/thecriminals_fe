@@ -137,7 +137,7 @@ export const OwnClubList = (
               style={{ marginHorizontal: 15 }}
               onPress={() => setShowConfirmationModal(false)}
             >
-              <Text>Hayır</Text>
+              <Text type="button">Hayır</Text>
             </Button>
           </View>
         </View>
@@ -193,6 +193,10 @@ export const OwnClubList = (
     require("../../assets/lotties/jail.gif"),
     require("../../assets/lotties/jail2.gif"),
   ];
+  const buildingImages = [
+    require("../../assets/images/pub.png"),
+    require("../../assets/images/nightClub.png"),
+  ];
   let randJailIndex = Math.floor(Math.random() * jailGifs.length);
 
   const ClubItem = ({ item }: ItemType) => {
@@ -220,8 +224,9 @@ export const OwnClubList = (
           }}
         >
           <Image
+            resizeMode="contain"
             style={{ width: "100%", height: "100%" }}
-            source={{ uri: item.img }}
+            source={buildingImages[item.label === "Bar" ? 0 : 1]}
           />
         </View>
         <View
@@ -231,8 +236,10 @@ export const OwnClubList = (
             flex: 3,
           }}
         >
-          <Text>İsim: {item.label}</Text>
-          <Text>Toplam Kazanç: {item.total_earning}</Text>
+          <Text style={{ fontWeight: "600", color: Colors.White }}>
+            {item.label}
+          </Text>
+          <Text>Toplam Kazanç: ${item.total_earning}</Text>
         </View>
         <View
           style={{
@@ -245,7 +252,10 @@ export const OwnClubList = (
             style={{ marginBottom: 5 }}
             onPress={() => enterClub(item.id)}
           >
-            <Text style={{ textAlign: "center", justifyContent: "center" }}>
+            <Text
+              type="button"
+              style={{ textAlign: "center", justifyContent: "center" }}
+            >
               Giriş Yap
             </Text>
           </Button>
@@ -253,11 +263,14 @@ export const OwnClubList = (
             style={{ marginBottom: 5 }}
             onPress={() => collectMoney(item.id)}
           >
-            <Text style={{ textAlign: "center", justifyContent: "center" }}>
-              Kazancı Topla
+            <Text
+              type="button"
+              style={{ textAlign: "center", justifyContent: "center" }}
+            >
+              Kazancı Al
             </Text>
           </Button>
-          <Button
+          {/* <Button
             type="danger"
             style={{ marginBottom: 5 }}
             onPress={() => {
@@ -271,7 +284,7 @@ export const OwnClubList = (
             >
               Sat
             </Text>
-          </Button>
+          </Button> */}
         </View>
       </View>
     );

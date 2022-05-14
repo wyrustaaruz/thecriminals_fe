@@ -90,7 +90,7 @@ export const Header = (
         >
           <Image
             style={styles.menuLogo}
-            source={require("../../assets/images/32px-Hamburger_icon.png")}
+            source={require("../../assets/images/menu_icon_gold.png")}
           />
         </TouchableOpacity>
       </View>

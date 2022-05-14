@@ -88,7 +88,7 @@ export const Inventory = (
               style={{ marginHorizontal: 15 }}
               onPress={() => setShowConfirmationModal(false)}
             >
-              <Text>Hayır</Text>
+              <Text type="button">Hayır</Text>
             </Button>
           </View>
         </View>

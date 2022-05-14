@@ -43,6 +43,7 @@ export const ClubList = (
           backgroundColor: Colors.DarkGray,
           borderRadius: 8,
           flex: 1,
+          width: "50%",
           paddingRight: 15,
           paddingVertical: 15,
           marginVertical: 5,
@@ -55,24 +56,14 @@ export const ClubList = (
           style={{
             alignItems: "flex-start",
             justifyContent: "center",
-            flex: 1,
-            marginHorizontal: 5,
-          }}
-        >
-          <Image
-            style={{ width: "100%", height: "100%" }}
-            source={{ uri: item.img }}
-          />
-        </View>
-        <View
-          style={{
-            alignItems: "flex-start",
-            justifyContent: "center",
             flex: 3,
+            paddingLeft: 10,
           }}
         >
-          <Text>İsim: {item.label}</Text>
-          <Text>Giriş Ücreti: {item.ticket_price}</Text>
+          <Text style={{ fontWeight: "600", color: Colors.White }}>
+            {item.label}
+          </Text>
+          <Text>Giriş Ücreti: ${item.ticket_price}</Text>
         </View>
         <View
           style={{
@@ -85,8 +76,11 @@ export const ClubList = (
             style={{ marginBottom: 5 }}
             onPress={() => enterClub(item.value)}
           >
-            <Text style={{ textAlign: "center", justifyContent: "center" }}>
-              Giriş Yap
+            <Text
+              type="button"
+              style={{ textAlign: "center", justifyContent: "center" }}
+            >
+              Gir
             </Text>
           </Button>
         </View>
@@ -116,8 +110,9 @@ export const ClubList = (
       ) : (
         clubList.length > 0 && (
           <View style={{ flex: 1, justifyContent: "space-between" }}>
-            <View>
+            <View style={{}}>
               <FlatList
+                numColumns={2}
                 data={clubList}
                 renderItem={({ item }) => (
                   <ClubItem key={item.value} item={item} />

@@ -182,7 +182,10 @@ export const RobberyList = (
         style={{ alignItems: "flex-end", justifyContent: "center", flex: 2 }}
       >
         <Button style={{ marginBottom: 5 }} onPress={() => robThis(item.value)}>
-          <Text style={{ textAlign: "center", justifyContent: "center" }}>
+          <Text
+            type="button"
+            style={{ textAlign: "center", justifyContent: "center" }}
+          >
             Soygun Yap
           </Text>
         </Button>

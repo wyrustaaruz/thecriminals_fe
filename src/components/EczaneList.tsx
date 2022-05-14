@@ -175,7 +175,10 @@ export const EczaneList = (
             style={{ marginBottom: 5 }}
             onPress={() => getThis(item.value)}
           >
-            <Text style={{ textAlign: "center", justifyContent: "center" }}>
+            <Text
+              type="button"
+              style={{ textAlign: "center", justifyContent: "center" }}
+            >
               Satın Al
             </Text>
           </Button>
