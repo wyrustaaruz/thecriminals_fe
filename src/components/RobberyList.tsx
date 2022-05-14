@@ -150,7 +150,7 @@ export const RobberyList = (
         }}
       >
         <Image
-          style={{ width: 50, height: 50 }}
+          style={{ width: 50, height: 50, borderRadius: 10 }}
           source={require("../../assets/images/avatar_20.png")}
         />
       </View>
