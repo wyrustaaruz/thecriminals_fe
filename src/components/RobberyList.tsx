@@ -155,7 +155,7 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
             flex: 3,
           }}
         >
-          <Text style={{ color: "white", fontWeight: "600" }}>
+          <Text style={{ color: Colors.White, fontWeight: "600" }}>
             {item.label}
           </Text>
           <Text>Dayanıklılık: {item.required_stamina_percent}</Text>
