@@ -20,15 +20,8 @@ type EczaneItem = {
 type EczaneItemType = {
   item: EczaneItem;
 };
-type JailStatusType = {
-  block: boolean;
-  message: string;
-};
 
-export const EczaneList = (
-  eczaneList: Array<EczaneItem>,
-  jailStatus: JailStatusType
-) => {
+export const EczaneList = (eczaneList: Array<EczaneItem>) => {
   const dispatch = useDispatch();
   const [textInputs, setTextInputs] = useState<any>([]);
   const [modalShown, setModalShown] = useState(false);
@@ -86,12 +79,6 @@ export const EczaneList = (
       });
   };
 
-  const jailGifs = [
-    require("../../assets/lotties/jail.gif"),
-    require("../../assets/lotties/jail2.gif"),
-  ];
-  let randJailIndex = Math.floor(Math.random() * jailGifs.length);
-
   const ChemicalItem = ({ item }: EczaneItemType) => {
     const lottieImages = [
       require("../../assets/lotties/morhap.json"),
@@ -143,10 +130,11 @@ export const EczaneList = (
             flex: 3,
           }}
         >
-          <Text>İsim: {item.name}</Text>
-          <Text>Stat: {item.attr}</Text>
-          <Text>Miktar: {item.attr_value}</Text>
-          <Text>Ücret: {item.price}</Text>
+          <Text style={{ fontWeight: "600", color: Colors.White }}>
+            {item.name}
+          </Text>
+          <Text>{`Etki ${item.attr} (${item.attr_value})`}</Text>
+          <Text>Ücret: ${item.price}</Text>
         </View>
         <View
           style={{
@@ -164,7 +152,7 @@ export const EczaneList = (
             }}
             keyboardType="number-pad"
             placeholder="1"
-            placeholderTextColor={Colors.Gold}
+            placeholderTextColor={Colors.LightGold}
             returnKeyType="next"
             onChangeText={(text) => {
               textInputs[item.value] = text;
@@ -188,43 +176,23 @@ export const EczaneList = (
   };
   return (
     <View style={styles.headerContainer}>
-      {jailStatus.block ? (
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            backgroundColor: Colors.LightGray,
-            padding: 20,
-            alignItems: "center",
-          }}
-        >
-          <Image
-            style={{ width: "100%", height: "40%" }}
-            source={jailGifs[randJailIndex]}
+      {eczaneList.length > 0 && (
+        <View style={{ flex: 1, justifyContent: "space-between" }}>
+          <KeyboardAwareFlatList
+            style={{ flex: 1 }}
+            data={eczaneList}
+            renderItem={({ item }) => (
+              <ChemicalItem key={item.value} item={item} />
+            )}
+            keyExtractor={(item, index) => index.toString()}
           />
-          <Text style={{ marginTop: 20, textAlign: "center" }}>
-            {jailStatus.message}
-          </Text>
+          <MyModal
+            visible={modalShown}
+            onRequestClose={() => setModalShown(false)}
+          >
+            {modalChild}
+          </MyModal>
         </View>
-      ) : (
-        eczaneList.length > 0 && (
-          <View style={{ flex: 1, justifyContent: "space-between" }}>
-            <KeyboardAwareFlatList
-              style={{ flex: 1 }}
-              data={eczaneList}
-              renderItem={({ item }) => (
-                <ChemicalItem key={item.value} item={item} />
-              )}
-              keyExtractor={(item, index) => index.toString()}
-            />
-            <MyModal
-              visible={modalShown}
-              onRequestClose={() => setModalShown(false)}
-            >
-              {modalChild}
-            </MyModal>
-          </View>
-        )
       )}
     </View>
   );

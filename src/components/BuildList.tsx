@@ -21,23 +21,15 @@ type BuildItem = {
   daily_earning: number;
   price: number;
   total_earning?: number;
-  item_name: number;
+  item: string;
   count: number;
 };
 
 type ItemType = {
   item: BuildItem;
 };
-type JailStatusType = {
-  block: boolean;
-  message: string;
-};
 
-export const BuildList = (
-  buildList: Array<BuildItem>,
-  jailStatus: JailStatusType,
-  buyable: boolean
-) => {
+export const BuildList = (buildList: Array<BuildItem>, buyable: boolean) => {
   const dispatch = useDispatch();
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [modalShown, setModalShown] = useState(false);
@@ -229,12 +221,6 @@ export const BuildList = (
       });
   };
 
-  const jailGifs = [
-    require("../../assets/lotties/jail.gif"),
-    require("../../assets/lotties/jail2.gif"),
-  ];
-  let randJailIndex = Math.floor(Math.random() * jailGifs.length);
-
   const BuildingItem = ({ item }: ItemType) => {
     return (
       <View
@@ -268,13 +254,14 @@ export const BuildList = (
             flex: 3,
           }}
         >
-          <Text>İsim: {item.label}</Text>
-          <Text>Üretilen Ürün: {item.item_name}</Text>
-          <Text>Üretilen miktar: {item.production}</Text>
-          <Text>Günlük Kazanç: {item.daily_earning}</Text>
-          <Text>Ücret: {item.price}</Text>
-          {!buyable && <Text>Sahip Olduğun Miktar: {item.count}</Text>}
-          {!buyable && <Text>Toplam Kazanç: {item.total_earning}</Text>}
+          <Text style={{ fontWeight: "600", color: Colors.White }}>
+            {item.label}
+          </Text>
+          <Text>{`Ürün: ${item.item} (${item.production} ad.)`}</Text>
+          <Text>Kazanç: ${item.daily_earning}</Text>
+          <Text>Ücret: ${item.price}</Text>
+          {!buyable && <Text>Sahip Olduğun Miktar: {item.count} ad.</Text>}
+          {!buyable && <Text>Toplam Kazanç: ${item.total_earning}</Text>}
         </View>
         {buyable ? (
           <View
@@ -337,38 +324,18 @@ export const BuildList = (
   };
   return (
     <View style={styles.headerContainer}>
-      {jailStatus.block ? (
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            backgroundColor: Colors.LightGray,
-            padding: 20,
-            alignItems: "center",
-          }}
-        >
-          <Image
-            style={{ width: "100%", height: "40%" }}
-            source={jailGifs[randJailIndex]}
-          />
-          <Text style={{ marginTop: 20, textAlign: "center" }}>
-            {jailStatus.message}
-          </Text>
-        </View>
-      ) : (
-        buildList.length > 0 && (
-          <View style={{ flex: 1, justifyContent: "space-between" }}>
-            <View>
-              <FlatList
-                data={buildList}
-                renderItem={({ item }) => (
-                  <BuildingItem key={item.value} item={item} />
-                )}
-                keyExtractor={(item, index) => index.toString()}
-              />
-            </View>
+      {buildList.length > 0 && (
+        <View style={{ flex: 1, justifyContent: "space-between" }}>
+          <View>
+            <FlatList
+              data={buildList}
+              renderItem={({ item }) => (
+                <BuildingItem key={item.value} item={item} />
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
           </View>
-        )
+        </View>
       )}
       <MyModal visible={modalShown} onRequestClose={() => setModalShown(false)}>
         {modalChild}

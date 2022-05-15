@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import { default as DefaultDropDownPicker } from "react-native-dropdown-picker";
 import Colors from "../../constants/Colors";
 
@@ -19,6 +19,18 @@ export function Picker(props: any) {
       labelStyle={styles.label}
       listItemLabelStyle={styles.listItemLabel}
       listItemContainerStyle={styles.listItemContainer}
+      ArrowDownIconComponent={({ style }: any) => (
+        <Image source={ICONS.ARROW_DOWN} style={style} />
+      )}
+      ArrowUpIconComponent={({ style }: any) => (
+        <Image source={ICONS.ARROW_UP} style={style} />
+      )}
+      TickIconComponent={({ style }: any) => (
+        <Image source={ICONS.TICK} style={style} />
+      )}
+      CloseIconComponent={({ style }: any) => (
+        <Image source={ICONS.CLOSE} style={style} />
+      )}
     />
   );
 }
@@ -51,6 +63,7 @@ const styles = StyleSheet.create({
   arrowIcon: {
     width: 20,
     height: 20,
+    color: "red",
   },
   tickIcon: {
     width: 20,
@@ -143,9 +156,9 @@ const styles = StyleSheet.create({
     color: Colors.Gold,
   },
 });
-// const ICONS = {
-//     ARROW_DOWN: require('./icons/arrow-down.png'),
-//     ARROW_UP: require('./icons/arrow-up.png'),
-//     TICK: require('./icons/tick.png'),
-//     CLOSE: require('./icons/close.png')
-// };
+const ICONS = {
+  ARROW_DOWN: require("../../../assets/images/down_icon.png"),
+  ARROW_UP: require("../../../assets/images/up_icon.png"),
+  TICK: require("../../../assets/images/check_icon.png"),
+  CLOSE: require("../../../assets/images/close_icon.png"),
+};

@@ -21,15 +21,8 @@ type InventoryItem = {
 type ItemType = {
   item: InventoryItem;
 };
-type JailStatusType = {
-  block: boolean;
-  message: string;
-};
 
-export const Inventory = (
-  characterItemsList: Array<InventoryItem>,
-  jailStatus: JailStatusType
-) => {
+export const Inventory = (characterItemsList: Array<InventoryItem>) => {
   const dispatch = useDispatch();
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [modalShown, setModalShown] = useState(false);
@@ -217,36 +210,16 @@ export const Inventory = (
   };
   return (
     <View style={styles.headerContainer}>
-      {jailStatus.block ? (
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            backgroundColor: Colors.LightGray,
-            padding: 20,
-            alignItems: "center",
-          }}
-        >
-          <Image
-            style={{ width: "100%", height: "40%" }}
-            source={jailGifs[randJailIndex]}
+      {characterItemsList.length > 0 && (
+        <View style={{ flex: 1, justifyContent: "space-between" }}>
+          <FlatList
+            data={characterItemsList}
+            renderItem={({ item }) => (
+              <CharacterItem key={item.value} item={item} />
+            )}
+            keyExtractor={(item, index) => index.toString()}
           />
-          <Text style={{ marginTop: 20, textAlign: "center" }}>
-            {jailStatus.message}
-          </Text>
         </View>
-      ) : (
-        characterItemsList.length > 0 && (
-          <View style={{ flex: 1, justifyContent: "space-between" }}>
-            <FlatList
-              data={characterItemsList}
-              renderItem={({ item }) => (
-                <CharacterItem key={item.value} item={item} />
-              )}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          </View>
-        )
       )}
       <MyModal visible={modalShown} onRequestClose={() => setModalShown(false)}>
         {modalChild}

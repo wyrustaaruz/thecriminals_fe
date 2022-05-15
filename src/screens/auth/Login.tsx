@@ -60,7 +60,7 @@ export default function Login({
             value={email}
             autoCapitalize="none"
             placeholder="Email Adresi"
-            placeholderTextColor={Colors.Gold}
+            placeholderTextColor={Colors.LightGold}
             keyboardType="email-address"
             onChangeText={(value) => {
               setEmail(value);
@@ -74,7 +74,7 @@ export default function Login({
             style={styles.input}
             value={password}
             placeholder="Şifre"
-            placeholderTextColor={Colors.Gold}
+            placeholderTextColor={Colors.LightGold}
             secureTextEntry={true}
             onChangeText={(value) => {
               setPassword(value);

@@ -10,7 +10,7 @@ import {
   Send,
   Bubble,
 } from "react-native-gifted-chat";
-import { Text, View } from "../../components/PureComponents";
+import { Loading, Text, View } from "../../components/PureComponents";
 import { useSelector } from "react-redux";
 import { Header } from "../../components";
 import Colors from "../../constants/Colors";
@@ -19,6 +19,7 @@ const ChatScreen: any = (props: any) => {
   const characterInfo =
     useSelector((state: any) => state.homepageReducers.header) || {};
 
+  const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [chatRoomState, setChatRoomState] = useState("");
   const prevMessages = useRef<IMessage[]>([]);
@@ -42,6 +43,7 @@ const ChatScreen: any = (props: any) => {
       const newMessages = GiftedChat.append(prevMessages.current, messages);
       prevMessages.current = newMessages;
       setMessages(newMessages);
+      setLoading(false);
     }, chatRoom);
     return function cleanup() {
       FirebaseStorage.off();
@@ -61,7 +63,7 @@ const ChatScreen: any = (props: any) => {
       <Composer
         {...props}
         textInputStyle={{ color: Colors.Gold }}
-        placeholderTextColor={Colors.Gold}
+        placeholderTextColor={Colors.LightGold}
       />
     );
   };
@@ -82,6 +84,7 @@ const ChatScreen: any = (props: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>{Header(characterInfo, props.navigation)}</View>
+      <Loading status={loading} />
       <GiftedChat
         messagesContainerStyle={{ backgroundColor: Colors.LightGray }}
         placeholder="Mesajını yaz"

@@ -63,7 +63,7 @@ export default function Signup({ navigation }: any) {
             value={username}
             autoCapitalize="none"
             placeholder="Kullanıcı Adı"
-            placeholderTextColor={Colors.Gold}
+            placeholderTextColor={Colors.LightGold}
             onChangeText={(value) => {
               setUsername(value);
             }}
@@ -76,7 +76,7 @@ export default function Signup({ navigation }: any) {
             value={email}
             autoCapitalize="none"
             placeholder="Email Adresi"
-            placeholderTextColor={Colors.Gold}
+            placeholderTextColor={Colors.LightGold}
             keyboardType="email-address"
             onChangeText={(value) => {
               setEmail(value);
@@ -89,7 +89,7 @@ export default function Signup({ navigation }: any) {
             style={styles.input}
             value={password}
             placeholder="Şifre"
-            placeholderTextColor={Colors.Gold}
+            placeholderTextColor={Colors.LightGold}
             secureTextEntry={true}
             onChangeText={(value) => {
               setPassword(value);
@@ -102,7 +102,7 @@ export default function Signup({ navigation }: any) {
             style={styles.input}
             value={passwordConfirmation}
             placeholder="Şifre Tekrar"
-            placeholderTextColor={Colors.Gold}
+            placeholderTextColor={Colors.LightGold}
             secureTextEntry={true}
             onChangeText={(value) => {
               setPasswordConfirmation(value);

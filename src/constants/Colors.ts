@@ -1,10 +1,14 @@
 
 const Gold= "#facb46"
+const LightGold = "#facb4680"
 const Red= "red"
 const LightGray= "#222222"
 const DarkGray= "#101010"
 const Black= "#000"
 const White= "#fff"
+const Green= "green"
+const Orange= "orange"
+
 
 
 const tintColorLight = '#2f95dc';
@@ -39,7 +43,10 @@ const Colors = {
   DarkGray,
   LightGray,
   Gold,
+  LightGold,
   Red,
+  Green,
+  Orange,
   light,
   dark,
   custom

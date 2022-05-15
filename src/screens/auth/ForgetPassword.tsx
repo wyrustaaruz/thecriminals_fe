@@ -48,7 +48,7 @@ export default function ForgetPassword({
             autoCapitalize="none"
             value={email}
             placeholder="Email Adresi"
-            placeholderTextColor={Colors.Gold}
+            placeholderTextColor={Colors.LightGold}
             keyboardType="email-address"
             onChangeText={(value) => {
               setEmail(value);

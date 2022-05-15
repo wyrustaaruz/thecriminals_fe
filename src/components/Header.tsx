@@ -54,30 +54,30 @@ export const Header = (
         <Text style={styles.usernameText}>
           {user.username !== undefined ? user.username : ""}
         </Text>
-        <Text>Stamina: {stamina !== undefined ? stamina : "100%"}</Text>
+        <Text>Dayanıklılık: {stamina !== undefined ? stamina : "100%"}</Text>
         <Text>
           HP: {health !== undefined ? health + " / " + max_health : "0 / 0"}
         </Text>
         <Text>Bağımlılık: {addiction !== undefined ? addiction : "0"}</Text>
       </View>
       <View>
-        <Text style={styles.centeredText}>Intelligence</Text>
+        <Text style={styles.centeredText}>Zeka</Text>
         <Text style={styles.centeredText}>
           {intelligence !== undefined ? intelligence : 0}
         </Text>
 
-        <Text style={styles.centeredText}>Strength</Text>
+        <Text style={styles.centeredText}>Güç</Text>
         <Text style={styles.centeredText}>
           {strength !== undefined ? strength : 0}
         </Text>
       </View>
       <View>
-        <Text style={styles.centeredText}>Charisma</Text>
+        <Text style={styles.centeredText}>Karizma</Text>
         <Text style={styles.centeredText}>
           {charisma !== undefined ? charisma : 0}
         </Text>
 
-        <Text style={styles.centeredText}>Tolerance</Text>
+        <Text style={styles.centeredText}>Tölerans</Text>
         <Text style={styles.centeredText}>
           {tolerance !== undefined ? tolerance : 0}
         </Text>
@@ -100,6 +100,7 @@ export const Header = (
 
 const styles = StyleSheet.create({
   headerContainer: {
+    height: 80,
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: Colors.LightGray,

@@ -25,14 +25,7 @@ interface RobberyItem {
 type RobItemType = {
   item: RobberyItem;
 };
-type JailStatusType = {
-  block: boolean;
-  message: string;
-};
-export const RobberyList = (
-  robberyList: Array<RobberyItem>,
-  jailStatus: JailStatusType
-) => {
+export const RobberyList = (robberyList: Array<RobberyItem>) => {
   const dispatch = useDispatch();
   const [modalShown, setModalShown] = useState(false);
   const [modalChild, setModalChild] = useState(<></>);
@@ -121,141 +114,136 @@ export const RobberyList = (
       });
   };
 
-  const jailGifs = [
-    require("../../assets/lotties/jail.gif"),
-    require("../../assets/lotties/jail2.gif"),
-  ];
-  let randJailIndex = Math.floor(Math.random() * jailGifs.length);
-  const RobItem = ({ item }: RobItemType) => (
-    <View
-      key={item.value}
-      style={{
-        backgroundColor: Colors.DarkGray,
-        borderRadius: 8,
-        flex: 1,
-        paddingRight: 15,
-        paddingVertical: 15,
-        marginVertical: 5,
-        marginHorizontal: 15,
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-      }}
-    >
+  const RobItem = ({ item }: RobItemType) => {
+    const dynamicColor =
+      item.percent && item.percent >= 80
+        ? Colors.Green
+        : item.percent && item.percent < 80 && item.percent >= 40
+        ? Colors.Orange
+        : Colors.Red;
+    return (
       <View
+        key={item.value}
         style={{
-          alignItems: "flex-start",
-          justifyContent: "center",
+          backgroundColor: Colors.DarkGray,
+          borderRadius: 8,
           flex: 1,
-          marginHorizontal: 5,
+          paddingRight: 15,
+          paddingVertical: 15,
+          marginVertical: 5,
+          marginHorizontal: 15,
+          flexDirection: "row",
+          justifyContent: "space-evenly",
         }}
       >
-        <Image
-          style={{ width: 50, height: 50, borderRadius: 10 }}
-          source={require("../../assets/images/avatar_20.png")}
-        />
-      </View>
-      <View
-        style={{
-          alignItems: "flex-start",
-          justifyContent: "center",
-          flex: 3,
-        }}
-      >
-        <Text>{item.label}</Text>
-        <Text>Dayanıklılık: {item.required_stamina_percent}</Text>
-        <Text>
-          Ödül: ${item.reward_cash_min} - ${item.reward_cash_max}
-        </Text>
-        <Text>
-          Kazanılacak Puan: {item.attr_min} - {item.attr_max}
-        </Text>
-        <Text>
-          Kazanılacak Nesne:{" "}
-          {item.reward_item
-            ? Object.keys(item.reward_item) +
-              ": " +
-              Object.values(item.reward_item)
-            : "-"}
-        </Text>
-      </View>
-      <View
-        style={{ alignItems: "flex-end", justifyContent: "center", flex: 2 }}
-      >
-        <Button style={{ marginBottom: 5 }} onPress={() => robThis(item.value)}>
-          <Text
-            type="button"
-            style={{ textAlign: "center", justifyContent: "center" }}
-          >
-            Soygun Yap
-          </Text>
-        </Button>
-        <Text>İhtimal:</Text>
         <View
           style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Text>{item.percent}</Text>
-          <View
-            style={{
-              marginLeft: 5,
-              width: 20,
-              height: 20,
-              backgroundColor:
-                item.percent && item.percent >= 80
-                  ? "green"
-                  : item.percent && item.percent < 80 && item.percent >= 40
-                  ? "orange"
-                  : "red",
-              borderRadius: 10,
-            }}
-          />
-        </View>
-      </View>
-    </View>
-  );
-
-  return (
-    <View style={styles.headerContainer}>
-      {jailStatus.block ? (
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            backgroundColor: Colors.LightGray,
-            padding: 20,
             alignItems: "center",
+            justifyContent: "center",
+            flex: 1,
           }}
         >
           <Image
-            style={{ width: "100%", height: "40%" }}
-            source={jailGifs[randJailIndex]}
+            style={{ width: 50, height: 50, borderRadius: 10 }}
+            source={require("../../assets/images/avatar_20.png")}
           />
-          <Text style={{ marginTop: 20, textAlign: "center" }}>
-            {jailStatus.message}
-          </Text>
         </View>
-      ) : (
-        robberyList.length > 0 && (
-          <View style={{ flex: 1, justifyContent: "space-between" }}>
-            <View>
-              <FlatList
-                data={robberyList}
-                renderItem={({ item }) => (
-                  <RobItem key={item.value} item={item} />
-                )}
-                keyExtractor={(item, index) => index.toString()}
+        <View
+          style={{
+            alignItems: "flex-start",
+            justifyContent: "center",
+            flex: 3,
+          }}
+        >
+          <Text style={{ color: "white", fontWeight: "600" }}>
+            {item.label}
+          </Text>
+          <Text>Dayanıklılık: {item.required_stamina_percent}</Text>
+          {!_.isEmpty(item.reward_item) && (
+            <Text>
+              {item.reward_item
+                ? Object.keys(item.reward_item) +
+                  ": " +
+                  Object.values(item.reward_item)
+                : "-"}
+            </Text>
+          )}
+        </View>
+        <View
+          style={{ alignItems: "flex-end", justifyContent: "center", flex: 2 }}
+        >
+          <Button
+            style={{ marginBottom: 5 }}
+            onPress={() => robThis(item.value)}
+          >
+            <Text
+              type="button"
+              style={{ textAlign: "center", justifyContent: "center" }}
+            >
+              Soygun Yap
+            </Text>
+          </Button>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  fontWeight: "600",
+                  color: dynamicColor,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                %{item.percent}
+              </Text>
+              <View
+                style={{
+                  marginLeft: 5,
+                  width: 20,
+                  height: 20,
+                  backgroundColor: dynamicColor,
+                  borderRadius: 10,
+                }}
               />
             </View>
-            <MyModal
-              visible={modalShown}
-              onRequestClose={() => setModalShown(false)}
-            >
-              {modalChild}
-            </MyModal>
           </View>
-        )
+        </View>
+      </View>
+    );
+  };
+
+  return (
+    <View style={styles.headerContainer}>
+      {robberyList.length > 0 && (
+        <View style={{ flex: 1, justifyContent: "space-between" }}>
+          <View>
+            <FlatList
+              data={robberyList}
+              renderItem={({ item }) => (
+                <RobItem key={item.value} item={item} />
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          </View>
+          <MyModal
+            visible={modalShown}
+            onRequestClose={() => setModalShown(false)}
+          >
+            {modalChild}
+          </MyModal>
+        </View>
       )}
     </View>
   );

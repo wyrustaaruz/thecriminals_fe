@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
-import { Text, View, TextInput, Picker } from "./PureComponents";
+import { Text, View, TextInput, Picker, Button } from "./PureComponents";
 import { useDispatch, useSelector } from "react-redux";
 import Actions from "../redux/actions";
 import Colors from "../constants/Colors";
@@ -33,11 +33,18 @@ export const BankComponent = () => {
         {"\n"}
         {"\n"}
         52 günlük yatırımınızda %2 kazanç sağlayacaksınız
-        {"\n"}
-        {"\n"}
+      </Text>
+      <Text
+        style={{
+          marginTop: 20,
+          textAlign: "center",
+          color: Colors.White,
+          fontWeight: "600",
+        }}
+      >
         Kullanılabilir bakiye: {characterInfo.bank_cash}
       </Text>
-      <View style={{ flexDirection: "row", marginTop: 50 }}>
+      <View style={{ zIndex: 9999, flexDirection: "row", marginTop: 50 }}>
         <Picker
           open={open}
           value={value}
@@ -48,25 +55,17 @@ export const BankComponent = () => {
         />
         <TextInput
           style={{ marginLeft: 2, paddingLeft: 10, flex: 1, width: "100%" }}
+          placeholderTextColor={Colors.LightGold}
           value={money}
+          placeholder="Tutar Gir"
           onChangeText={(value: any) => setMoney(value)}
         />
       </View>
-      <TouchableOpacity
-        style={{
-          marginTop: 50,
-          borderWidth: 1,
-          padding: 10,
-          borderRadius: 8,
-          borderColor: Colors.Gold,
-          zIndex: -1,
-        }}
-        onPress={() => doBankAction()}
-      >
-        <Text style={{ textAlign: "center", justifyContent: "center" }}>
+      <Button style={{ marginTop: 50 }} onPress={() => doBankAction()}>
+        <Text type="button" style={{ textAlign: "center" }}>
           Para {value === "in" ? "Yatır" : "Çek"}
         </Text>
-      </TouchableOpacity>
+      </Button>
     </View>
   );
 };

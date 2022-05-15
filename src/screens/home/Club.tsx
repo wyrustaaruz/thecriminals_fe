@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { StyleSheet, SafeAreaView, ScrollView } from "react-native";
+import { StyleSheet, SafeAreaView, ScrollView, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Header, SubHeader, LastHeader } from "../../components";
 import { ClubList } from "../../components/ClubList";
@@ -40,30 +40,54 @@ export default function Club({ navigation }: any) {
     initOwnClubs();
   }, []);
 
+  const jailGifs = [
+    require("../../../assets/lotties/jail.gif"),
+    require("../../../assets/lotties/jail2.gif"),
+  ];
+  let randJailIndex = Math.floor(Math.random() * jailGifs.length);
+
   return (
     <SafeAreaView style={styles.container}>
       <Loading status={loading} />
       <View>{Header(characterInfo, navigation)}</View>
       <View>{SubHeader(characterInfo, navigation)}</View>
       <View>{LastHeader(characterInfo)}</View>
-      <ScrollView>
-        <Text style={{ marginLeft: 15, marginTop: 15 }}>Bir Kulübe gir</Text>
-        <View style={{ flex: 1 }}>
-          {ClubList(navigation, clubList, jailStatus)}
+      {jailStatus.block ? (
+        <View
+          style={{
+            height: "100%",
+            width: "100%",
+            backgroundColor: Colors.LightGray,
+            padding: 20,
+            alignItems: "center",
+          }}
+        >
+          <Image
+            style={{ width: "100%", height: "40%" }}
+            source={jailGifs[randJailIndex]}
+          />
+          <Text style={{ marginTop: 20, textAlign: "center" }}>
+            {jailStatus.message}
+          </Text>
         </View>
+      ) : (
+        <ScrollView>
+          <Text style={{ marginLeft: 15, marginTop: 15 }}>Bir Kulübe gir</Text>
+          <View style={{ flex: 1 }}>{ClubList(navigation, clubList)}</View>
 
-        <Text style={{ marginLeft: 15, marginTop: 15 }}>
-          Sahip olduğun Kulüpler
-        </Text>
-        <View style={{ flex: 1 }}>
-          {OwnClubList(navigation, ownClubList, jailStatus)}
-        </View>
+          <Text style={{ marginLeft: 15, marginTop: 15 }}>
+            Sahip olduğun Kulüpler
+          </Text>
+          <View style={{ flex: 1 }}>
+            {OwnClubList(navigation, ownClubList)}
+          </View>
 
-        <Text style={{ marginLeft: 15, marginTop: 15 }}>
-          Satın Alabileceğin Kulüpler
-        </Text>
-        <View style={{ flex: 1 }}>{BuyClubList(clubList, jailStatus)}</View>
-      </ScrollView>
+          <Text style={{ marginLeft: 15, marginTop: 15 }}>
+            Satın Alabileceğin Kulüpler
+          </Text>
+          <View style={{ flex: 1 }}>{BuyClubList(clubList)}</View>
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 }

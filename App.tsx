@@ -28,9 +28,10 @@ export default function App() {
   } else {
     return (
       <Provider store={store}>
+        <StatusBar />
         <SafeAreaProvider style={{ backgroundColor: Colors.LightGray }}>
           <Navigation colorScheme={colorScheme} />
-          <StatusBar />
+          <StatusBar style="light" />
         </SafeAreaProvider>
       </Provider>
     );

@@ -1,4 +1,4 @@
-import { FlatList, Image, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import _ from "lodash";
 import { Text, View, Button } from "./PureComponents";
 
@@ -15,25 +15,11 @@ type ClubItem = {
 type ItemType = {
   item: ClubItem;
 };
-type JailStatusType = {
-  block: boolean;
-  message: string;
-};
 
-export const ClubList = (
-  navigation: any,
-  clubList: Array<ClubItem>,
-  jailStatus: JailStatusType
-) => {
+export const ClubList = (navigation: any, clubList: Array<ClubItem>) => {
   const enterClub = (clubId: number) => {
     navigation.navigate("InClub", { clubId });
   };
-
-  const jailGifs = [
-    require("../../assets/lotties/jail.gif"),
-    require("../../assets/lotties/jail2.gif"),
-  ];
-  let randJailIndex = Math.floor(Math.random() * jailGifs.length);
 
   const ClubItem = ({ item }: ItemType) => {
     return (
@@ -89,39 +75,19 @@ export const ClubList = (
   };
   return (
     <View style={styles.headerContainer}>
-      {jailStatus.block ? (
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            backgroundColor: Colors.LightGray,
-            padding: 20,
-            alignItems: "center",
-          }}
-        >
-          <Image
-            style={{ width: "100%", height: "40%" }}
-            source={jailGifs[randJailIndex]}
-          />
-          <Text style={{ marginTop: 20, textAlign: "center" }}>
-            {jailStatus.message}
-          </Text>
-        </View>
-      ) : (
-        clubList.length > 0 && (
-          <View style={{ flex: 1, justifyContent: "space-between" }}>
-            <View style={{}}>
-              <FlatList
-                numColumns={2}
-                data={clubList}
-                renderItem={({ item }) => (
-                  <ClubItem key={item.value} item={item} />
-                )}
-                keyExtractor={(item, index) => index.toString()}
-              />
-            </View>
+      {clubList.length > 0 && (
+        <View style={{ flex: 1, justifyContent: "space-between" }}>
+          <View style={{}}>
+            <FlatList
+              numColumns={2}
+              data={clubList}
+              renderItem={({ item }) => (
+                <ClubItem key={item.value} item={item} />
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
           </View>
-        )
+        </View>
       )}
     </View>
   );

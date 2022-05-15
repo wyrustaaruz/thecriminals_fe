@@ -144,7 +144,7 @@ export default function Profile({ navigation }: any) {
             style={styles.input}
             value={biography}
             placeholder="Biyografi"
-            placeholderTextColor={Colors.Gold}
+            placeholderTextColor={Colors.LightGold}
             onChangeText={(value: string) => {
               setBiography(value);
             }}

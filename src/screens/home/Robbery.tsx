@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Header, SubHeader, LastHeader, RobberyList } from "../../components";
 import { Loading, Text, View } from "../../components/PureComponents";
@@ -29,13 +29,41 @@ export default function Robbery({ navigation }: any) {
     initRobberyList();
   }, []);
 
+  const jailGifs = [
+    require("../../../assets/lotties/jail.gif"),
+    require("../../../assets/lotties/jail2.gif"),
+  ];
+  let randJailIndex = Math.floor(Math.random() * jailGifs.length);
+
   return (
     <SafeAreaView style={styles.container}>
       <Loading status={loading} />
       <View>{Header(characterInfo, navigation)}</View>
       <View>{SubHeader(characterInfo, navigation)}</View>
       <View>{LastHeader(characterInfo)}</View>
-      <View style={{ flex: 1 }}>{RobberyList(robberyList, jailStatus)}</View>
+      <View style={{ flex: 1 }}>
+        {jailStatus.block ? (
+          <View
+            style={{
+              height: "100%",
+              width: "100%",
+              backgroundColor: Colors.LightGray,
+              padding: 20,
+              alignItems: "center",
+            }}
+          >
+            <Image
+              style={{ width: "100%", height: "40%" }}
+              source={jailGifs[randJailIndex]}
+            />
+            <Text style={{ marginTop: 20, textAlign: "center" }}>
+              {jailStatus.message}
+            </Text>
+          </View>
+        ) : (
+          RobberyList(robberyList)
+        )}
+      </View>
     </SafeAreaView>
   );
 }
