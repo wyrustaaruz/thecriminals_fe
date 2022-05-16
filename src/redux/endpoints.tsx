@@ -25,6 +25,7 @@ export const OWN_BUILDING_LIST_URL = "/build-my-list";
 export const BUILDING_COLLECT_URL = "/build-checkout/";
 export const BUILDING_SELL_URL = "/build-sell/";
 
+export const RANDOM_CLUB_LIST_URL = "/night-club-find";
 export const CLUB_LIST_URL = "/night-club-list";
 export const OWN_CLUB_LIST_URL = "/night-club-my-list";
 export const CLUB_BUY_URL = "/night-club-buy/";

@@ -13,6 +13,7 @@ import {
   OWN_CLUB_LIST_URL,
   CLUB_ENTER_URL,
   CHARACTER_ITEMS_URL,
+  RANDOM_CLUB_LIST_URL,
 } from "../endpoints";
 
 const GetHeader = () => {
@@ -259,6 +260,34 @@ const GetOwnBuildList = () => {
       });
   };
 };
+const GetRandomClubList = () => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
+    axios
+      .get(RANDOM_CLUB_LIST_URL)
+      .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "GET_RANDOM_CLUBS",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
 const GetClubList = () => {
   return async (dispatch: any) => {
     dispatch({
@@ -381,6 +410,7 @@ const homepageActions = {
   BuyMedicane,
   GetBuildList,
   GetOwnBuildList,
+  GetRandomClubList,
   GetClubList,
   GetOwnClubList,
   GetClubItems,

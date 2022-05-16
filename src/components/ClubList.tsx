@@ -5,11 +5,10 @@ import { Text, View, Button } from "./PureComponents";
 import Colors from "../constants/Colors";
 
 type ClubItem = {
-  value: number;
+  id: number;
   label: string;
   img: string;
   ticket_price: number;
-  price: number;
 };
 
 type ItemType = {
@@ -24,7 +23,7 @@ export const ClubList = (navigation: any, clubList: Array<ClubItem>) => {
   const ClubItem = ({ item }: ItemType) => {
     return (
       <View
-        key={item.value}
+        key={item.id}
         style={{
           backgroundColor: Colors.DarkGray,
           borderRadius: 8,
@@ -63,7 +62,7 @@ export const ClubList = (navigation: any, clubList: Array<ClubItem>) => {
         >
           <Button
             style={{ marginBottom: 5 }}
-            onPress={() => enterClub(item.value)}
+            onPress={() => enterClub(item.id)}
           >
             <Text
               type="button"
@@ -84,9 +83,7 @@ export const ClubList = (navigation: any, clubList: Array<ClubItem>) => {
             <FlatList
               numColumns={2}
               data={clubList}
-              renderItem={({ item }) => (
-                <ClubItem key={item.value} item={item} />
-              )}
+              renderItem={({ item }) => <ClubItem key={item.id} item={item} />}
               keyExtractor={(item, index) => index.toString()}
             />
           </View>

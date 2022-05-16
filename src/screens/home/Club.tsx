@@ -18,6 +18,9 @@ export default function Club({ navigation }: any) {
   const ownClubList = useSelector(
     (state: any) => state.homepageReducers.ownClubList
   );
+  const randomClubList = useSelector(
+    (state: any) => state.homepageReducers.randomClubList
+  );
   const jailStatus = useSelector(
     (state: any) => state.homepageReducers.jailStatus
   );
@@ -29,6 +32,9 @@ export default function Club({ navigation }: any) {
   const initClubs = async () => {
     await dispatch(Actions.homepageActions.GetClubList());
   };
+  const initRandomClubs = async () => {
+    await dispatch(Actions.homepageActions.GetRandomClubList());
+  };
 
   const initOwnClubs = async () => {
     await dispatch(Actions.homepageActions.GetOwnClubList());
@@ -36,6 +42,7 @@ export default function Club({ navigation }: any) {
 
   useEffect(() => {
     initHeader();
+    initRandomClubs();
     initClubs();
     initOwnClubs();
   }, []);
@@ -73,7 +80,9 @@ export default function Club({ navigation }: any) {
       ) : (
         <ScrollView>
           <Text style={{ marginLeft: 15, marginTop: 15 }}>Bir Kulübe gir</Text>
-          <View style={{ flex: 1 }}>{ClubList(navigation, clubList)}</View>
+          <View style={{ flex: 1 }}>
+            {ClubList(navigation, randomClubList)}
+          </View>
 
           <Text style={{ marginLeft: 15, marginTop: 15 }}>
             Sahip olduğun Kulüpler

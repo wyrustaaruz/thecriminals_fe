@@ -52,6 +52,7 @@ const initialState = {
   },
   buildList: [],
   ownBuildList: [],
+  randomClubList: [],
   clubList: [],
   ownClubList: [],
   clubItems: [],
@@ -114,6 +115,11 @@ const homepageReducers = (state = initialState, action: any) => {
       return {
         ...state,
         clubItems: action.payload,
+      };
+    case "GET_RANDOM_CLUBS":
+      return {
+        ...state,
+        randomClubList: action.payload,
       };
     case "GET_CHARACTER_ITEM_LIST":
       return {
