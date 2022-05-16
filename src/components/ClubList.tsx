@@ -49,7 +49,10 @@ export const ClubList = (navigation: any, clubList: Array<ClubItem>) => {
           <Text style={{ fontWeight: "600", color: Colors.White }}>
             {item.label}
           </Text>
-          <Text>Giriş Ücreti: ${item.ticket_price}</Text>
+          <View>
+            <Text style={{ color: Colors.White }}>Giriş Ücreti: </Text>
+            <Text>${item.ticket_price}</Text>
+          </View>
         </View>
         <View
           style={{
@@ -77,7 +80,7 @@ export const ClubList = (navigation: any, clubList: Array<ClubItem>) => {
     <View style={styles.headerContainer}>
       {clubList.length > 0 && (
         <View style={{ flex: 1, justifyContent: "space-between" }}>
-          <View style={{}}>
+          <View>
             <FlatList
               numColumns={2}
               data={clubList}

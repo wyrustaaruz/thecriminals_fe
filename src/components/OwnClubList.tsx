@@ -71,8 +71,8 @@ export const OwnClubList = (navigation: any, clubList: Array<ClubItem>) => {
           <View>
             <LottieView
               style={{
-                width: 400,
-                height: 400,
+                width: "50%",
+                alignSelf: "center",
                 backgroundColor: "transparent",
               }}
               autoPlay={true}
@@ -160,8 +160,8 @@ export const OwnClubList = (navigation: any, clubList: Array<ClubItem>) => {
           <View>
             <LottieView
               style={{
-                width: 400,
-                height: 400,
+                width: "50%",
+                alignSelf: "center",
                 backgroundColor: "transparent",
               }}
               autoPlay={true}
@@ -226,7 +226,10 @@ export const OwnClubList = (navigation: any, clubList: Array<ClubItem>) => {
           <Text style={{ fontWeight: "600", color: Colors.White }}>
             {item.label}
           </Text>
-          <Text>Toplam Kazanç: ${item.total_earning}</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ color: Colors.White }}>Toplam Kazanç: </Text>
+            <Text>${item.total_earning}</Text>
+          </View>
         </View>
         <View
           style={{

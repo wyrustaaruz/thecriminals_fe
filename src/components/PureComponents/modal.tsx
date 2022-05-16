@@ -49,11 +49,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modal: {
+    height: "50%",
+    width: "80%",
     margin: 20,
     backgroundColor: Colors.DarkGray,
     borderRadius: 20,
-    paddingVertical: 35,
     alignItems: "center",
+    alignContent: "center",
+    justifyContent: "center",
     shadowColor: Colors.Black,
     shadowOffset: {
       width: 0,

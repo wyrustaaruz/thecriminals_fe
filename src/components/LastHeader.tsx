@@ -14,31 +14,33 @@ export const LastHeader = (characterInfo: {
   return (
     <View style={styles.headerContainer}>
       <View style={styles.alignSelfCenter}>
-        <Text style={styles.alignSelfCenter}>Spirit</Text>
+        <Text style={[styles.alignSelfCenter, styles.whiteColor]}>Bilet</Text>
         <Text style={styles.alignSelfCenter}>
-          {spirit !== undefined ? spirit : "0$"}
+          {spirit !== undefined ? spirit : "0"}
         </Text>
       </View>
       <View style={styles.alignSelfCenter}>
-        <Text style={styles.alignSelfCenter}>Respect</Text>
+        <Text style={[styles.alignSelfCenter, styles.whiteColor]}>
+          Saygınlık
+        </Text>
         <Text style={styles.alignSelfCenter}>
           {respect !== undefined ? respect : "0"}
         </Text>
       </View>
       <View style={styles.alignSelfCenter}>
-        <Text style={styles.alignSelfCenter}>Weapon</Text>
+        <Text style={[styles.alignSelfCenter, styles.whiteColor]}>Silah</Text>
         <Text style={styles.alignSelfCenter}>
           {weapon !== undefined ? weapon : "0"}
         </Text>
       </View>
       <View style={styles.alignSelfCenter}>
-        <Text style={styles.alignSelfCenter}>Armor</Text>
+        <Text style={[styles.alignSelfCenter, styles.whiteColor]}>Zırh</Text>
         <Text style={styles.alignSelfCenter}>
           {armor !== undefined ? armor : "0"}
         </Text>
       </View>
       <View style={styles.alignSelfCenter}>
-        <Text style={styles.alignSelfCenter}>Guard</Text>
+        <Text style={[styles.alignSelfCenter, styles.whiteColor]}>Koruma</Text>
         <Text style={styles.alignSelfCenter}>
           {guard !== undefined ? guard : "0"}
         </Text>
@@ -72,5 +74,8 @@ const styles = StyleSheet.create({
   },
   alignSelfCenter: {
     alignSelf: "center",
+  },
+  whiteColor: {
+    color: Colors.White,
   },
 });

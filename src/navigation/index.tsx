@@ -149,7 +149,13 @@ function BottomTabNavigator() {
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
+const customHeader = {
+  headerStyle: {
+    backgroundColor: Colors.LightGray,
+  },
+  headerTintColor: Colors.Gold,
+  headerBackTitle: "",
+};
 function RootNavigator() {
   return (
     <Stack.Navigator>
@@ -161,12 +167,16 @@ function RootNavigator() {
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
-        options={{ title: "Oops!" }}
+        options={{
+          ...customHeader,
+          title: "Oops!",
+        }}
       />
       <Stack.Screen
         name="InClub"
         component={InClub}
         options={{
+          ...customHeader,
           title: "Kulüp",
         }}
       />
@@ -174,6 +184,7 @@ function RootNavigator() {
         name="Splash"
         component={Splash}
         options={{
+          ...customHeader,
           headerShown: false,
         }}
       />

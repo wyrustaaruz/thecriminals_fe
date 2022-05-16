@@ -11,6 +11,7 @@ import Colors from "../constants/Colors";
 
 interface RobberyItem {
   label?: string;
+  img: string;
   value: number;
   power?: number;
   required_stamina_percent?: number;
@@ -21,6 +22,7 @@ interface RobberyItem {
   attr_max?: number;
   percent?: number;
   reward_item?: any;
+  item_reward?: any;
 }
 type RobItemType = {
   item: RobberyItem;
@@ -50,17 +52,19 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
       .get(ROBBERY_RUN_URL + value)
       .then((res) => {
         if (res.data.status === "success") {
+          let items = "";
+          if (res.data.rewards.item_reward.length > 0) {
+            items = "\n Eşyalar: ";
+            res.data.rewards.item_reward.map(
+              (item: any) => (items += item.label + " " + item.count + " ad.")
+            );
+          }
           const message =
             res.data.message +
             "\nKazanılan Ödül:\n" +
-            "Cash: $" +
+            "Nakit: $" +
             res.data.rewards.cash +
-            "\nItem: " +
-            JSON.stringify(res.data.rewards.item)
-              .replaceAll("{", "")
-              .replaceAll("}", "")
-              .replaceAll("[", "")
-              .replaceAll("]", "");
+            items;
           const lottieImages = [
             require("../../assets/lotties/man-in-brown.json"),
             require("../../assets/lotties/man-in-green.json"),
@@ -72,8 +76,8 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
             <View>
               <LottieView
                 style={{
-                  width: 400,
-                  height: 400,
+                  width: "50%",
+                  alignSelf: "center",
                   backgroundColor: "transparent",
                 }}
                 autoPlay={true}
@@ -91,8 +95,8 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
             <View>
               <LottieView
                 style={{
-                  width: 400,
-                  height: 400,
+                  width: "50%",
+                  alignSelf: "center",
                   backgroundColor: "transparent",
                 }}
                 autoPlay={true}
@@ -110,6 +114,7 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
         initRobberyList();
       })
       .catch((error) => {
+        console.log("error", error);
         loadingFalse();
       });
   };
@@ -145,7 +150,7 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
         >
           <Image
             style={{ width: 50, height: 50, borderRadius: 10 }}
-            source={require("../../assets/images/avatar_20.png")}
+            source={{ uri: item.img }}
           />
         </View>
         <View
@@ -158,15 +163,17 @@ export const RobberyList = (robberyList: Array<RobberyItem>) => {
           <Text style={{ color: Colors.White, fontWeight: "600" }}>
             {item.label}
           </Text>
-          <Text>Dayanıklılık: {item.required_stamina_percent}</Text>
-          {!_.isEmpty(item.reward_item) && (
-            <Text>
-              {item.reward_item
-                ? Object.keys(item.reward_item) +
-                  ": " +
-                  Object.values(item.reward_item)
-                : "-"}
-            </Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ color: Colors.White }}>Dayanıklılık:</Text>
+            <Text>{item.required_stamina_percent}</Text>
+          </View>
+          {!_.isEmpty(item.item_reward) && (
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: Colors.White }}>
+                {item.item_reward.label + ": "}
+              </Text>
+              <Text>{item.item_reward.count + " ad."}</Text>
+            </View>
           )}
         </View>
         <View

@@ -19,6 +19,10 @@ export function Button(props: ButtonType) {
           borderRadius: 8,
           backgroundColor: Colors.Gold,
           borderColor: type === "danger" ? Colors.Red : Colors.Gold,
+          shadowColor: Colors.Gold,
+          shadowOffset: { width: 2, height: 1 },
+          shadowOpacity: 0.5,
+          shadowRadius: 8,
         },
       ]}
       onPress={onPress}

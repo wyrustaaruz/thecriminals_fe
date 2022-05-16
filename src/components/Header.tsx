@@ -50,34 +50,43 @@ export const Header = (
           />
         )}
       </View>
-      <View>
-        <Text style={styles.usernameText}>
+      <View style={{ flex: 1, marginLeft: 10 }}>
+        <Text numberOfLines={1} style={styles.usernameText}>
           {user.username !== undefined ? user.username : ""}
         </Text>
-        <Text>Dayanıklılık: {stamina !== undefined ? stamina : "100%"}</Text>
-        <Text>
-          HP: {health !== undefined ? health + " / " + max_health : "0 / 0"}
-        </Text>
-        <Text>Bağımlılık: {addiction !== undefined ? addiction : "0"}</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.whiteColor}>Dayanıklılık:</Text>
+          <Text>{stamina !== undefined ? stamina : "100%"}</Text>
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.whiteColor}>Can:</Text>
+          <Text>
+            {health !== undefined ? health + " / " + max_health : "0 / 0"}
+          </Text>
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.whiteColor}>Bağımlılık:</Text>
+          <Text>{addiction !== undefined ? addiction : "0"}</Text>
+        </View>
       </View>
-      <View>
-        <Text style={styles.centeredText}>Zeka</Text>
+      <View style={{ flex: 1 }}>
+        <Text style={[styles.centeredText, styles.whiteColor]}>Zeka</Text>
         <Text style={styles.centeredText}>
           {intelligence !== undefined ? intelligence : 0}
         </Text>
 
-        <Text style={styles.centeredText}>Güç</Text>
+        <Text style={[styles.centeredText, styles.whiteColor]}>Güç</Text>
         <Text style={styles.centeredText}>
           {strength !== undefined ? strength : 0}
         </Text>
       </View>
-      <View>
-        <Text style={styles.centeredText}>Karizma</Text>
+      <View style={{ flex: 1 }}>
+        <Text style={[styles.centeredText, styles.whiteColor]}>Karizma</Text>
         <Text style={styles.centeredText}>
           {charisma !== undefined ? charisma : 0}
         </Text>
 
-        <Text style={styles.centeredText}>Tölerans</Text>
+        <Text style={[styles.centeredText, styles.whiteColor]}>Tölerans</Text>
         <Text style={styles.centeredText}>
           {tolerance !== undefined ? tolerance : 0}
         </Text>
@@ -117,12 +126,14 @@ const styles = StyleSheet.create({
     height: 70,
   },
   logoContainer: {
+    flex: 1,
     shadowColor: Colors.Gold,
-    shadowOffset: { width: 5, height: 5 },
+    shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.4,
     shadowRadius: 8,
   },
   menuContainer: {
+    flex: 1,
     width: 50,
     height: 50,
     alignItems: "center",
@@ -134,6 +145,10 @@ const styles = StyleSheet.create({
   },
   usernameText: {
     fontSize: 20,
+    fontWeight: "600",
+  },
+  whiteColor: {
+    color: Colors.White,
   },
   centeredText: {
     textAlign: "center",

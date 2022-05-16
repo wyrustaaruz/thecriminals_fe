@@ -22,6 +22,7 @@ type BuildItem = {
   price: number;
   total_earning?: number;
   item: string;
+  item_name: string;
   count: number;
 };
 
@@ -78,8 +79,8 @@ export const BuildList = (buildList: Array<BuildItem>, buyable: boolean) => {
           <View>
             <LottieView
               style={{
-                width: 400,
-                height: 400,
+                width: "50%",
+                alignSelf: "center",
                 backgroundColor: "transparent",
               }}
               autoPlay={true}
@@ -165,8 +166,8 @@ export const BuildList = (buildList: Array<BuildItem>, buyable: boolean) => {
           <View>
             <LottieView
               style={{
-                width: 400,
-                height: 400,
+                width: "50%",
+                alignSelf: "center",
                 backgroundColor: "transparent",
               }}
               autoPlay={true}
@@ -204,8 +205,8 @@ export const BuildList = (buildList: Array<BuildItem>, buyable: boolean) => {
           <View>
             <LottieView
               style={{
-                width: 400,
-                height: 400,
+                width: "50%",
+                alignSelf: "center",
                 backgroundColor: "transparent",
               }}
               autoPlay={true}
@@ -257,11 +258,37 @@ export const BuildList = (buildList: Array<BuildItem>, buyable: boolean) => {
           <Text style={{ fontWeight: "600", color: Colors.White }}>
             {item.label}
           </Text>
-          <Text>{`Ürün: ${item.item} (${item.production} ad.)`}</Text>
-          <Text>Kazanç: ${item.daily_earning}</Text>
-          <Text>Ücret: ${item.price}</Text>
-          {!buyable && <Text>Sahip Olduğun Miktar: {item.count} ad.</Text>}
-          {!buyable && <Text>Toplam Kazanç: ${item.total_earning}</Text>}
+          <View style={{ flexDirection: "column" }}>
+            <Text style={{ color: Colors.White }}>Ürün: </Text>
+            {!buyable ? (
+              <Text>{`${item.item_name} (${item.production} ad.)`}</Text>
+            ) : (
+              <Text>{`${item.item} (${item.production} ad.)`}</Text>
+            )}
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ color: Colors.White }}>Kazanç: </Text>
+            <Text>${item.daily_earning}</Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ color: Colors.White }}>Ücret: </Text>
+            <Text>${item.price}</Text>
+          </View>
+
+          {!buyable && (
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: Colors.White }}>
+                Sahip Olduğun Miktar:{" "}
+              </Text>
+              <Text>{item.count} ad.</Text>
+            </View>
+          )}
+          {!buyable && (
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ color: Colors.White }}>Toplam Kazanç: </Text>
+              <Text>${item.total_earning}</Text>
+            </View>
+          )}
         </View>
         {buyable ? (
           <View

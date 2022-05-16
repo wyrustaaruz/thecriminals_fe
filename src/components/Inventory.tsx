@@ -110,8 +110,8 @@ export const Inventory = (characterItemsList: Array<InventoryItem>) => {
           <View>
             <LottieView
               style={{
-                width: 400,
-                height: 400,
+                width: "50%",
+                alignSelf: "center",
                 backgroundColor: "transparent",
               }}
               autoPlay={true}

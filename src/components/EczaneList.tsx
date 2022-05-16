@@ -62,8 +62,8 @@ export const EczaneList = (eczaneList: Array<EczaneItem>) => {
           <View>
             <LottieView
               style={{
-                width: 400,
-                height: 400,
+                width: "50%",
+                alignSelf: "center",
                 backgroundColor: "transparent",
               }}
               autoPlay={true}
@@ -133,8 +133,14 @@ export const EczaneList = (eczaneList: Array<EczaneItem>) => {
           <Text style={{ fontWeight: "600", color: Colors.White }}>
             {item.name}
           </Text>
-          <Text>{`Etki ${item.attr} (${item.attr_value})`}</Text>
-          <Text>Ücret: ${item.price}</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ color: Colors.White }}>Etki: </Text>
+            <Text>{`${item.attr} (${item.attr_value})`}</Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ color: Colors.White }}>Ücret: </Text>
+            <Text>${item.price}</Text>
+          </View>
         </View>
         <View
           style={{

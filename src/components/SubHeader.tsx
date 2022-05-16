@@ -13,7 +13,7 @@ export const SubHeader = (
   const { credits } = user || 0;
   return (
     <View style={styles.headerContainer}>
-      <View style={[styles.flexDirectionRow]}>
+      <View style={styles.flexDirectionRow}>
         <TouchableOpacity onPress={() => navigation.navigate("Messages")}>
           <Image
             style={[styles.tinyLogo, styles.marginHorizontal10]}

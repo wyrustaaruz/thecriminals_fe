@@ -64,8 +64,8 @@ export const BuyClubList = (clubList: Array<ClubItem>) => {
           <View>
             <LottieView
               style={{
-                width: 400,
-                height: 400,
+                width: "50%",
+                alignSelf: "center",
                 backgroundColor: "transparent",
               }}
               autoPlay={true}
@@ -120,7 +120,10 @@ export const BuyClubList = (clubList: Array<ClubItem>) => {
           <Text style={{ fontWeight: "600", color: Colors.White }}>
             {item.label}
           </Text>
-          <Text>Fiyat: ${item.price}</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ color: Colors.White }}>Fiyat: </Text>
+            <Text>${item.price}</Text>
+          </View>
         </View>
         <View
           style={{
