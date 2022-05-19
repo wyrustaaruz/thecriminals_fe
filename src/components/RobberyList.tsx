@@ -9,6 +9,9 @@ import Actions from "../redux/actions";
 import LottieView from "lottie-react-native";
 import Colors from "../constants/Colors";
 
+interface RobberyListType {
+  robberyList: Array<RobberyItem>;
+}
 interface RobberyItem {
   label?: string;
   img: string;
@@ -27,7 +30,7 @@ interface RobberyItem {
 type RobItemType = {
   item: RobberyItem;
 };
-export const RobberyList = (robberyList: Array<RobberyItem>) => {
+export const RobberyList = ({ robberyList }: RobberyListType) => {
   const dispatch = useDispatch();
   const [modalShown, setModalShown] = useState(false);
   const [modalChild, setModalChild] = useState(<></>);

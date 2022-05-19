@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { StyleSheet, SafeAreaView, ScrollView, Image } from "react-native";
+import { StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Header, SubHeader, LastHeader } from "../../components";
+import { Header, SubHeader, LastHeader, InJail } from "../../components";
 import { BuildList } from "../../components/BuildList";
 import { Loading, Text, View } from "../../components/PureComponents";
 import Colors from "../../constants/Colors";
@@ -22,29 +22,15 @@ export default function Buildings({ navigation }: any) {
     (state: any) => state.homepageReducers.jailStatus
   );
 
-  const initHeader = async () => {
+  const initScreenCall = async () => {
+    await dispatch(Actions.homepageActions.GetOwnBuildList());
+    await dispatch(Actions.homepageActions.GetBuildList());
     await dispatch(Actions.homepageActions.GetHeader());
   };
 
-  const initBuildings = async () => {
-    await dispatch(Actions.homepageActions.GetBuildList());
-  };
-
-  const initOwnBuildings = async () => {
-    await dispatch(Actions.homepageActions.GetOwnBuildList());
-  };
-
   useEffect(() => {
-    initHeader();
-    initBuildings();
-    initOwnBuildings();
+    initScreenCall();
   }, []);
-
-  const jailGifs = [
-    require("../../../assets/lotties/jail.gif"),
-    require("../../../assets/lotties/jail2.gif"),
-  ];
-  let randJailIndex = Math.floor(Math.random() * jailGifs.length);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,23 +39,7 @@ export default function Buildings({ navigation }: any) {
       <View>{SubHeader(characterInfo, navigation)}</View>
       <View>{LastHeader(characterInfo)}</View>
       {jailStatus.block ? (
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            backgroundColor: Colors.LightGray,
-            padding: 20,
-            alignItems: "center",
-          }}
-        >
-          <Image
-            style={{ width: "100%", height: "40%" }}
-            source={jailGifs[randJailIndex]}
-          />
-          <Text style={{ marginTop: 20, textAlign: "center" }}>
-            {jailStatus.message}
-          </Text>
-        </View>
+        <InJail myCallbackList={() => [initScreenCall()]} />
       ) : (
         <ScrollView>
           <Text style={{ marginLeft: 15, marginTop: 15 }}>

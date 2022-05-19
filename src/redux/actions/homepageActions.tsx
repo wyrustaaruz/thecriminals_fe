@@ -85,11 +85,24 @@ const GetRobberyList = () => {
           type: "LOADING_FALSE",
         });
         if (response.data.block) {
+          console.log("response.data.block", response.data.block);
           dispatch({
             type: "INTO_JAIL",
             payload: response.data,
           });
+          dispatch({
+            type: "GET_ROBBERY_LIST",
+            payload: [],
+          });
         } else {
+          console.log("asanriza");
+          dispatch({
+            type: "INTO_JAIL",
+            payload: {
+              block: null,
+              message: "",
+            },
+          });
           dispatch({
             type: "GET_ROBBERY_LIST",
             payload: response.data,

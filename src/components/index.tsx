@@ -5,3 +5,4 @@ export * from "./RobberyList";
 export * from "./EczaneList";
 export * from "./BankComponent";
 export * from "./Inventory";
+export * from "./InJail";

@@ -1,8 +1,14 @@
 import { useEffect } from "react";
-import { StyleSheet, SafeAreaView, Image } from "react-native";
+import { StyleSheet, SafeAreaView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Header, SubHeader, LastHeader, EczaneList } from "../../components";
-import { Loading, Text, View } from "../../components/PureComponents";
+import {
+  Header,
+  SubHeader,
+  LastHeader,
+  EczaneList,
+  InJail,
+} from "../../components";
+import { Loading, View } from "../../components/PureComponents";
 import Colors from "../../constants/Colors";
 import Actions from "../../redux/actions";
 
@@ -16,25 +22,16 @@ export default function Eczane({ navigation }: any) {
   const jailStatus = useSelector(
     (state: any) => state.homepageReducers.jailStatus
   );
-  const initHeader = async () => {
+
+  const initScreenCall = async () => {
+    await dispatch(Actions.homepageActions.GetRobberyList());
+    await dispatch(Actions.homepageActions.GetEczaneList());
     await dispatch(Actions.homepageActions.GetHeader());
   };
 
-  const initRobberyList = async () => {
-    await dispatch(Actions.homepageActions.GetRobberyList());
-    await dispatch(Actions.homepageActions.GetEczaneList());
-  };
-
   useEffect(() => {
-    initHeader();
-    initRobberyList();
+    initScreenCall();
   }, []);
-
-  const jailGifs = [
-    require("../../../assets/lotties/jail.gif"),
-    require("../../../assets/lotties/jail2.gif"),
-  ];
-  let randJailIndex = Math.floor(Math.random() * jailGifs.length);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -43,23 +40,7 @@ export default function Eczane({ navigation }: any) {
       <View>{SubHeader(characterInfo, navigation)}</View>
       <View>{LastHeader(characterInfo)}</View>
       {jailStatus.block ? (
-        <View
-          style={{
-            height: "100%",
-            width: "100%",
-            backgroundColor: Colors.LightGray,
-            padding: 20,
-            alignItems: "center",
-          }}
-        >
-          <Image
-            style={{ width: "100%", height: "40%" }}
-            source={jailGifs[randJailIndex]}
-          />
-          <Text style={{ marginTop: 20, textAlign: "center" }}>
-            {jailStatus.message}
-          </Text>
-        </View>
+        <InJail myCallbackList={() => [initScreenCall()]} />
       ) : (
         <View style={{ flex: 1 }}>{EczaneList(eczaneList)}</View>
       )}
