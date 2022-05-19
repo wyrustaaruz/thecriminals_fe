@@ -25,12 +25,26 @@ export default function Buildings({ navigation }: any) {
   const initScreenCall = async () => {
     await dispatch(Actions.homepageActions.GetOwnBuildList());
     await dispatch(Actions.homepageActions.GetBuildList());
+    await dispatch(Actions.homepageActions.GetRobberyList());
     await dispatch(Actions.homepageActions.GetHeader());
   };
 
   useEffect(() => {
     initScreenCall();
   }, []);
+
+  const BuildListComponent = () => {
+    return (
+      <ScrollView>
+        <Text style={{ marginLeft: 15, marginTop: 15 }}>
+          Sahip olduğun Binalar
+        </Text>
+        <View style={{ flex: 1 }}>{BuildList(ownBuildList, false)}</View>
+        <Text style={{ marginLeft: 15, marginVertical: 15 }}>Yeni Bina Al</Text>
+        <View style={{ flex: 1 }}>{BuildList(buildList, true)}</View>
+      </ScrollView>
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,16 +55,7 @@ export default function Buildings({ navigation }: any) {
       {jailStatus.block ? (
         <InJail myCallbackList={() => [initScreenCall()]} />
       ) : (
-        <ScrollView>
-          <Text style={{ marginLeft: 15, marginTop: 15 }}>
-            Sahip olduğun Binalar
-          </Text>
-          <View style={{ flex: 1 }}>{BuildList(ownBuildList, false)}</View>
-          <Text style={{ marginLeft: 15, marginVertical: 15 }}>
-            Yeni Bina Al
-          </Text>
-          <View style={{ flex: 1 }}>{BuildList(buildList, true)}</View>
-        </ScrollView>
+        <BuildListComponent />
       )}
     </SafeAreaView>
   );

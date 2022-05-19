@@ -2,30 +2,28 @@ import { useState } from "react";
 import { Alert, FlatList, Image, StyleSheet } from "react-native";
 import axios from "axios";
 import _ from "lodash";
-import { Text, View, MyModal, Button, TextInput } from "./PureComponents";
-import { TRADER_SELL_URL } from "../redux/endpoints";
+import { Text, View, Button, TextInput } from "./PureComponents";
+import { TRADER_BUY_URL } from "../redux/endpoints";
 import { useDispatch } from "react-redux";
 import Actions from "../redux/actions";
 import Colors from "../constants/Colors";
 
-type InventoryItem = {
-  value: string;
+type TraderItem = {
+  value: number;
   label: string;
-  count: string;
-  type: string;
-  attr: string;
   img: string;
+  type: string;
+  price: number;
+  attr: string;
 };
 
 type ItemType = {
-  item: InventoryItem;
+  item: TraderItem;
 };
 
-export const Inventory = (characterItemsList: Array<InventoryItem>) => {
+export const Trader = (characterItemsList: Array<TraderItem>) => {
   const dispatch = useDispatch();
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [textInputs, setTextInputs] = useState<any>([]);
-  const [modalChild, setModalChild] = useState(<></>);
   const initHeader = async () => {
     await dispatch(Actions.homepageActions.GetHeader());
   };
@@ -42,66 +40,13 @@ export const Inventory = (characterItemsList: Array<InventoryItem>) => {
     await dispatch(Actions.commonActions.LoadingFalse());
   };
 
-  const ConfirmationModal = (item: InventoryItem) => {
-    return (
-      <View
-        style={{
-          flex: 1,
-          flexGrow: 1,
-          flexWrap: "wrap",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <View
-          style={{
-            width: "100%",
-            height: "100%",
-            alignContent: "center",
-            alignItems: "center",
-            alignSelf: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={styles.centeredText}>
-            {item.label} isimli eşyadan{" "}
-            {textInputs[item.value] ? textInputs[item.value] : "1"} ad. satmak
-            istediğine emin misin?
-          </Text>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-around",
-              marginTop: 20,
-            }}
-          >
-            <Button
-              type="danger"
-              style={{ marginHorizontal: 15 }}
-              onPress={() => sellItem(item.value)}
-            >
-              <Text type="danger">Evet</Text>
-            </Button>
-            <Button
-              style={{ marginHorizontal: 15 }}
-              onPress={() => setShowConfirmationModal(false)}
-            >
-              <Text type="button">Hayır</Text>
-            </Button>
-          </View>
-        </View>
-      </View>
-    );
-  };
-  const sellItem = async (id: string) => {
+  const buyItem = async (id: number) => {
     loadingTrue();
-    setShowConfirmationModal(false);
     axios
-      .post(TRADER_SELL_URL + id, {
+      .post(TRADER_BUY_URL + id, {
         count: textInputs[id] ? textInputs[id] : "1",
       })
       .then((res) => {
-        loadingFalse();
         Alert.alert(res.data.message);
         initHeader();
         updateCharacterItems();
@@ -151,7 +96,7 @@ export const Inventory = (characterItemsList: Array<InventoryItem>) => {
         >
           <Text>İsim: {item.label}</Text>
           <Text>Tipi: {item.type}</Text>
-          <Text>Adet: {item.count}</Text>
+          <Text>Fiyat: ${item.price}</Text>
           <Text>{item.attr ? "Etki: " + item.attr : ""}</Text>
         </View>
         <View
@@ -178,18 +123,15 @@ export const Inventory = (characterItemsList: Array<InventoryItem>) => {
             }}
           />
           <Button
-            type="danger"
+            type="button"
             style={{ marginBottom: 5 }}
-            onPress={() => {
-              setShowConfirmationModal(true);
-              setModalChild(ConfirmationModal(item));
-            }}
+            onPress={() => buyItem(item.value)}
           >
             <Text
-              type="danger"
+              type="button"
               style={{ textAlign: "center", justifyContent: "center" }}
             >
-              Sat
+              Satın Al
             </Text>
           </Button>
         </View>
@@ -209,12 +151,6 @@ export const Inventory = (characterItemsList: Array<InventoryItem>) => {
           />
         </View>
       )}
-      <MyModal
-        visible={showConfirmationModal}
-        onRequestClose={() => setShowConfirmationModal(false)}
-      >
-        {modalChild}
-      </MyModal>
     </View>
   );
 };

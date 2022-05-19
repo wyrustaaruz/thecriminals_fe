@@ -116,7 +116,9 @@ export const BuildList = (buildList: Array<BuildItem>, buyable: boolean) => {
             justifyContent: "center",
           }}
         >
-          <Text>{item.label} isimli binayı satmak istediğine emin misin?</Text>
+          <Text style={styles.centeredText}>
+            {item.label} isimli binayı satmak istediğine emin misin?
+          </Text>
           <View
             style={{
               flexDirection: "row",

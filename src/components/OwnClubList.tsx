@@ -108,7 +108,7 @@ export const OwnClubList = (navigation: any, clubList: Array<ClubItem>) => {
             justifyContent: "center",
           }}
         >
-          <Text>
+          <Text style={styles.centeredText}>
             {item.label} isimli gece kulübünü satmak istediğine emin misin?
           </Text>
           <View

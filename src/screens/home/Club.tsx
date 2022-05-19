@@ -29,6 +29,7 @@ export default function Club({ navigation }: any) {
     await dispatch(Actions.homepageActions.GetRandomClubList());
     await dispatch(Actions.homepageActions.GetOwnClubList());
     await dispatch(Actions.homepageActions.GetClubList());
+    await dispatch(Actions.homepageActions.GetRobberyList());
     await dispatch(Actions.homepageActions.GetHeader());
   };
 
@@ -36,34 +37,39 @@ export default function Club({ navigation }: any) {
     initScreenCall();
   }, []);
 
+  const ClubComponent = () => {
+    return (
+      <ScrollView>
+        <Text style={{ marginLeft: 15, marginTop: 15 }}>Bir Kulübe gir</Text>
+        <View style={{ flex: 1 }}>{ClubList(navigation, randomClubList)}</View>
+
+        <Text style={{ marginLeft: 15, marginTop: 15 }}>
+          Sahip olduğun Kulüpler
+        </Text>
+        <View style={{ flex: 1 }}>{OwnClubList(navigation, ownClubList)}</View>
+
+        <Text style={{ marginLeft: 15, marginTop: 15 }}>
+          Satın Alabileceğin Kulüpler
+        </Text>
+        <View style={{ flex: 1 }}>{BuyClubList(clubList)}</View>
+      </ScrollView>
+    );
+  };
+
+  const ConditionalRender = () => {
+    return jailStatus.block ? (
+      <InJail myCallbackList={() => [initScreenCall()]} />
+    ) : (
+      <ClubComponent />
+    );
+  };
   return (
     <SafeAreaView style={styles.container}>
       <Loading status={loading} />
       <View>{Header(characterInfo, navigation)}</View>
       <View>{SubHeader(characterInfo, navigation)}</View>
       <View>{LastHeader(characterInfo)}</View>
-      {jailStatus.block ? (
-        <InJail myCallbackList={() => [initScreenCall()]} />
-      ) : (
-        <ScrollView>
-          <Text style={{ marginLeft: 15, marginTop: 15 }}>Bir Kulübe gir</Text>
-          <View style={{ flex: 1 }}>
-            {ClubList(navigation, randomClubList)}
-          </View>
-
-          <Text style={{ marginLeft: 15, marginTop: 15 }}>
-            Sahip olduğun Kulüpler
-          </Text>
-          <View style={{ flex: 1 }}>
-            {OwnClubList(navigation, ownClubList)}
-          </View>
-
-          <Text style={{ marginLeft: 15, marginTop: 15 }}>
-            Satın Alabileceğin Kulüpler
-          </Text>
-          <View style={{ flex: 1 }}>{BuyClubList(clubList)}</View>
-        </ScrollView>
-      )}
+      <View style={{ flex: 1 }}>{ConditionalRender()}</View>
     </SafeAreaView>
   );
 }

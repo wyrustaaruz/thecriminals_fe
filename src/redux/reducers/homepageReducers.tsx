@@ -57,6 +57,7 @@ const initialState = {
   ownClubList: [],
   clubItems: [],
   characterItemList: [],
+  traderItemList: [],
 };
 
 const homepageReducers = (state = initialState, action: any) => {
@@ -125,6 +126,11 @@ const homepageReducers = (state = initialState, action: any) => {
       return {
         ...state,
         characterItemList: action.payload,
+      };
+    case "GET_TRADER_ITEM_LIST":
+      return {
+        ...state,
+        traderItemList: action.payload,
       };
     default:
       return state;

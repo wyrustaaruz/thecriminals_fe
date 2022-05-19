@@ -14,6 +14,7 @@ import {
   CLUB_ENTER_URL,
   CHARACTER_ITEMS_URL,
   RANDOM_CLUB_LIST_URL,
+  TRADER_ITEMS_URL,
 } from "../endpoints";
 
 const GetHeader = () => {
@@ -85,17 +86,11 @@ const GetRobberyList = () => {
           type: "LOADING_FALSE",
         });
         if (response.data.block) {
-          console.log("response.data.block", response.data.block);
           dispatch({
             type: "INTO_JAIL",
             payload: response.data,
           });
-          dispatch({
-            type: "GET_ROBBERY_LIST",
-            payload: [],
-          });
         } else {
-          console.log("asanriza");
           dispatch({
             type: "INTO_JAIL",
             payload: {
@@ -132,17 +127,10 @@ const GetEczaneList = () => {
         dispatch({
           type: "LOADING_FALSE",
         });
-        if (response.data.block) {
-          dispatch({
-            type: "INTO_JAIL",
-            payload: response.data,
-          });
-        } else {
-          dispatch({
-            type: "GET_ECZANE_LIST",
-            payload: response.data,
-          });
-        }
+        dispatch({
+          type: "GET_ECZANE_LIST",
+          payload: response.data,
+        });
       })
       .catch((error) => {
         dispatch({
@@ -413,6 +401,34 @@ const GetCharacterItems = () => {
       });
   };
 };
+const GetTraderItems = () => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
+    axios
+      .get(TRADER_ITEMS_URL)
+      .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "GET_TRADER_ITEM_LIST",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
 
 const homepageActions = {
   GetHeader,
@@ -428,6 +444,7 @@ const homepageActions = {
   GetOwnClubList,
   GetClubItems,
   GetCharacterItems,
+  GetTraderItems,
 };
 
 export default homepageActions;

@@ -24,8 +24,8 @@ export default function Eczane({ navigation }: any) {
   );
 
   const initScreenCall = async () => {
-    await dispatch(Actions.homepageActions.GetRobberyList());
     await dispatch(Actions.homepageActions.GetEczaneList());
+    await dispatch(Actions.homepageActions.GetRobberyList());
     await dispatch(Actions.homepageActions.GetHeader());
   };
 
@@ -33,17 +33,21 @@ export default function Eczane({ navigation }: any) {
     initScreenCall();
   }, []);
 
+  const ConditionalRender = () => {
+    return jailStatus.block ? (
+      <InJail myCallbackList={() => [initScreenCall()]} />
+    ) : (
+      <EczaneList eczaneList={eczaneList} />
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Loading status={loading} />
       <View>{Header(characterInfo, navigation)}</View>
       <View>{SubHeader(characterInfo, navigation)}</View>
       <View>{LastHeader(characterInfo)}</View>
-      {jailStatus.block ? (
-        <InJail myCallbackList={() => [initScreenCall()]} />
-      ) : (
-        <View style={{ flex: 1 }}>{EczaneList(eczaneList)}</View>
-      )}
+      <View style={{ flex: 1 }}>{ConditionalRender()}</View>
     </SafeAreaView>
   );
 }

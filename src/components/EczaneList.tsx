@@ -10,6 +10,9 @@ import LottieView from "lottie-react-native";
 import Colors from "../constants/Colors";
 import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 
+interface EczaneItemListType {
+  eczaneList: Array<EczaneItem>;
+}
 type EczaneItem = {
   value: number;
   name?: string;
@@ -21,7 +24,7 @@ type EczaneItemType = {
   item: EczaneItem;
 };
 
-export const EczaneList = (eczaneList: Array<EczaneItem>) => {
+export const EczaneList = ({ eczaneList }: EczaneItemListType) => {
   const dispatch = useDispatch();
   const [textInputs, setTextInputs] = useState<any>([]);
   const [modalShown, setModalShown] = useState(false);

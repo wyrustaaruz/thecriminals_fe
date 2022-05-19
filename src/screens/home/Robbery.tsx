@@ -32,7 +32,7 @@ export default function Robbery({ navigation }: any) {
     initScreenCall();
   }, []);
 
-  const Hasan = () => {
+  const ConditionalRender = () => {
     return jailStatus.block ? (
       <InJail myCallbackList={() => [initScreenCall()]} />
     ) : (
@@ -46,7 +46,7 @@ export default function Robbery({ navigation }: any) {
       <View>{Header(characterInfo, navigation)}</View>
       <View>{SubHeader(characterInfo, navigation)}</View>
       <View>{LastHeader(characterInfo)}</View>
-      <View style={{ flex: 1 }}>{Hasan()}</View>
+      <View style={{ flex: 1 }}>{ConditionalRender()}</View>
     </SafeAreaView>
   );
 }

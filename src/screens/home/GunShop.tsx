@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Header,
@@ -7,6 +7,7 @@ import {
   LastHeader,
   Inventory,
   InJail,
+  Trader,
 } from "../../components";
 import { Loading, Text, View } from "../../components/PureComponents";
 import Colors from "../../constants/Colors";
@@ -23,35 +24,47 @@ export default function GunShop({ navigation }: any) {
   const characterItemList = useSelector(
     (state: any) => state.homepageReducers.characterItemList
   );
-  const initHeader = async () => {
+  const traderItemList = useSelector(
+    (state: any) => state.homepageReducers.traderItemList
+  );
+
+  const initScreenCall = async () => {
+    await dispatch(Actions.homepageActions.GetCharacterItems());
+    await dispatch(Actions.homepageActions.GetTraderItems());
+    await dispatch(Actions.homepageActions.GetRobberyList());
     await dispatch(Actions.homepageActions.GetHeader());
   };
 
-  const initCharacterItemsList = async () => {
-    await dispatch(Actions.homepageActions.GetCharacterItems());
-  };
-
   useEffect(() => {
-    initHeader();
-    initCharacterItemsList();
+    initScreenCall();
   }, []);
 
+  const InventoryComponent = () => {
+    return (
+      <ScrollView>
+        <Text style={{ marginLeft: 15, marginTop: 15 }}>
+          Sahip olduğun Eşyalar
+        </Text>
+        {Inventory(characterItemList)}
+        <Text style={{ marginLeft: 15, marginTop: 15 }}>
+          Satıcıdaki Ürünler
+        </Text>
+        {Trader(traderItemList)}
+      </ScrollView>
+    );
+  };
   return (
     <SafeAreaView style={styles.container}>
       <Loading status={loading} />
       <View>{Header(characterInfo, navigation)}</View>
       <View>{SubHeader(characterInfo, navigation)}</View>
       <View>{LastHeader(characterInfo)}</View>
-      <Text style={{ marginLeft: 15, marginTop: 15 }}>
-        Sahip olduğun Eşyalar
-      </Text>
+
       <View style={{ flex: 1 }}>
         {jailStatus.block ? (
-          <InJail
-            myCallbackList={() => [initCharacterItemsList(), initHeader()]}
-          />
+          <InJail myCallbackList={() => [initScreenCall()]} />
         ) : (
-          Inventory(characterItemList)
+          <InventoryComponent />
         )}
       </View>
     </SafeAreaView>
