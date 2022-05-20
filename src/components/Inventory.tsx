@@ -3,7 +3,7 @@ import { Alert, FlatList, Image, StyleSheet } from "react-native";
 import axios from "axios";
 import _ from "lodash";
 import { Text, View, MyModal, Button, TextInput } from "./PureComponents";
-import { TRADER_SELL_URL } from "../redux/endpoints";
+import { TRADER_SELL_URL, INVENTORY_USE_URL } from "../redux/endpoints";
 import { useDispatch } from "react-redux";
 import Actions from "../redux/actions";
 import Colors from "../constants/Colors";
@@ -112,6 +112,23 @@ export const Inventory = (characterItemsList: Array<InventoryItem>) => {
         Alert.alert(message);
       });
   };
+  const useItem = async (id: string) => {
+    loadingTrue();
+    setShowConfirmationModal(false);
+    axios
+      .get(INVENTORY_USE_URL + id)
+      .then((res) => {
+        loadingFalse();
+        Alert.alert(res.data.message);
+        initHeader();
+        updateCharacterItems();
+      })
+      .catch((error) => {
+        loadingFalse();
+        const message = error.response.data.message;
+        Alert.alert(message);
+      });
+  };
 
   const CharacterItem = ({ item }: ItemType) => {
     return (
@@ -161,6 +178,19 @@ export const Inventory = (characterItemsList: Array<InventoryItem>) => {
             flex: 2,
           }}
         >
+          <Button
+            style={{ marginBottom: 5 }}
+            onPress={() => {
+              useItem(item.value);
+            }}
+          >
+            <Text
+              type="button"
+              style={{ textAlign: "center", justifyContent: "center" }}
+            >
+              Kullan
+            </Text>
+          </Button>
           <TextInput
             style={{
               marginBottom: 5,
