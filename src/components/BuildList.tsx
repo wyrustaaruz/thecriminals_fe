@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList, Image, StyleSheet } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import axios from "axios";
 import _ from "lodash";
 import { Text, View, MyModal, Button } from "./PureComponents";
@@ -356,13 +356,9 @@ export const BuildList = (buildList: Array<BuildItem>, buyable: boolean) => {
       {buildList.length > 0 && (
         <View style={{ flex: 1, justifyContent: "space-between" }}>
           <View>
-            <FlatList
-              data={buildList}
-              renderItem={({ item }) => (
-                <BuildingItem key={item.value} item={item} />
-              )}
-              keyExtractor={(item, index) => index.toString()}
-            />
+            {buildList.map((item) => (
+              <BuildingItem key={item.value} item={item} />
+            ))}
           </View>
         </View>
       )}

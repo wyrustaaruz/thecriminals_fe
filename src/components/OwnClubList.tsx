@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList, Image, StyleSheet } from "react-native";
+import { Image, StyleSheet } from "react-native";
 import axios from "axios";
 import _ from "lodash";
 import { Text, View, MyModal, Button } from "./PureComponents";
@@ -284,11 +284,9 @@ export const OwnClubList = (navigation: any, clubList: Array<ClubItem>) => {
       {clubList.length > 0 && (
         <View style={{ flex: 1, justifyContent: "space-between" }}>
           <View>
-            <FlatList
-              data={clubList}
-              renderItem={({ item }) => <ClubItem key={item.id} item={item} />}
-              keyExtractor={(item, index) => index.toString()}
-            />
+            {clubList.map((item) => (
+              <ClubItem key={item.id} item={item} />
+            ))}
           </View>
         </View>
       )}

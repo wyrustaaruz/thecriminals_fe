@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import _ from "lodash";
 import { Text, View, Button } from "./PureComponents";
 
@@ -27,12 +27,10 @@ export const ClubList = (navigation: any, clubList: Array<ClubItem>) => {
         style={{
           backgroundColor: Colors.DarkGray,
           borderRadius: 8,
-          flex: 1,
-          width: "50%",
+          width: "45%",
           paddingRight: 15,
           paddingVertical: 15,
-          marginVertical: 5,
-          marginHorizontal: 15,
+          margin: 5,
           flexDirection: "row",
           justifyContent: "space-evenly",
         }}
@@ -79,13 +77,10 @@ export const ClubList = (navigation: any, clubList: Array<ClubItem>) => {
     <View style={styles.headerContainer}>
       {clubList.length > 0 && (
         <View style={{ flex: 1, justifyContent: "space-between" }}>
-          <View>
-            <FlatList
-              numColumns={2}
-              data={clubList}
-              renderItem={({ item }) => <ClubItem key={item.id} item={item} />}
-              keyExtractor={(item, index) => index.toString()}
-            />
+          <View style={styles.container}>
+            {clubList.map((item) => (
+              <ClubItem key={item.id} item={item} />
+            ))}
           </View>
         </View>
       )}
@@ -100,5 +95,12 @@ const styles = StyleSheet.create({
   },
   centeredText: {
     textAlign: "center",
+  },
+  container: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginLeft: 10,
+    alignItems: "center", // if you want to fill rows left to right
   },
 });

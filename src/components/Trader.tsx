@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, FlatList, Image, StyleSheet } from "react-native";
+import { Alert, Image, StyleSheet } from "react-native";
 import axios from "axios";
 import _ from "lodash";
 import { Text, View, Button, TextInput } from "./PureComponents";
@@ -142,13 +142,9 @@ export const Trader = (characterItemsList: Array<TraderItem>) => {
     <View style={styles.headerContainer}>
       {characterItemsList.length > 0 && (
         <View style={{ flex: 1, justifyContent: "space-between" }}>
-          <FlatList
-            data={characterItemsList}
-            renderItem={({ item }) => (
-              <CharacterItem key={item.value} item={item} />
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
+          {characterItemsList.map((item) => (
+            <CharacterItem key={item.value} item={item} />
+          ))}
         </View>
       )}
     </View>

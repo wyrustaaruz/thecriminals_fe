@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import { StyleSheet, TouchableOpacity, Modal } from "react-native";
+import { useSelector } from "react-redux";
 import { BlurView } from "expo-blur";
+import { Loading } from "../../components/PureComponents/Loading";
 import Colors from "../../constants/Colors";
 
 interface ModalType {
@@ -10,13 +12,15 @@ interface ModalType {
 }
 
 export const MyModal = ({ children, visible, onRequestClose }: ModalType) => {
+  const loading = useSelector((state: any) => state.commonReducers.loading);
   return (
     <Modal
       visible={visible}
       transparent
-      animationType="fade"
+      animationType="none"
       onRequestClose={() => onRequestClose()}
     >
+      <Loading status={loading} />
       <TouchableOpacity
         style={styles.modalContainer}
         onPress={() => {
