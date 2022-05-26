@@ -15,6 +15,8 @@ import {
   CHARACTER_ITEMS_URL,
   RANDOM_CLUB_LIST_URL,
   TRADER_ITEMS_URL,
+  FRIENDSHIP_URL,
+  FRIENDSHIP_WAITING_URL,
 } from "../endpoints";
 
 const GetHeader = () => {
@@ -430,6 +432,64 @@ const GetTraderItems = () => {
   };
 };
 
+const GetFriendshipList = () => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
+    axios
+      .get(FRIENDSHIP_URL)
+      .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "GET_FRIENDSHIP_LIST",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
+
+const GetComingFriendshipList = () => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: "LOADING_TRUE",
+    });
+    axios
+      .get(FRIENDSHIP_WAITING_URL)
+      .then((response) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "GET_FRIENDSHIP_WAITING_LIST",
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        if (error.response.data.message) {
+          Alert.alert("HATA", error.response.data.message, [
+            { text: "Tamam", onPress: () => null },
+          ]);
+        }
+      });
+  };
+};
+
 const homepageActions = {
   GetHeader,
   GetProfile,
@@ -445,6 +505,8 @@ const homepageActions = {
   GetClubItems,
   GetCharacterItems,
   GetTraderItems,
+  GetFriendshipList,
+  GetComingFriendshipList,
 };
 
 export default homepageActions;

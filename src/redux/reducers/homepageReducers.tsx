@@ -58,6 +58,8 @@ const initialState = {
   clubItems: [],
   characterItemList: [],
   traderItemList: [],
+  friendshipList: [],
+  friendshipWaitList: [],
 };
 
 const homepageReducers = (state = initialState, action: any) => {
@@ -131,6 +133,16 @@ const homepageReducers = (state = initialState, action: any) => {
       return {
         ...state,
         traderItemList: action.payload,
+      };
+    case "GET_FRIENDSHIP_LIST":
+      return {
+        ...state,
+        friendshipList: action.payload,
+      };
+    case "GET_FRIENDSHIP_WAITING_LIST":
+      return {
+        ...state,
+        friendshipWaitList: action.payload,
       };
     default:
       return state;

@@ -40,3 +40,9 @@ export const INVENTORY_USE_URL = "/use-item/";
 export const TRADER_ITEMS_URL = "/trader";
 export const TRADER_BUY_URL = "/buy-trader/";
 export const TRADER_SELL_URL = "/sell-trader/";
+
+export const FRIENDSHIP_URL = "/list-users";
+export const FRIENDSHIP_WAITING_URL = "/list-waiting-friends";
+export const ADD_FRIEND_URL = "/add-friend";
+export const APPROVE_FRIEND_URL = "/approve-friend";
+export const REJECT_FRIEND_URL = "/reject-friend";

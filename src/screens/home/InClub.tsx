@@ -44,6 +44,7 @@ export default function InClub(props: any, { navigation }: any) {
   const [modalShown, setModalShown] = useState(false);
   const [modalChild, setModalChild] = useState(<></>);
   useEffect(() => {
+    loadingTrue();
     initHeader();
     initClubItems();
   }, []);
