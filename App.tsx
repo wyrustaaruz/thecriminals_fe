@@ -19,7 +19,6 @@ export default function App() {
   if (firstCall) {
     myinterceptor();
     setFirstCall(false);
-
     setInterval(() => {
       axios.get(TICK_URL);
     }, 60000);
