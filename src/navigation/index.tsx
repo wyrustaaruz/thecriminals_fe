@@ -34,6 +34,7 @@ import Messages from "../screens/home/Messages";
 import Friendship from "../screens/home/Friendship";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { CustomDrawerContent } from "./CustomDrawerContent";
+import { Ionicons } from "@expo/vector-icons";
 
 const Drawer = createDrawerNavigator();
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
@@ -67,7 +68,7 @@ function BottomTabNavigator() {
       initialRouteName="Robbery"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
-        tabBarIconStyle: { display: "none" },
+        tabBarIconStyle: {},
         tabBarItemStyle: { justifyContent: "center" },
         tabBarLabelStyle: { fontSize: 12 },
       }}
@@ -82,6 +83,17 @@ function BottomTabNavigator() {
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
           tabBarActiveTintColor: Colors.custom.tint,
+          tabBarIcon: (tabInfo) => {
+            return (
+              <Ionicons
+                name="walk-outline"
+                size={25}
+                color={
+                  tabInfo.focused ? Colors.custom.tint : Colors.custom.tabIconDefault
+                }
+              />
+            );
+          },
         }}
       />
       <BottomTab.Screen
@@ -94,6 +106,15 @@ function BottomTabNavigator() {
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
           tabBarActiveTintColor: Colors.custom.tint,
+          tabBarIcon: (tabInfo) => {
+            return (
+              <Ionicons
+                name="beer-outline"
+                size={25}
+                color={tabInfo.focused ? Colors.custom.tint : Colors.custom.tabIconDefault}
+              />
+            );
+          },
         }}
       />
       <BottomTab.Screen
@@ -106,6 +127,15 @@ function BottomTabNavigator() {
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
           tabBarActiveTintColor: Colors.custom.tint,
+          tabBarIcon: (tabInfo) => {
+            return (
+              <Ionicons
+                name="business-outline"
+                size={25}
+                color={tabInfo.focused ? Colors.custom.tint : Colors.custom.tabIconDefault}
+              />
+            );
+          },
         }}
       />
       <BottomTab.Screen
@@ -118,6 +148,15 @@ function BottomTabNavigator() {
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
           tabBarActiveTintColor: Colors.custom.tint,
+          tabBarIcon: (tabInfo) => {
+            return (
+              <Ionicons
+                name="medkit-outline"
+                size={25}
+                color={tabInfo.focused ? Colors.custom.tint : Colors.custom.tabIconDefault}
+              />
+            );
+          },
         }}
       />
       <BottomTab.Screen
@@ -130,18 +169,36 @@ function BottomTabNavigator() {
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
           tabBarActiveTintColor: Colors.custom.tint,
+          tabBarIcon: (tabInfo) => {
+            return (
+              <Ionicons
+                name="cash-outline"
+                size={25}
+                color={tabInfo.focused ? Colors.custom.tint : Colors.custom.tabIconDefault}
+              />
+            );
+          },
         }}
       />
       <BottomTab.Screen
         name="GunStore"
         component={GunShop}
         options={{
-          title: "Silahçı",
+          title: "Tüccar",
           headerShown: false,
           tabBarStyle: { backgroundColor: Colors.custom.background },
           tabBarActiveBackgroundColor: Colors.custom.background,
           tabBarInactiveBackgroundColor: Colors.custom.background,
           tabBarActiveTintColor: Colors.custom.tint,
+          tabBarIcon: (tabInfo) => {
+            return (
+              <Ionicons
+                name="hammer-outline"
+                size={25}
+                color={tabInfo.focused ? Colors.custom.tint : Colors.custom.tabIconDefault}
+              />
+            );
+          },
         }}
       />
     </BottomTab.Navigator>
