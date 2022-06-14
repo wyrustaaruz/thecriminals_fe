@@ -5,11 +5,12 @@ import { Text, View } from "./PureComponents";
 export const LastHeader = (characterInfo: {
   spirit: number;
   respect: number;
-  weapon: number;
-  armor: number;
-  guard: number;
+  weapon: string;
+  armor: string;
+  guard: string;
 }) => {
   const { spirit, respect, weapon, armor, guard } = characterInfo || {};
+
 
   return (
     <View style={styles.headerContainer}>
